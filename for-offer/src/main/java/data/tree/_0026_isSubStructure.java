@@ -9,17 +9,15 @@ package data.tree;
  */
 public class _0026_isSubStructure {
 
+}
+
+class Solution {
     public boolean isSubStructure(TreeNode A, TreeNode B) {
         if (A == null || B == null) {
             return false;
         }
 
-        // 判断树A的子树是否包含树B的子树
-        if (A.val == B.val && recur(A.left, B.left) && recur(A.right, B.right)) {
-            return true;
-        }
-
-        return isSubStructure(A.left, B) || isSubStructure(A.right, B);
+        return recur(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B);
     }
 
     public boolean recur(TreeNode A, TreeNode B) {
