@@ -76,7 +76,7 @@ public class _0645_findErrorNums {
         int N = nums.length;
         for (int i = 0; i < N; i++) {
             // 当前位置上的值不是对的 && 原位置上的值也不是对的
-            while (nums[i] != i + 1 && nums[nums[i] - 1] != nums[i]) {
+            while (nums[i] - 1 != i && nums[nums[i] - 1] != nums[i]) {
                 swap(nums, i, nums[i] - 1);     // 交换当前位置和原位置上的值
             }
         }
@@ -94,4 +94,26 @@ public class _0645_findErrorNums {
         nums[i] = nums[j];
         nums[j] = tmp;
     }
+
+    class Solution {
+        public int[] findErrorNums(int[] nums) {
+            int N = nums.length;
+            for (int i = 0; i < N; i++) {
+                // 当前位置上的值不对 && 原位置上的值也不对
+                while (nums[i] - 1 != i && nums[nums[i] - 1] != nums[i]) {
+                    swap(nums, i, nums[i] - 1);
+                }
+            }
+
+            for (int i = 0; i < N; i++) {
+                if (nums[i] - 1 != i) {
+                    // 重复的整数，缺失的整数
+                    return new int[]{nums[i], i + 1};
+                }
+            }
+
+            return null;
+        }
+    }
+
 }
