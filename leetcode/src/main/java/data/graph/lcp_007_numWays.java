@@ -29,20 +29,31 @@ public class lcp_007_numWays {
         System.out.println(solution.numWays(n, relation, k));
     }
 
-    // DFS
+
+    List<List<Integer>> edges =  new ArrayList<>();
+    int res = 0;
+
     public int numWays2(int n, int[][] relation, int k) {
-        int res = 0;
-        List<List<Integer>> edges =  new ArrayList<>();
+        // 初始化边
         for (int i = 0; i < n; i++) {
             edges.add(new ArrayList<Integer>());
         }
+        // 添加边
         for (int[] edge : relation) {
             int src = edge[0];
             int dst = edge[1];
             edges.get(src).add(dst);
         }
-        return 0;
+        // dfs
+        dfs(0, 0);
+
+        return res;
     }
+
+    public void dfs(int index, int step) {
+        // 我不会啊！
+    }
+
 
     // 动态规划优化
     public int numWays1(int n, int[][] relation, int k) {

@@ -1,10 +1,10 @@
-package algorithm.window;
+package algorithm.twopoint;
 
 import java.util.Arrays;
 
 /**
  * @BelongsProject: ForOffer
- * @BelongsPackage: algorithm.window
+ * @BelongsPackage: algorithm.twopoint
  * @Author: xuyifang
  * @CreateTime: 2021-06-22 09:58
  * @Description:

@@ -1,8 +1,8 @@
-package algorithm.window;
+package algorithm.twopoint;
 
 /**
  * @BelongsProject: ForOffer
- * @BelongsPackage: algorithm.window
+ * @BelongsPackage: algorithm.twopoint
  * @Author: xuyifang
  * @CreateTime: 2021-06-18 17:50
  * @Description:

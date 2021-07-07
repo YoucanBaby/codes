@@ -1,11 +1,11 @@
-package algorithm.window;
+package algorithm.twopoint;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * @BelongsProject: ForOffer
- * @BelongsPackage: algorithm.window
+ * @BelongsPackage: algorithm.twopoint
  * @Author: xuyifang
  * @CreateTime: 2021-06-18 16:16
  * @Description:
