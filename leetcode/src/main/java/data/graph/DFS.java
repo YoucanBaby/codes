@@ -92,7 +92,7 @@ public class DFS {
         visited[src] = true;
         for (int dst : edges.get(src)) {
             if (!visited[dst]) {
-                dfs(dst);
+                dfs1(dst);
             }
         }
         System.out.println(src);

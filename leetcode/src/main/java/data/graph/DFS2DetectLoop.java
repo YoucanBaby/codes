@@ -1,8 +1,5 @@
 package data.graph;
 
-import sun.font.TrueTypeFont;
-
-import javax.xml.stream.FactoryConfigurationError;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,24 +7,10 @@ import java.util.List;
  * @BelongsProject: codes
  * @BelongsPackage: data.graph
  * @Author: xuyifang
- * @CreateTime: 2021-07-06 19:19
+ * @CreateTime: 2021-07-08 15:53
  * @Description:
  */
-public class _0207_canFinish {
-
-    public static void main(String[] args) {
-        int numCourses = 5;
-        int[][] prerequisites = {
-                {1,4},
-                {2,4},
-                {3,1},
-                {3,2}
-        };
-        _0207_canFinish solution = new _0207_canFinish();
-
-        System.out.println(solution.canFinish(numCourses, prerequisites));
-    }
-
+public class DFS2DetectLoop {
 
     int[] visited;          // 是否访问过, 0, 没有访问过; -1, 已被其它节点访问过; 1, 被当前节点访问过
     List<List<Integer>> edges = new ArrayList<>();
