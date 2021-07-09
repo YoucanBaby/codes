@@ -10,17 +10,12 @@ package algorithm.dp;
 public class _0053_maxSubArray {
 
     public int maxSubArray(int[] nums) {
-        int max = nums[0];
-        int sum = 0;
+        int max = Integer.MIN_VALUE;
+        int pre = 0;
 
         for (int num: nums) {
-            // if (sum + nums[i] > nums[i])
-            if (sum > 0) {
-                sum += num;
-            } else {
-                sum = num;
-            }
-            max = Math.max(sum, max);
+            pre = Math.max(pre + num, num);
+            max = Math.max(max, pre);
         }
         return max;
     }

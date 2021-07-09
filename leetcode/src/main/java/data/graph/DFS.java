@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class DFS {
 
-    public void dfs1(Node node) {
+    public void dfs2(Node node) {
         if (node == null) {
             return;
         }

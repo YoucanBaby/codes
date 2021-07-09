@@ -6,32 +6,10 @@ import java.util.*;
  * @BelongsProject: codes
  * @BelongsPackage: data.graph
  * @Author: xuyifang
- * @CreateTime: 2021-07-04 16:32
+ * @CreateTime: 2021-07-09 01:54
  * @Description:
  */
-public class BFS {
-
-    public void bfs2(Node node) {
-        if (node == null) {
-            return;
-        }
-        Deque<Node> deque = new ArrayDeque<>();
-        Set<Node> set = new HashSet<>();
-
-        deque.addFirst(node);
-        set.add(node);
-
-        while (!deque.isEmpty()) {
-            Node cur = deque.removeLast();
-            System.out.println(cur.value);
-            for (Node next: cur.nexts) {
-                if (!set.contains(cur)) {
-                    deque.addFirst(cur);
-                    set.add(cur);
-                }
-            }
-        }
-    }
+public class BFS2SingleSourcePath {
 
     public static void main(String[] args) {
         int n = 5;
@@ -44,18 +22,22 @@ public class BFS {
                 {2,0},
                 {0,4}
         };
-        BFS bfs = new BFS();
+        BFS2SingleSourcePath bfs = new BFS2SingleSourcePath();
 
-        bfs.solution(n, relation);
+        int[] res = bfs.solution(n, relation);
+        System.out.println(Arrays.toString(res));
     }
-
 
     List<List<Integer>> edges = new ArrayList<>();
     boolean[] visited;
+    int[] path;
 
     // n是节点个数，relation由题目给出，relation[i][0]➡ relation[i][1]
-    public void solution(int n, int[][] relation) {
+    public int[] solution(int n, int[][] relation) {
         visited = new boolean[n];
+        path = new int[n];
+        Arrays.fill(path, -1);
+
         // 初始化边
         for (int i = 0; i < n; i++) {
             edges.add(new ArrayList<>());
@@ -72,9 +54,10 @@ public class BFS {
                 bfs(src);
             }
         }
+
+        return path;
     }
 
-    
     // 广度优先遍历
     public void bfs(int src) {
         Deque<Integer> deque = new ArrayDeque<>();
@@ -89,9 +72,9 @@ public class BFS {
                 if (!visited[dst]) {
                     deque.addLast(dst);
                     visited[dst] = true;
+                    path[dst] = src;
                 }
             }
         }
     }
-
 }
