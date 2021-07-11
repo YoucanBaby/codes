@@ -9,6 +9,10 @@ package data.graph;
  */
 public class _0200_numIslands {
 
+    int[][] dirs = {
+            {-1, 0}, {1, 0},    // 上下
+            {0, -1}, {0 , 1}    // 左右
+    };
     char[][] grid;
     int M;
     int N;
@@ -41,10 +45,12 @@ public class _0200_numIslands {
             return;
         }
         grid[i][j] = '0';
-        dfs(i - 1, j);
-        dfs(i + 1, j);
-        dfs(i, j - 1);
-        dfs(i, j + 1);
+
+        for (int k = 0; k < dirs.length; k++) {
+            int nextI = i + dirs[k][0];
+            int nextJ = j + dirs[k][1];
+            dfs(nextI, nextJ);
+        }
     }
 
 

@@ -9,6 +9,10 @@ package data.graph;
  */
 public class _0130_solve {
 
+    int[][] dirs = {
+            {-1, 0}, {1, 0},    // 上下
+            {0, -1}, {0 , 1}    // 左右
+    };
     char[][] board;
     int M;
     int N;
@@ -54,10 +58,11 @@ public class _0130_solve {
         }else {
             board[i][j] = 'B';
             // 上下左右
-            dfs(i - 1, j);
-            dfs(i + 1, j);
-            dfs(i, j - 1);
-            dfs(i, j + 1);
+            for (int k = 0; k < dirs.length; k++) {
+                int nextI = i + dirs[k][0];
+                int nextJ = j + dirs[k][1];
+                dfs(nextI, nextJ);
+            }
         }
     }
 }

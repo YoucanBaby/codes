@@ -9,6 +9,10 @@ package data.graph;
  */
 public class _0733_floodFill {
 
+    int[][] dirs = {
+            {-1, 0}, {1, 0},    // 上下
+            {0, -1}, {0 , 1}    // 左右
+    };
     int[][] image;
     int M;
     int N;
@@ -38,10 +42,11 @@ public class _0733_floodFill {
         }
         if (image[i][j] == oldColor) {
             image[i][j] = newColor;
-            dfs(i - 1, j, oldColor);
-            dfs(i + 1, j, oldColor);
-            dfs(i, j - 1, oldColor);
-            dfs(i, j + 1, oldColor);
+            for (int k = 0; k < dirs.length; k++) {
+                int nextI = i + dirs[k][0];
+                int nextJ = j + dirs[k][1];
+                dfs(nextI, nextJ, newColor);
+            }
         }
     }
 }
