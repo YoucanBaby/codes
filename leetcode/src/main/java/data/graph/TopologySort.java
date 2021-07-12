@@ -12,7 +12,7 @@ import java.util.*;
 public class TopologySort {
 
     public List<Node> TopologySort(Graph graph) {
-        // <节点，节点剩余的入度>
+        // <节点，节点的入度>
         Map<Node, Integer> map = new HashMap<>();
 
         // 只有剩余入度为0的点，才进入这个队列
@@ -20,18 +20,19 @@ public class TopologySort {
         for (Node node : graph.nodes.values()) {
             map.put(node, node.in);
             if (node.in == 0) {
-                zeroInDeque.add(node);
+                zeroInDeque.addLast(node);
             }
         }
 
+        // BFS
         List<Node> res = new ArrayList<>();
         while (!zeroInDeque.isEmpty()) {
-            Node cur = zeroInDeque.poll();
+            Node cur = zeroInDeque.removeFirst();
             res.add(cur);
             for (Node next : cur.nexts) {
-                map.put(next, map.get(next) - 1);
+                map.put(next, map.get(next) - 1);   // 更新节点的入度
                 if (map.get(next) == 0) {
-                    zeroInDeque.add(next);
+                    zeroInDeque.addLast(next);
                 }
             }
         }

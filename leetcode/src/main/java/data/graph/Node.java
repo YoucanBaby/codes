@@ -15,7 +15,7 @@ public class Node {
     int in;     // 入度
     int out;    // 出度
     ArrayList<Node> nexts;  // 下一个点
-    ArrayList<Edge> edges;
+    ArrayList<Edge> edges;  // 下一个点对应的边
 
     public Node (int value) {
         this.value = value;
