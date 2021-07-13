@@ -13,16 +13,9 @@ import java.util.*;
 public class test {
 
     public static void main(String[] args) {
-        test t = new test();
-
-        System.out.println(t.f(10));
+        int[] nums = {1,5,49,59};
+        System.out.println(Arrays.binarySearch(nums, 49));
     }
 
-    public int f (int n) {
-        if (n <= 2) {
-            return n;
-        }
-        return f(n - 1) + f(n - 2);
-    }
 
 }
