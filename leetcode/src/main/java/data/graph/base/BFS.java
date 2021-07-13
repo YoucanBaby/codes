@@ -1,4 +1,4 @@
-package data.graph;
+package data.graph.base;
 
 import java.util.*;
 
@@ -6,10 +6,32 @@ import java.util.*;
  * @BelongsProject: codes
  * @BelongsPackage: data.graph
  * @Author: xuyifang
- * @CreateTime: 2021-07-09 01:54
+ * @CreateTime: 2021-07-04 16:32
  * @Description:
  */
-public class BFS2SingleSourcePath {
+public class BFS {
+
+    public void bfs2(Node node) {
+        if (node == null) {
+            return;
+        }
+        Deque<Node> deque = new ArrayDeque<>();
+        Set<Node> set = new HashSet<>();
+
+        deque.addFirst(node);
+        set.add(node);
+
+        while (!deque.isEmpty()) {
+            Node cur = deque.removeLast();
+            System.out.println(cur.value);
+            for (Node next: cur.nexts) {
+                if (!set.contains(cur)) {
+                    deque.addFirst(cur);
+                    set.add(cur);
+                }
+            }
+        }
+    }
 
     public static void main(String[] args) {
         int n = 5;
@@ -22,22 +44,18 @@ public class BFS2SingleSourcePath {
                 {2,0},
                 {0,4}
         };
-        BFS2SingleSourcePath bfs = new BFS2SingleSourcePath();
+        BFS bfs = new BFS();
 
-        int[] res = bfs.solution(n, relation);
-        System.out.println(Arrays.toString(res));
+        bfs.solution(n, relation);
     }
+
 
     List<List<Integer>> edges = new ArrayList<>();
     boolean[] visited;
-    int[] path;
 
     // n是节点个数，relation由题目给出，relation[i][0]➡ relation[i][1]
-    public int[] solution(int n, int[][] relation) {
+    public void solution(int n, int[][] relation) {
         visited = new boolean[n];
-        path = new int[n];
-        Arrays.fill(path, -1);
-
         // 初始化边
         for (int i = 0; i < n; i++) {
             edges.add(new ArrayList<>());
@@ -54,10 +72,9 @@ public class BFS2SingleSourcePath {
                 bfs(src);
             }
         }
-
-        return path;
     }
 
+    
     // 广度优先遍历
     public void bfs(int src) {
         Deque<Integer> deque = new ArrayDeque<>();
@@ -72,9 +89,9 @@ public class BFS2SingleSourcePath {
                 if (!visited[dst]) {
                     deque.addLast(dst);
                     visited[dst] = true;
-                    path[dst] = src;
                 }
             }
         }
     }
+
 }

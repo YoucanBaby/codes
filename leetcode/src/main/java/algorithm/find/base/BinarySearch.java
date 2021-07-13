@@ -1,4 +1,4 @@
-package algorithm.find;
+package algorithm.find.base;
 
 /**
  * @BelongsProject: codes
@@ -22,6 +22,7 @@ public class BinarySearch {
         int right = nums.length - 1;
 
         while (left < right) {
+            // mid向下取整，是左边数组的最后一位
             int mid =  (left + right) / 2;
             if (target == nums[mid]) {
                 return true;

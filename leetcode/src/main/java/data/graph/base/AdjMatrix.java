@@ -1,4 +1,4 @@
-package data.graph;
+package data.graph.base;
 
 /**
  * @BelongsProject: codes

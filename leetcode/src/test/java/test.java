@@ -13,15 +13,16 @@ import java.util.*;
 public class test {
 
     public static void main(String[] args) {
-        Deque<String> deque = new LinkedList<>();
-        deque.addFirst(null);
+        test t = new test();
 
-        System.out.println(deque);
-
-        String s = "1";
-        s = "2";
-        System.out.println(s);
+        System.out.println(t.f(10));
     }
 
+    public int f (int n) {
+        if (n <= 2) {
+            return n;
+        }
+        return f(n - 1) + f(n - 2);
+    }
 
 }

@@ -1,9 +1,6 @@
 package data.stack;
 
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @BelongsProject: ForOffer
@@ -27,17 +24,17 @@ public class _0020_isValid {
         map.put('}', '{');
         map.put(']', '[');
 
-        Deque<Character> stack = new LinkedList<>();
+        Deque<Character> stack = new ArrayDeque<>();
 
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (map.containsKey(c)) {
-                if (stack.peek() != map.get(c) || stack.isEmpty()) {
+                if (stack.isEmpty() || stack.getFirst() != map.get(c)) {
                     return false;
                 }
-                stack.pop();
+                stack.removeFirst();
             } else {
-                stack.push(c);
+                stack.addFirst(c);
             }
         }
 
