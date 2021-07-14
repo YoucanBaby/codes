@@ -1,4 +1,4 @@
-package data.stack;
+package algorithm;
 
 import jdk.nashorn.internal.runtime.linker.LinkerCallSite;
 

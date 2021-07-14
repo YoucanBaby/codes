@@ -1,4 +1,4 @@
-package algorithm.twopoint;
+package algorithm;
 
 import java.util.Arrays;
 

@@ -19,31 +19,31 @@ public class _0107_levelOrderBottom {
     }
 
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        List<List<Integer>> list = new ArrayList<>();
         if (root == null) {
-            return list;
+            return new ArrayList<>();
         }
 
+        List<List<Integer>> res = new ArrayList<>();
         Deque<TreeNode> deque = new ArrayDeque<>();
-        deque.addFirst(root);
+        deque.addLast(root);
 
         while (!deque.isEmpty()) {
             int N = deque.size();
             List<Integer> level = new ArrayList<>();
 
             for (int i = 0; i < N; i++) {
-                root = deque.removeLast();
+                root = deque.removeFirst();
                 level.add(root.val);
                 if (root.left != null) {
-                    deque.addFirst(root.left);
+                    deque.addLast(root.left);
                 }
                 if (root.right != null) {
-                    deque.addFirst(root.right);
+                    deque.addLast(root.right);
                 }
             }
-            list.add(0, level);
+            res.add(0, level);
         }
 
-        return list;
+        return res;
     }
 }

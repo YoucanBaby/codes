@@ -42,11 +42,11 @@ public class _0050_myPow {
         }
         double res = 1;
         while (n != 0) {
-            if (n % 2 != 0) {
+            if ((n & 1) == 1) {
                 res *= x;
             }
-            n /= 2;
-            x *= x;
+            x = x * x;
+            n = n >> 1;
         }
         return res;
     }

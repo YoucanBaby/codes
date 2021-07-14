@@ -15,25 +15,25 @@ import java.util.List;
 public class bfs {
 
     public List<Integer> bfs (TreeNode root) {
-        List<Integer> list = new ArrayList<>();
         if (root == null) {
-            return list;
+            return new ArrayList<>();
         }
 
+        List<Integer> res = new ArrayList<>();
         Deque<TreeNode> deque = new ArrayDeque<>();
-        deque.addFirst(root);
+        deque.addLast(root);
 
         while (!deque.isEmpty()) {
-            TreeNode cur = deque.removeLast();
-            list.add(cur.val);
-            if (cur.left != null) {
-                deque.addFirst(cur.left);
+            TreeNode node = deque.removeFirst();
+            res.add(node.val);
+            if (node.left != null) {
+                deque.addFirst(node.left);
             }
-            if (cur.right != null) {
-                deque.addFirst(cur.right);
+            if (node.right != null) {
+                deque.addFirst(node.right);
             }
         }
 
-        return list;
+        return res;
     }
 }

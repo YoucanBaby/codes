@@ -1,4 +1,4 @@
-package data.tree;
+package algorithm;
 
 /**
  * @BelongsProject: codes

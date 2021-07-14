@@ -21,6 +21,7 @@ public class _0101_isSymmetric {
         if (L == null && R == null) {
             return true;
         }
+
         if (L == null || R == null) {
             return false;
         }

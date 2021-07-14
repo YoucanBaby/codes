@@ -13,8 +13,11 @@ import java.util.*;
 public class test {
 
     public static void main(String[] args) {
-        int[] nums = {1,5,49,59};
-        System.out.println(Arrays.binarySearch(nums, 49));
+        int n = 1;
+        while (n < Integer.MAX_VALUE / 4) {
+            n = n * 4;
+        }
+        System.out.println(n);
     }
 
 

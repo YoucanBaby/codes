@@ -1,4 +1,4 @@
-package data.bit;
+package algorithm;
 
 /**
  * @BelongsProject: interview
