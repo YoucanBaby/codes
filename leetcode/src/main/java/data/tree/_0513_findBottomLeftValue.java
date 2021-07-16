@@ -13,11 +13,11 @@ public class _0513_findBottomLeftValue {
     int res = 0;
 
     public int findBottomLeftValue(TreeNode root) {
-        recur(root, 1);
+        dfs(root, 1);
         return res;
     }
 
-    public void recur(TreeNode root, int depth) {
+    public void dfs(TreeNode root, int depth) {
         if (root == null) {
             return;
         }
@@ -26,7 +26,7 @@ public class _0513_findBottomLeftValue {
             res = root.val;
             maxDepth = depth;
         }
-        recur(root.left, depth + 1);
-        recur(root.right, depth + 1);
+        dfs(root.left, depth + 1);
+        dfs(root.right, depth + 1);
     }
 }

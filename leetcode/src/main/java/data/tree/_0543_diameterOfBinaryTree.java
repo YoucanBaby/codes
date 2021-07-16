@@ -12,21 +12,18 @@ public class _0543_diameterOfBinaryTree {
     int max = Integer.MIN_VALUE;
 
     public int diameterOfBinaryTree(TreeNode root) {
-        maxDepth(root);
+        dfs(root);
         return max;
     }
 
-    public int maxDepth(TreeNode root) {
+    public int dfs(TreeNode root) {
         if (root == null) {
             return 0;
         }
 
-        int leftDepth = maxDepth(root.left);
-        int rightDepth = maxDepth(root.right);
-
-        if (leftDepth + rightDepth > max) {
-            max = leftDepth + rightDepth;
-        }
+        int leftDepth = dfs(root.left);
+        int rightDepth = dfs(root.right);
+        max = Math.max(max, leftDepth + rightDepth);
 
         return Math.max(leftDepth, rightDepth) + 1;
     }

@@ -10,18 +10,15 @@ package data.tree;
 public class _0222_countNodes {
 
     public int countNodes1(TreeNode root) {
-        // 终止条件
         if (root == null) {
             return 0;
         }
 
-        // 递归左子树
         int leftNode = countNodes1(root.left);
-        // 递归右子树
         int rightNode = countNodes1(root.right);
+        int res = leftNode + rightNode + 1;
 
-        // 返回值
-        return leftNode + rightNode + 1;
+        return res;
     }
 
 
@@ -53,15 +50,13 @@ public class _0222_countNodes {
     }
 
     public int maxDepth(TreeNode root) {
-        // 终止条件
         if (root == null) {
             return 0;
         }
-        // 递归左子树
+
         int leftDepth = maxDepth(root.left);
-        // 递归右子树
         int rightDepth = maxDepth(root.right);
-        // 返回值
+
         return Math.max(leftDepth, rightDepth) + 1;
     }
 }

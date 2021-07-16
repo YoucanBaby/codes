@@ -16,10 +16,10 @@ public class _0404_sumOfLeftLeaves {
     int sum = 0;
 
     public int sumOfLeftLeaves(TreeNode root) {
-        return recur(root, false);
+        return dfs(root, false);
     }
 
-    public int recur(TreeNode root, boolean flag) {
+    public int dfs(TreeNode root, boolean flag) {
         if (root == null) {
             return 0;
         }
@@ -28,9 +28,8 @@ public class _0404_sumOfLeftLeaves {
         if (flag == true && root.left == null && root.right == null) {
             value = root.val;
         }
-
-        int leftValue = recur(root.left, true);
-        int rightValue = recur(root.right,false);
+        int leftValue = dfs(root.left, true);
+        int rightValue = dfs(root.right,false);
 
         return leftValue + rightValue + value;
     }

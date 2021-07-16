@@ -17,14 +17,14 @@ public class _0112_hasPathSum {
         if (root == null) {
             return false;
         }
-        // 如果当前节点是叶子节点
+
         if (root.left == null && root.right ==null) {
             return root.val == sum;
-        } else {
-            boolean left = hasPathSum(root.left, sum - root.val);
-            boolean right = hasPathSum(root.right, sum - root.val);
-            return left || right;
         }
+        boolean left = hasPathSum(root.left, sum - root.val);
+        boolean right = hasPathSum(root.right, sum - root.val);
+
+        return left || right;
     }
 
 
