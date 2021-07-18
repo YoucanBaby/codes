@@ -17,43 +17,27 @@ public class _0078_subsets {
         _0078_subsets solution = new _0078_subsets();
 
         System.out.println(solution.subsets(nums));
-        System.out.println(solution.subsets1(nums));
     }
 
-    public List<List<Integer>> subsets1(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        res.add(new ArrayList<>());
-        int N = nums.length;
-
-        for (int num : nums) {
-            int size = res.size();
-            for (int i = 0; i < size; i++) {
-                List<Integer> temp = new ArrayList<>(res.get(i));
-                temp.add(num);
-                res.add(temp);
-            }
-        }
-        return res;
-    }
+    List<List<Integer>> res = new ArrayList<>();
+    List<Integer> path = new ArrayList<>();
 
     public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        res.add(new ArrayList<>());
-        recursion(0, nums, res);
+        dfs(nums, 0);
         return res;
     }
 
-    public void recursion(int i, int[] nums, List<List<Integer>> res) {
-        // 终止条件
-        if (i >= nums.length) {
+    public void dfs(int[] nums, int start) {
+        res.add(new ArrayList<>(path));
+        if (start >= nums.length) {
             return;
         }
-        int size = res.size();
-        for (int j = 0; j < size; j++) {
-            List<Integer> temp = new ArrayList<>(res.get(j));
-            temp.add(nums[i]);
-            res.add(temp);
+
+        for (int i = start; i < nums.length; i++) {
+            path.add(nums[i]);
+            dfs(nums, i + 1);
+            path.remove(path.size() - 1);
         }
-        recursion(i + 1, nums, res);
     }
+
 }
