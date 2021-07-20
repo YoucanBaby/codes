@@ -1,22 +1,18 @@
 package algorithm.recursion;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @BelongsProject: codes
  * @BelongsPackage: algorithm.recursion
  * @Author: xuyifang
- * @CreateTime: 2021-07-19 19:43
+ * @CreateTime: 2021-07-20 09:31
  * @Description:
  */
-public class _0051_solveNQueens {
+public class _0052_totalNQueens {
 
-    List<List<String>> res = new ArrayList<>();
-    char[][] chess;         // 棋盘
+    int res = 0;
+    char[][] chess;
 
-    public List<List<String>> solveNQueens(int n) {
-        // 初始化棋盘
+    public int totalNQueens(int n) {
         chess = new char[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -28,26 +24,25 @@ public class _0051_solveNQueens {
         return res;
     }
 
-    // row，当前在棋盘的第几行
     public void dfs(int row) {
-        // 如果已经递归完最后一行了，就把棋盘转成List，添加到结果中
         if (row == chess.length) {
-            res.add(chessToList(chess));
+            res++;
             return;
         }
+        
         // 遍历棋盘的列
         for (int col = 0; col < chess.length; col++) {
             if (isValid(chess, row, col)) {
                 chess[row][col] = 'Q';
-                dfs(row + 1);           // 递归
-                chess[row][col] = '.';      // 回溯
+                dfs(row + 1);
+                chess[row][col] = '.';
             }
         }
     }
 
     public boolean isValid(char[][] chess, int row, int col) {
-        // 判断当前列有没有皇后
-        for (int i = 0; i < row; i++) {
+        // 判断当前列是否有没有皇后
+        for (int i = row - 1; i >= 0; i--) {
             if (chess[i][col] == 'Q') {
                 return false;
             }
@@ -65,14 +60,5 @@ public class _0051_solveNQueens {
             }
         }
         return true;
-    }
-
-    // 棋盘转成数组
-    public List<String> chessToList(char[][] chess) {
-        List<String> path = new ArrayList<>();
-        for (int i = 0; i < chess.length; i++) {
-            path.add(new String(chess[i]));
-        }
-        return path;
     }
 }

@@ -16,24 +16,24 @@ public class _0034_pathSum {
     List<Integer> path = new ArrayList<>();
 
     public List<List<Integer>> pathSum(TreeNode root, int target) {
-        recur(root, target);
+        dfs(root, target);
         return res;
     }
 
-    public void recur(TreeNode root, int target) {
+    public void dfs(TreeNode root, int target) {
         if (root == null) {
             return;
         }
 
-        path.add(root.val);
-        target -= root.val;
-        if (target == 0 && root.left == null && root.right == null) {
+        if (root.val == target && root.left == null && root.right == null) {
+            path.add(root.val);
             res.add(new ArrayList<>(path));
         }
 
-        recur(root.left, target);
-        recur(root.right, target);
-
+        path.add(root.val);
+        // 递归左节点，递归右节点，回溯
+        dfs(root.left, target - root.val);
+        dfs(root.right, target - root.val);
         path.remove(path.size() - 1);
     }
 
