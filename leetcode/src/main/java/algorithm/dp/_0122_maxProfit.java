@@ -12,7 +12,7 @@ public class _0122_maxProfit {
     public int maxProfit(int[] prices) {
         int res = 0;
         for (int i = 1; i < prices.length; i++) {
-            if (prices[i - 1] < prices[i]) {
+            if (prices[i] - prices[i - 1] > 0) {
                 res += prices[i] - prices[i - 1];
             }
         }

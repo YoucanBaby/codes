@@ -13,16 +13,12 @@ public class _0121_maxProfit {
 
     public int maxProfit(int[] prices) {
         int minPrice = prices[0];
-        int res = 0;
+        int maxProfit = 0;
 
         for (int price : prices) {
-            if (price < minPrice) {
-                minPrice = price;
-            }
-            if (res < price - minPrice) {
-                res = price - minPrice;
-            }
+            minPrice = Math.min(minPrice, price);
+            maxProfit = Math.max(maxProfit, price - minPrice);
         }
-        return res;
+        return maxProfit;
     }
 }
