@@ -11,16 +11,16 @@ public class _0746_minCostClimbingStairs {
 
     public int minCostClimbingStairs1(int[] cost) {
         int N = cost.length;
-        int p = 0;
-        int q = 0;
+        int pre = 0;
+        int cur = 0;
 
         for (int i = 2; i <= N; i++) {
-            int temp = Math.min(p + cost[i - 2], q + cost[i - 1]);
-            p = q;
-            q = temp;
+            int temp = Math.min(pre + cost[i - 2], cur + cost[i - 1]);
+            pre = cur;
+            cur = temp;
         }
 
-        return q;
+        return cur;
     }
 
     public int minCostClimbingStairs(int[] cost) {

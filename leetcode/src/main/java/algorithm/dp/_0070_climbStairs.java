@@ -19,15 +19,15 @@ public class _0070_climbStairs {
             return 2;
         }
 
-        int p = 1;
-        int q = 2;
+        int pre = 1;
+        int cur = 2;
         for (int i = 3; i <= n; i++) {
-            int temp = p + q;
-            p = q;
-            q = temp;
+            int temp = pre + cur;
+            pre = cur;
+            cur = temp;
         }
 
-        return q;
+        return cur;
     }
 
     // 动态规划
@@ -47,27 +47,5 @@ public class _0070_climbStairs {
         }
 
         return dp[n];
-    }
-
-    // 记忆化递归
-    public int climbStairs(int n) {
-        int[] memo = new int[n + 1];
-        return climbStairsMemo(n, memo);
-    }
-
-    public int climbStairsMemo(int n, int[] memo) {
-        if (memo[n] > 0) {
-            return memo[n];
-        }
-
-        if (n == 1) {
-            memo[1] = 1;
-        } else if (n == 2) {
-            memo[2] = 2;
-        } else {
-            memo[n] = climbStairsMemo(n - 1, memo) + climbStairsMemo(n - 2, memo);
-        }
-
-        return memo[n];
     }
 }
