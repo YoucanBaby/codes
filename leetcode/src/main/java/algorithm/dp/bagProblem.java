@@ -9,15 +9,15 @@ package algorithm.dp;
  */
 public class bagProblem {
 
-    public int bagProblem(int[] weight, int[] value, int bagWeight) {
-        int[][] dp = new int[weight.length][bagWeight + 1];
+    public int bagProblem(int[] weight, int[] value, int bigWeight) {
+        int[][] dp = new int[weight.length][bigWeight + 1];
         // 初始化第一行
-        for (int j = weight[0]; j <= bagWeight; j++) {
+        for (int j = weight[0]; j <= bigWeight; j++) {
             dp[0][j] = value[0];
         }
         // 外层遍历物品，内层遍历背包容量
         for (int i = 1; i < weight.length; i++) {
-            for (int j = 0; j <= bagWeight; j++) {
+            for (int j = 0; j <= bigWeight; j++) {
                 if (j < weight[i]) {
                     dp[i][j] = dp[i - 1][j];
                 } else {
@@ -25,17 +25,17 @@ public class bagProblem {
                 }
             }
         }
-        return dp[weight.length - 1][bagWeight];
+        return dp[weight.length - 1][bigWeight];
     }
 
-    public int bagProblem1(int[] weight, int[] value, int bagWeight) {
-        int[] dp = new int[bagWeight + 1];
+    public int bagProblem1(int[] weight, int[] value, int bigWeight) {
+        int[] dp = new int[bigWeight + 1];
         // 外层从左向右遍历物品，内层从右向左遍历背包容量
         for (int i = 1; i < weight.length; i++) {
-            for (int j = bagWeight; j >= weight[i]; j--) {
+            for (int j = bigWeight; j >= weight[i]; j--) {
                 dp[j] = Math.max(dp[j], dp[j - weight[i]] + value[i]);
             }
         }
-        return dp[bagWeight];
+        return dp[bigWeight];
     }
 }
