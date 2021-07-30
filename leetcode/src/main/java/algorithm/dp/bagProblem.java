@@ -28,11 +28,24 @@ public class bagProblem {
         return dp[weight.length - 1][bigWeight];
     }
 
+    // 01背包
     public int bagProblem1(int[] weight, int[] value, int bigWeight) {
         int[] dp = new int[bigWeight + 1];
         // 外层从左向右遍历物品，内层从右向左遍历背包容量
         for (int i = 1; i < weight.length; i++) {
             for (int j = bigWeight; j >= weight[i]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - weight[i]] + value[i]);
+            }
+        }
+        return dp[bigWeight];
+    }
+
+    // 完全背包
+    public int bagProblem2(int[] weight, int[] value, int bigWeight) {
+        int[] dp = new int[bigWeight + 1];
+        // 外层从左向右遍历物品，内层从左向右遍历背包容量
+        for (int i = 1; i < weight.length; i++) {
+            for (int j = weight[i]; j <= bigWeight; j++) {
                 dp[j] = Math.max(dp[j], dp[j - weight[i]] + value[i]);
             }
         }
