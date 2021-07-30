@@ -14,16 +14,11 @@ public class _0168_convertToTitle {
     }
 
     public String convertToTitle(int n) {
-
         StringBuilder sb = new StringBuilder();
-
-        while (n != 0) {
+        while (n > 0) {
+            n--;
             int num = n % 26;
-            if (num == 0) {
-                num = 26;
-                n--;
-            }
-            sb.insert(0, (char) ('A' + num - 1));
+            sb.insert(0, (char) ('A' + num));
             n /= 26;
         }
         return sb.toString();

@@ -26,4 +26,15 @@ public class _0063_maxProfit {
         }
         return res;
     }
+
+    // 另一种简化版本
+    public int maxProfit1(int[] prices) {
+        int res = 0;
+        int minPrice = Integer.MAX_VALUE;
+        for (int price : prices) {
+            minPrice = Math.min(minPrice, price);
+            res = Math.max(res, price - minPrice);
+        }
+        return res;
+    }
 }
