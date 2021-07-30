@@ -9,20 +9,20 @@ package algorithm.dp;
  */
 public class _1049_lastStoneWeightII {
 
-    public int lastStoneWeightII(int[] stones) {
+    public int lastStoneWeightII(int[] nums) {
         int sum = 0;
-        for (int stone : stones) {
-            sum += stone;
+        for (int num : nums) {
+            sum += num;
         }
 
-        int bigWeight = sum / 2;
-        int[] dp = new int[bigWeight + 1];
-        for (int i = 0; i < stones.length; i++) {
-            for (int j = bigWeight; j >= dp[i]; j--) {
-                dp[j] = Math.max(dp[j], dp[j - stones[i]] + stones[i]);
+        int target = sum / 2;
+        int[] dp = new int[target + 1];
+
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = target; j >= nums[i]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - nums[i]] + nums[i]);
             }
         }
-
-        return (sum - dp[bigWeight]) - dp[bigWeight];
+        return (sum - dp[target]) - dp[target];
     }
 }
