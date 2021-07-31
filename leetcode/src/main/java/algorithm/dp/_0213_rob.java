@@ -21,9 +21,6 @@ public class _0213_rob {
 
     public int rob(int[] nums) {
         int N = nums.length;
-        if (N == 0) {
-            return 0;
-        }
         if (N == 1) {
             return nums[0];
         }
@@ -34,16 +31,18 @@ public class _0213_rob {
     }
 
     public int myRob(int[] nums) {
+        if (nums.length == 1) {
+            return nums[0];
+        }
         int N = nums.length;
-        int pre = 0;
-        int cur = nums[0];
+        int pre = nums[0];
+        int cur = Math.max(nums[0], nums[1]);
 
-        for (int i = 2; i <= N; i++) {
-           int temp = Math.max(cur, pre + nums[i - 1]);
+        for (int i = 2; i < N; i++) {
+            int temp = Math.max(pre + nums[i], cur);
             pre = cur;
             cur = temp;
         }
-
         return cur;
     }
 }
