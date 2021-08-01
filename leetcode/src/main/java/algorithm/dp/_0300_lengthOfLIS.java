@@ -1,5 +1,7 @@
 package algorithm.dp;
 
+import java.util.Arrays;
+
 /**
  * @BelongsProject: codes
  * @BelongsPackage: algorithm.dp
@@ -39,13 +41,8 @@ public class _0300_lengthOfLIS {
     public int lengthOfLIS(int[] nums) {
         int N = nums.length;
         int[] dp = new int[N];
+        Arrays.fill(dp, 1);
 
-        // 1.初始化
-        for (int i = 0; i < N; i++) {
-            dp[i] = 1;
-        }
-
-        // 2.填表
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < i; j++) {
                 if (nums[j] < nums[i]) {
@@ -54,12 +51,11 @@ public class _0300_lengthOfLIS {
             }
         }
 
-        // 3.遍历dp表，找到最大值
+        // 遍历dp表，找到最大值
         int max = 0;
         for (int i = 0; i < N; i++) {
             max = Math.max(max, dp[i]);
         }
-
         return max;
     }
 
