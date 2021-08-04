@@ -26,10 +26,8 @@ public class _0142_detectCycle {
         _0142_detectCycle solution = new _0142_detectCycle();
         cur = solution.detectCycle(head);
 
-        while (cur != null) {
-            System.out.println(cur.val);
-            cur = cur.next;
-        }
+        System.out.println("3 2 0 -4");
+        System.out.println(cur.val);
     }
 
 
@@ -45,21 +43,18 @@ public class _0142_detectCycle {
             if (fast == null || fast.next == null) {
                 return null;
             }
-
             slow = slow.next;
             fast = fast.next.next;
-
-            if (fast == slow) {
+            if (slow == fast) {
                 break;
             }
         }
 
         fast = head;
-        while (slow != fast) {
+        while (fast != slow) {
             slow = slow.next;
             fast = fast.next;
         }
-
         return fast;
     }
 }

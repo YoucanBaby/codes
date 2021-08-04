@@ -13,7 +13,10 @@ import java.util.*;
 public class test {
 
     public static void main(String[] args) {
-        System.out.println(Math.log(Math.E));
+        System.out.println(1.0 / 0.0 );
+        System.out.println(Double.POSITIVE_INFINITY);
+        System.out.println(1.0 / 0.0 == Double.POSITIVE_INFINITY);
+
     }
 
 

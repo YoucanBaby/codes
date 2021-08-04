@@ -9,9 +9,6 @@ package data.list;
  */
 public class _0328_oddEvenList {
 
-    public static void main(String[] args) {
-
-    }
 
     public ListNode oddEvenList(ListNode head) {
         if (head == null || head.next == null) {
@@ -31,6 +28,28 @@ public class _0328_oddEvenList {
             evenNode = evenNode.next;
         }
 
+        oddNode.next = evenHead;
+
+        return head;
+    }
+
+    public ListNode oddEvenList1(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode evenHead = head.next;
+
+        ListNode oddNode = head;
+        ListNode evenNode = head.next;
+
+        while (oddNode.next != null && oddNode.next.next != null) {
+            oddNode.next = evenNode.next;
+            oddNode = oddNode.next;
+
+            evenNode.next = oddNode.next;
+            evenNode = evenNode.next;
+        }
         oddNode.next = evenHead;
 
         return head;

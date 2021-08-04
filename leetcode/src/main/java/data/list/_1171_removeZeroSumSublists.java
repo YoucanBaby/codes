@@ -12,10 +12,6 @@ import java.util.Map;
  */
 public class _1171_removeZeroSumSublists {
 
-    public static void main(String[] args) {
-
-    }
-
     public ListNode removeZeroSumSublists(ListNode head) {
         // 新建伪头节点 newHead
         ListNode newHead = new ListNode(0, head);
@@ -30,6 +26,26 @@ public class _1171_removeZeroSumSublists {
         }
 
         // 第二次遍历，若当前节点cur的sum在后面出现了，则表明两结点之间所有节点和为0，直接删除区间所有节点。
+        sum = 0;
+        for (ListNode cur = newHead; cur != null; cur = cur.next) {
+            sum += cur.val;
+            cur.next = map.get(sum).next;
+        }
+
+        return newHead.next;
+    }
+
+
+    public ListNode removeZeroSumSublists1(ListNode head) {
+        ListNode newHead = new ListNode(0, head);
+        Map<Integer, ListNode> map = new HashMap<>();
+
+        int sum = 0;
+        for (ListNode cur = newHead; cur != null; cur = cur.next) {
+            sum += cur.val;
+            map.put(sum, cur);
+        }
+
         sum = 0;
         for (ListNode cur = newHead; cur != null; cur = cur.next) {
             sum += cur.val;

@@ -1,35 +1,13 @@
 package data.list;
 
-import java.util.List;
-
 /**
- * @BelongsProject: interview
+ * @BelongsProject: codes
  * @BelongsPackage: data.list
  * @Author: xuyifang
- * @CreateTime: 2021-06-24 12:00
+ * @CreateTime: 2021-08-04 19:28
  * @Description:
  */
-public class _0092_reverseBetween {
-
-    public ListNode reverseBetween(ListNode head, int m, int n) {
-        if (m == 1) {
-            return reverseN(head, n);  // 反转前n个节点
-        }
-        head.next = reverseBetween(head.next, m - 1, n - 1);
-        return head;
-    }
-
-    ListNode next = null;
-    public ListNode reverseN(ListNode head, int n) {
-        if (n == 1) {
-            next = head.next;
-            return head;
-        }
-        ListNode last = reverseN(head.next, n - 1);
-        head.next.next = head;
-        head.next = next;
-        return last;
-    }
+public class _0025_reverseKGroup {
 
 
     public static void main(String[] args) {
@@ -45,8 +23,8 @@ public class _0092_reverseBetween {
         cur.next = new ListNode(5);
         cur = cur.next;
 
-        _0092_reverseBetween solution = new _0092_reverseBetween();
-        ListNode res = solution.reverseBetween(head, 2, 4);
+        _0025_reverseKGroup solution = new _0025_reverseKGroup();
+        ListNode res = solution.reverseKGroup(head, 2);
 
         while (res != null) {
             System.out.println(res.val);
@@ -54,28 +32,37 @@ public class _0092_reverseBetween {
         }
     }
 
-    public ListNode reverseBetween1(ListNode head, int left, int right) {
-        if (head == null || head.next == null) {
-            return head;
-        }
-        if (left == right) {
+    public ListNode reverseKGroup (ListNode head, int k) {
+        if (head == null || k == 1) {
             return head;
         }
 
         ListNode newHead = new ListNode(0, head);
-        ListNode leftNode = newHead;        // 到左边界的前一个节点
-        for (int i = 0; i < left - 1; i++) {
-            leftNode = leftNode.next;
-        }
-        ListNode rightNode = newHead;       // 到右边界的后一个节点
-        for (int i = 0; i < right + 1; i++) {
+        ListNode leftNode = newHead;
+        ListNode rightNode = newHead;
+        for (int i = 0; i <= k; i++) {
+            if (rightNode == null) {
+                return newHead.next;
+            }
             rightNode = rightNode.next;
         }
-
-        // 反转链表
         ListNode[] temp = reverseList(leftNode, rightNode);
         leftNode.next = temp[0];
         temp[1].next = rightNode;
+
+
+        while (rightNode != null) {
+            for (int i = 0; i < k; i++) {
+                if (rightNode == null) {
+                    return newHead.next;
+                }
+                leftNode = leftNode.next;
+                rightNode = rightNode.next;
+            }
+            temp = reverseList(leftNode, rightNode);
+            leftNode.next = temp[0];
+            temp[1].next = rightNode;
+        }
 
         return newHead.next;
     }
@@ -96,5 +83,14 @@ public class _0092_reverseBetween {
         ListNode startNode = pre;
 
         return new ListNode[] {startNode, endNode};
+    }
+
+    class solution {
+        public ListNode reverseKGroup (ListNode head, int k) {
+            if (head == null || head.next == null) {
+                return head;
+            }
+            return new ListNode(0);
+        }
     }
 }

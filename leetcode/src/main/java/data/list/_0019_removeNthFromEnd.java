@@ -11,10 +11,6 @@ import java.util.List;
  */
 public class _0019_removeNthFromEnd {
 
-    public static void main(String[] args) {
-
-    }
-
     public ListNode removeNthFromEnd(ListNode head, int n) {
         if (head == null || head.next == null) {
             return null;
@@ -29,19 +25,40 @@ public class _0019_removeNthFromEnd {
         for (int i = 0; i < n; i++) {
             fast = fast.next;
         }
-
         // 快慢指针一同走，直到fast为null
         while (fast != null) {
             fast = fast.next;
             slow = slow.next;
         }
-
         // 删除第n个节点
+        slow.next = slow.next.next;
+        return newHead.next;
+    }
+
+    public ListNode removeNthFromEnd1(ListNode head, int n) {
+        if (head == null || head.next == null) {
+            return null;
+        }
+
+        ListNode newHead = new ListNode(0, head);
+        ListNode slow = newHead;
+        ListNode fast = newHead;
+
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
+        }
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
         slow.next = slow.next.next;
 
         return newHead.next;
     }
 
+
+
+    // 剑指offer
     public int kthToLast(ListNode head, int k) {
         if (head.next == null) {
             return head.val;

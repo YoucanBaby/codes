@@ -1,5 +1,7 @@
 package data.list;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -12,67 +14,46 @@ import java.util.Deque;
  */
 public class _0445_addTwoNumbers {
 
-    public static void main(String[] args) {
 
-    }
-
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-
+    public ListNode addTwoNumbers(ListNode node1, ListNode node2) {
+        // 左低右高
         Deque<Integer> deque1 = new ArrayDeque<>();
-        Deque<Integer> deque2 = new ArrayDeque<>();
-
-        // 高位在左边，低位在右边
-        ListNode cur1 = l1;
+        ListNode cur1 = node1;
         while (cur1 != null) {
-            deque1.addLast(cur1.val);
+            deque1.addFirst(cur1.val);
             cur1 = cur1.next;
         }
-
-        // 高位在左边，低位在右边
-        ListNode cur2 = l2;
+        Deque<Integer> deque2 = new ArrayDeque<>();
+        ListNode cur2 = node2;
         while (cur2 != null) {
-            deque2.addLast(cur2.val);
+            deque2.addFirst(cur2.val);
             cur2 = cur2.next;
         }
 
-        // 保存结果
-        Deque<Integer> deque3 = new ArrayDeque<>();
-
+        ListNode cur = new ListNode();
         int carry = 0;
         while (!deque1.isEmpty() || !deque2.isEmpty()) {
-            int n1 = 0;
-            if (!deque1.isEmpty()) {
-                n1 = deque1.removeLast();
-            }
-
-            int n2 = 0;
-            if (!deque2.isEmpty()) {
-                n2 = deque2.removeLast();
-            }
+            int n1 = deque1.isEmpty() ? 0 : deque1.removeFirst();
+            int n2 = deque2.isEmpty() ? 0 : deque2.removeFirst();
 
             int sum = n1 + n2 + carry;
             if (sum >= 10) {
-                carry = 1;
                 sum %= 10;
+                carry = 1;
             } else {
                 carry = 0;
             }
 
-            // 高位在左边，低位在右边
-            deque3.addFirst(sum);
+            cur.val = sum;
+            ListNode pre = new ListNode(0, cur);
+            cur = pre;
         }
-
         if (carry == 1) {
-            deque3.addFirst(1);
+            cur.val = 1;
+            ListNode pre = new ListNode(0, cur);
+            cur = pre;
         }
 
-        // 取出deque3中的数据，高位在左边，低位在右边
-        ListNode newHead = new ListNode(0);
-        ListNode cur = newHead;
-        while (!deque3.isEmpty()) {
-            cur.next = new ListNode(deque3.removeFirst());
-            cur = cur.next;
-        }
-        return newHead.next;
+        return cur.next;
     }
 }

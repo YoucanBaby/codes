@@ -9,11 +9,6 @@ package data.list;
  */
 public class _0086_partition {
 
-
-    public static void main(String[] args) {
-
-    }
-
     public ListNode partition(ListNode head, int x) {
         ListNode samllHead = new ListNode(0);
         ListNode small = samllHead;
@@ -32,7 +27,6 @@ public class _0086_partition {
             }
             cur = cur.next;
         }
-
         small.next = largeHead.next;
         large.next = null;
 

@@ -34,11 +34,13 @@ public class _0143_reorderList {
 
 
     public void reorderList(ListNode head) {
+        if (head.next == null) {
+            return;
+        }
 
         // 快慢节点，找到链表的中点
         ListNode slow = head;
         ListNode fast = head;
-
         while (fast.next != null && fast.next.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -47,7 +49,6 @@ public class _0143_reorderList {
         // 反转后一半的链表
         ListNode pre = null;
         ListNode cur = slow.next;
-
         while (cur != null) {
             ListNode next = cur.next;
             cur.next = pre;
@@ -55,32 +56,28 @@ public class _0143_reorderList {
             pre = cur;
             cur = next;
         }
-
-        // 前一半的链表，最后一个节点要为null
-        slow.next = null;
+        slow.next = null;       // 前一半的链表，最后一个节点要为null
 
         // 合并两个链表
+        ListNode newHead = new ListNode(0);
+        ListNode node = newHead;
         ListNode node1 = head;
         ListNode node2 = pre;
-        ListNode newHead = new ListNode(0);
-        cur = newHead;
 
         while (node1 != null && node2 != null) {
-            cur.next = node1;
+            node.next = node1;
             node1 = node1.next;
-            cur = cur.next;
+            node = node.next;
 
-            cur.next = node2;
-            cur = cur.next;
+            node.next = node2;
             node2 = node2.next;
+            node = node.next;
         }
-
         if (node1 != null) {
-            cur.next = node1;
+            node.next = node1;
         }
-
         if (node2 != null) {
-            cur.next = node2;
+            node.next = node2;
         }
     }
 }

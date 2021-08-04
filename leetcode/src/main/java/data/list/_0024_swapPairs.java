@@ -9,9 +9,6 @@ package data.list;
  */
 public class _0024_swapPairs {
 
-    public static void main(String[] args) {
-
-    }
 
     public ListNode swapPairs(ListNode head) {
         if (head == null || head.next == null) {
@@ -24,6 +21,27 @@ public class _0024_swapPairs {
         while (pre.next != null && pre.next.next != null) {
             ListNode cur = pre.next;
             ListNode next = pre.next.next;
+
+            pre.next = next;
+            cur.next = next.next;
+            next.next = cur;
+
+            pre = cur;
+        }
+        return newHead.next;
+    }
+
+    public ListNode swapPairs1(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode newHead = new ListNode(0, head);
+        ListNode pre = newHead;
+
+        while (pre.next != null && pre.next.next != null) {
+            ListNode cur = pre.next;
+            ListNode next = cur.next;
 
             pre.next = next;
             cur.next = next.next;
