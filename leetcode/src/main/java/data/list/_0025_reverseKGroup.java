@@ -85,12 +85,41 @@ public class _0025_reverseKGroup {
         return new ListNode[] {startNode, endNode};
     }
 
+
+    // 递归
     class solution {
-        public ListNode reverseKGroup (ListNode head, int k) {
-            if (head == null || head.next == null) {
-                return head;
+        /** 反转区间 [a, b) 的元素，注意是左闭右开 */
+        ListNode reverse(ListNode leftNode, ListNode rightNode) {
+            ListNode pre = null;
+            ListNode cur = leftNode;
+            ListNode next = leftNode;
+            while (cur != rightNode) {
+                next = cur.next;
+                cur.next = pre;
+
+                pre = cur;
+                cur = next;
             }
-            return new ListNode(0);
+            return pre;		// 返回反转后的头结点
+        }
+
+        ListNode reverseKGroup(ListNode head, int k) {
+            if (head == null) {
+                return null;
+            }
+            // 区间 [a, b) 包含 k 个待反转元素
+            ListNode leftNode = head;
+            ListNode rightNode = head;
+            for (int i = 0; i < k; i++) {
+                // 不足 k 个，不需要反转，base case
+                if (rightNode == null) {
+                    return head;
+                }
+                rightNode = rightNode.next;
+            }
+            ListNode newHead = reverse(leftNode, rightNode);	// 反转前 k 个元素
+            leftNode.next = reverseKGroup(rightNode, k);		// 递归反转后续链表并连接起来
+            return newHead;
         }
     }
 }

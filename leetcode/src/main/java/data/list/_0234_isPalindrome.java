@@ -25,8 +25,9 @@ public class _0234_isPalindrome {
     }
 
 
+
     public boolean isPalindrome(ListNode head) {
-        if (head == null) {
+        if (head == null || head.next == null) {
             return true;
         }
 
@@ -52,16 +53,13 @@ public class _0234_isPalindrome {
         // 比较两个链表
         ListNode leftHead = head;
         ListNode rightHead = pre;
-
         while (leftHead!= null && rightHead != null) {
             if (leftHead.val != rightHead.val) {
                 return false;
             }
-
             leftHead = leftHead.next;
             rightHead = rightHead.next;
         }
-
         return true;
     }
 }

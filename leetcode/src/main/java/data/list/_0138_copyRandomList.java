@@ -59,4 +59,43 @@ public class _0138_copyRandomList {
 
         return newHead;
     }
+
+    public Node copyRandomList1(Node head) {
+        if (head == null) {
+            return null;
+        }
+
+        // 构建新链表
+        Node cur = head;
+        while (cur != null) {
+            Node temp = new Node(cur.val);
+            temp.next = cur.next;
+            cur.next = temp;
+            cur = cur.next.next;
+        }
+
+        // 构建random
+        cur = head;
+        while (cur != null) {
+            if (cur.random != null) {
+                cur.next.random = cur.random.next;
+            }
+            cur = cur.next.next;
+        }
+
+        // 拆分链表
+        Node newHead = new Node(0);
+        newHead.next = head.next;
+        Node node1 = head;
+        Node node2 = head.next;
+        while (node2.next != null) {
+            node1.next = node2.next;
+            node2.next = node2.next.next;
+            node1 = node1.next;
+            node2 = node2.next;
+        }
+        node1.next = null;
+
+        return newHead.next;
+    }
 }
