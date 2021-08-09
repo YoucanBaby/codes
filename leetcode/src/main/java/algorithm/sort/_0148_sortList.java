@@ -20,9 +20,10 @@ public class _0148_sortList {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode slow = head;
-        ListNode fast = head.next;
 
+        ListNode newHead = new ListNode(0, head);
+        ListNode slow = newHead;
+        ListNode fast = newHead;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -33,33 +34,30 @@ public class _0148_sortList {
 
         ListNode left = sortList(leftHead);
         ListNode right = sortList(rightHead);
-        return merge(left, right);
+        return mergeSort(left, right);
     }
 
-    private ListNode merge(ListNode h1, ListNode h2) {
-        ListNode dummy = new ListNode(0);
-        ListNode cur = dummy;
+    private ListNode mergeSort(ListNode node1, ListNode node2) {
+        ListNode newHead = new ListNode(0);
+        ListNode cur = newHead;
 
-        while (h1 != null && h2 != null) {
-            if (h1.val < h2.val) {
-                cur.next = h1;
-                h1 = h1.next;
+        while (node1 != null && node2 != null) {
+            if (node1.val < node2.val) {
+                cur.next = node1;
+                node1 = node1.next;
             } else {
-                cur.next = h2;
-                h2 = h2.next;
+                cur.next = node2;
+                node2 = node2.next;
             }
             cur = cur.next;
         }
-
-        // 判断哪个链表还有没被比较完的值，直接把cur指针指向它
-        if (h1 != null) {
-            cur.next = h1;
+        if (node1 != null) {
+            cur.next = node1;
 
         }
-        if (h2 != null) {
-            cur.next = h2;
+        if (node2 != null) {
+            cur.next = node2;
         }
-
-        return dummy.next;
+        return newHead.next;
     }
 }

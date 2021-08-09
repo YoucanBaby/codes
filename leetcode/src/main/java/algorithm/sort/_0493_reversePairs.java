@@ -21,40 +21,40 @@ public class _0493_reversePairs {
     }
 
     int res = 0;
+    int[] temp;
 
     public int reversePairs(int[] nums) {
-        int N = nums.length;
-        mergeSort(nums, 0, N - 1);
+        temp = new int[nums.length];
+        mergeSort(nums, 0, nums.length - 1);
         return res;
     }
 
     private void mergeSort(int[] nums, int left, int right) {
-        int mid = (left + right) / 2;
-
-        if (left < right) {
-            mergeSort(nums, left, mid);
-            mergeSort(nums, mid + 1, right);
-            merge(nums, left, right, mid);
+        if (left >= right) {
+            return;
         }
+        int mid = (left + right) / 2;
+        mergeSort(nums, left, mid);
+        mergeSort(nums, mid + 1, right);
+        merge(nums, left, right, mid);
     }
 
     private void merge(int[] nums, int left, int right, int mid) {
-
         // 加入的代码
-        int l = left;
-        int r = mid + 1;
-        while (l <= mid) {
-            while (r <= right && (long) nums[l] > 2 * (long) nums[r]) {
-                r++;
+        int L = left;
+        int R = mid + 1;
+        while (L <= mid && R <= right) {
+            if ((long) nums[L] > 2 * (long) nums[R]) {
+                res += mid + 1 - L;
+                R++;
+            } else {
+                L++;
             }
-            res += r - mid - 1;
-            l++;
         }
 
         int p1 = left;
         int p2 = mid + 1;
-        int i = 0;
-        int[] temp = new int[right - left + 1];
+        int i = left;
 
         while (p1 <= mid && p2 <= right) {
             if (nums[p1] < nums[p2]) {
@@ -63,17 +63,14 @@ public class _0493_reversePairs {
                 temp[i++] = nums[p2++];
             }
         }
-
         while (p1 <= mid) {
             temp[i++] = nums[p1++];
         }
-
         while (p2 <= right) {
             temp[i++] = nums[p2++];
         }
-
-        for (int j = 0; j < temp.length; j++) {
-            nums[left + j] = temp[j];
+        for (int j = left; j <= right; j++) {
+            nums[j] = temp[j];
         }
     }
 

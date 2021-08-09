@@ -14,29 +14,25 @@ import java.util.TreeSet;
  */
 public class _0220_containsNearbyAlmostDuplicate {
 
-    public static void main(String[] args) {
-
-    }
-
     long size = 0;
 
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
         int N = nums.length;
-        Map<Long, Long> map = new HashMap<>();
+        HashMap<Long, Long> map = new HashMap<>();
         size = t + 1L;
 
         for (int i = 0; i < N; i++) {
             long u = nums[i] * 1L;
-            long idx = getIdx(u);
+            long index = getIdx(u);
 
             // 目标桶是否存在
-            if (map.containsKey(idx)) {
+            if (map.containsKey(index)) {
                 return true;
             }
 
             // 检查相邻的桶
-            long left = idx - 1;
-            long right = idx + 1;
+            long left = index - 1;
+            long right = index + 1;
             if (map.containsKey(left) && u - t <= map.get(left)) {
                 return true;
             }
@@ -44,7 +40,7 @@ public class _0220_containsNearbyAlmostDuplicate {
                 return true;
             }
 
-            map.put(idx, u);
+            map.put(index, u);
             // 移除下标范围不在 [max(0, i - k), i) 内的桶
             if (i >= k) {
                 map.remove(getIdx(nums[i - k]) * 1L);
@@ -62,20 +58,38 @@ public class _0220_containsNearbyAlmostDuplicate {
         }
     }
 
-    public boolean containsNearbyAlmostDuplicate1(int[] nums, int k, int t) {
-        int N = nums.length;
-        TreeSet<Long> set = new TreeSet<>();
+    class Solution {
+        long size = 0;      // 桶的大小
 
-        for (int i = 0; i < N; i++) {
-            Long num = set.ceiling((long) nums[i] - (long) t);
-            if (num != null && num <= (long) nums[i] + (long) t) {
-                return true;
+        public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+            HashMap<Long, Long> map = new HashMap<>();
+            size = t + 1L;
+            for (int i = 0; i < nums.length; i++) {
+                long num = nums[i] * 1L;
+                long index = getIdx(num);
+                if (map.containsKey(index)) {   // 目标桶是否存在
+                    return true;
+                }
+
+                long left = index - 1;
+                long right = index + 1;         // 检查相邻的桶
+                if (map.containsKey(left) && num - t <= map.get(left)) {
+                    return true;
+                }
+                if (map.containsKey(right) && map.get(right) <= num + t) {
+                    return true;
+                }
+
+                map.put(index, num);
+                if (i >= k) {
+                    map.remove(getIdx(nums[i - k]) * 1L);   // 移除下标范围不在[max(0, i - k), i)内的桶,
+                }
             }
-            set.add((long) nums[i]);
-            if (i >= k) {
-                set.remove((long) nums[i - k]);
-            }
+            return false;
         }
-        return false;
+
+        private long getIdx(long num) {
+            return num >= 0 ? num / size : (num + 1) / size - 1;
+        }
     }
 }

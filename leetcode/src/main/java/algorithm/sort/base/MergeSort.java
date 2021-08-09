@@ -19,7 +19,9 @@ public class MergeSort {
         System.out.println(Arrays.toString(nums));
     }
 
+    int[] temp;
     public void mergeSort(int[] nums, int left, int right) {
+
         // 终止条件
         if (left >= right) {
             return;
@@ -34,16 +36,16 @@ public class MergeSort {
         merge(nums, left, right, mid);
     }
 
+
     public void merge(int[] nums, int left, int right, int mid) {
         // 用于存储归并后数据的临时数组
-        int[] temp = new int[right - left + 1];
-
+        temp = new int[nums.length];
         // 用于记录左边数组中需要遍历的下标
         int p1 = left;
         // 记用于录右边数组中需要遍历的下标
         int p2 = mid + 1;
         // 记用于录临时数组中的下标
-        int i = 0;
+        int i = left;
 
         // 遍历两个数组，取出小的数组放入临时数组中
         while (p1 <= mid && p2 <= right) {
@@ -64,8 +66,8 @@ public class MergeSort {
             temp[i++] = nums[p2++];
         }
         // 把临时数组中的数据存入原数组
-        for (i = 0; i < temp.length; i++) {
-            nums[left + i] = temp[i];
+        for (i = left; i <= right; i++) {
+            nums[i] = temp[i];
         }
     }
 }

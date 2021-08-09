@@ -1,7 +1,9 @@
 package algorithm.sort;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @BelongsProject: ForOffer
@@ -22,41 +24,40 @@ public class _0057_insert {
         };
         int[] newInterval = {4,8};
         _0057_insert solution = new _0057_insert();
-        int[][] res = solution.insert(intervals, newInterval);
 
+        int[][] res = solution.insert(intervals, newInterval);
         for (int i = 0; i < res.length; i++) {
             System.out.println(Arrays.toString(res[i]));
+        }
+
+        int[][] res1 = solution.insert(intervals, newInterval);
+        for (int i = 0; i < res.length; i++) {
+            System.out.println(Arrays.toString(res1[i]));
         }
     }
 
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        int N = intervals.length;
-        int[][] ret = new int[N + 1][2];
+        if (intervals.length == 0) {
+            return new int[][] {newInterval};
+        }
 
-        // ret的下标
-        int idx = 0;
-        // intervals的下标
+        int N = intervals.length;
+        List<int[]> res = new ArrayList<>();
         int i = 0;
 
-        // 将新区间左边且相离的区间加入结果集
         while (i < N && intervals[i][1] < newInterval[0]) {
-            ret[idx++] = intervals[i++];
+            res.add(intervals[i++]);
         }
-
-        // 接着判断当前区间是否与新区间重叠，重叠的话就进行合并，直到遍历到当前区间在新区间的右边且相离，
-        // 将最终合并后的新区间加入结果集
         while (i < N && newInterval[1] >= intervals[i][0]) {
-            newInterval[0] = Math.min(intervals[i][0], newInterval[0]);
-            newInterval[1] = Math.max(intervals[i][1], newInterval[1]);
+            newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
+            newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
             i++;
         }
-        ret[idx++] = newInterval;
-
-        // 最后将新区间右边且相离的区间加入结果集
+        res.add(newInterval);
         while (i < N) {
-            ret[idx++] = intervals[i++];
+            res.add(intervals[i++]);
         }
 
-        return Arrays.copyOf(ret, idx);
+        return res.toArray(new int[0][0]);
     }
 }

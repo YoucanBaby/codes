@@ -16,40 +16,22 @@ public class _1833_maxIceCream {
         int coins = 7;
         _1833_maxIceCream solution = new _1833_maxIceCream();
 
-        System.out.println(solution.maxIceCream2(costs, coins));
+        System.out.println(solution.maxIceCream(costs, coins));
     }
 
     public int maxIceCream(int[] costs, int coins) {
-        Arrays.sort(costs);
-
-        int res = 0;
-        for (int i = 0; i < costs.length; i++) {
-            if (coins >= costs[i]) {
-                coins -= costs[i];
-                res++;
-            } else {
-                break;
-            }
-        }
-
-        return res;
-    }
-
-    public int maxIceCream2(int[] costs, int coins) {
-        int[] freq = new int[100001];
-
+        int[] freq = new int[(int) (1e5 + 1)];
         for (int cost: costs) {
             freq[cost]++;
         }
-
         int res = 0;
-        for (int i = 1; i <= freq.length; i++) {
-            if (coins >= i) {
-                int minCount = Math.min(freq[i], coins / i);
-                coins -= i * minCount;
-                res += minCount;
-            } else {
+        for (int cost = 1; cost < freq.length; cost++) {
+            if (coins < cost) {
                 break;
+            } else {
+                int minCount = Math.min(freq[cost], coins / cost);      // 最多可以买多少根
+                coins -= cost * minCount;
+                res += minCount;
             }
         }
         return res;

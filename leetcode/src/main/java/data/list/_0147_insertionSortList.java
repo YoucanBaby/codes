@@ -35,32 +35,20 @@ public class _0147_insertionSortList {
             return head;
         }
 
-        // 虚假的头节点
-        ListNode newHead = new ListNode(0);
-        // node用于遍历head所在的链表
-        ListNode node = head;
+        ListNode newHead = new ListNode(0, head);
+        ListNode node2 = head.next;
+        head.next = null;
 
-        while(node != null){
-            // node的下一个节点
-            ListNode next = node.next;
-
-            // sortNode是已经排好序的节点
-            ListNode sortNode = newHead.next;
-            // prevNode是sortNode的上一个节点
-            ListNode prevNode = newHead;
-
-            // 如果sortNode.val < node.val，说明node应该在sortNode的后面，所以prevNode和sortNode向后移一位
-            while(sortNode != null && sortNode.val < node.val){
-                prevNode = prevNode.next;
-                sortNode = sortNode.next;
+        while (node2 != null) {
+            ListNode node1 = newHead;
+            while (node1.next != null && node1.next.val < node2.val) {
+                node1 = node1.next;
             }
-
-            // 这里把node加入到newHead的链表中，画图就能理解！
-            prevNode.next = node;
-            node.next = sortNode;
-            node = next;
+            ListNode temp = node2.next;
+            node2.next = node1.next;
+            node1.next = node2;
+            node2 = temp;
         }
         return newHead.next;
     }
-
 }
