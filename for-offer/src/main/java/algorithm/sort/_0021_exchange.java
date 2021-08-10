@@ -14,9 +14,8 @@ public class _0021_exchange {
     }
 
     public int[] exchange(int[] nums) {
-        int N = nums.length;
         int left = 0;
-        int right = N - 1;
+        int right = nums.length - 1;
 
         while (left < right) {
             while (left < right && nums[left] % 2 == 1) {
@@ -25,11 +24,14 @@ public class _0021_exchange {
             while (left < right && nums[right] % 2 == 0) {
                 right--;
             }
-            int temp = nums[right];
-            nums[right] = nums[left];
-            nums[left] = temp;
+            swap(nums, left, right);
         }
-
         return nums;
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }

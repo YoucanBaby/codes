@@ -22,7 +22,6 @@ public class _0075_sortColors {
     public void sortColors(int[] nums) {
         int p0 = 0;
         int p2 = nums.length - 1;
-
         for (int i = 0; i <= p2; i++) {
             while (i <=p2 && nums[i] == 2) {
                 swap(nums, i, p2);
@@ -39,5 +38,21 @@ public class _0075_sortColors {
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
+    }
+
+
+    public void sortColors1(int[] nums) {
+        int p0 = 0;
+        int p1 = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            nums[i] = 2;
+            if (num <= 1) {
+                nums[p1++] = 1;
+            }
+            if (num <= 0) {
+                nums[p0++] = 0;
+            }
+        }
     }
 }

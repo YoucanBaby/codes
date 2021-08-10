@@ -13,19 +13,16 @@ public class _01_01_isUnique {
 
     }
 
-    public boolean isUnique(String astr) {
+    public boolean isUnique(String strs) {
         int mark = 0;
-
-        for (char c: astr.toCharArray()) {
-            int moveBit = c - 'a';
-
-            if ((mark & (1 << moveBit)) != 0) {
+        for (char c: strs.toCharArray()) {
+            int bitIndex = 1 << (c - 'a');
+            if ((mark & bitIndex) != 0) {
                 return false;
             } else {
-                mark = mark | (1 << moveBit);
+                mark = (mark | bitIndex);
             }
         }
-
         return true;
     }
 }

@@ -18,19 +18,20 @@ public class _1046_lastStoneWeight {
         System.out.println(solution.lastStoneWeight(stones));
     }
 
-    public int lastStoneWeight(int[] stones) {
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
-        for(int stone : stones) {
-            pq.add(stone);
-        }
-        System.out.println(pq);
 
-        while(pq.size() > 1) {
-            int a = pq.poll();
-            int b = pq.poll();
-            pq.add(Math.abs(a - b));
-            System.out.println(pq);
+    public int lastStoneWeight(int[] nums) {
+        if (nums.length == 1) {
+            return nums[0];
         }
-        return pq.isEmpty() ? 0 : pq.peek();
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
+        for (int num : nums) {
+            pq.add(num);
+        }
+        while (pq.size() >= 2) {
+            int a = pq.remove();
+            int b = pq.remove();
+            pq.add(Math.abs(a - b));
+        }
+        return pq.remove();
     }
 }

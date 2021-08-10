@@ -41,7 +41,6 @@ public class _0049_groupAnagrams {
             }
             map.get(key).add(str);
         }
-
         return new ArrayList(map.values());
     }
 }

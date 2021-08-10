@@ -11,18 +11,18 @@ import java.util.Arrays;
  */
 public class _0455_findContentChildren {
 
-    public int findContentChildren(int[] g, int[] s) {
-        Arrays.sort(g);
-        Arrays.sort(s);
+    public int findContentChildren(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
 
-        int i = 0;
-        int j = 0;
-        while (i < g.length && j < s.length) {
-            if (g[i] <= s[j]) {
-                i++;
+        int p1 = 0;
+        int p2 = 0;
+        while (p1 < nums1.length && p2 < nums2.length) {
+            if (nums1[p1] <= nums2[p2]) {
+                p1++;
             }
-            j++;
+            p2++;
         }
-        return i;
+        return p1;
     }
 }
