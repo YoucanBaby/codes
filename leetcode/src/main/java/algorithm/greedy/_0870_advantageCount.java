@@ -41,4 +41,30 @@ public class _0870_advantageCount {
         }
         return res;
     }
+
+
+    public int[] advantageCount1(int[] A, int[] B) {
+        Arrays.sort(A);
+        int N = B.length;
+        int[][] sortB = new int[N][2];
+        for (int i = 0; i < N; i++) {
+            sortB[i][0] = B[i];
+            sortB[i][1] = i;
+        }
+        Arrays.sort(sortB, (o1, o2) -> o1[0] - o2[0]);
+
+        int[] res = new int[N];
+        int left = 0;
+        int right = N - 1;
+        for (int i = 0; i < N; i++) {
+            if (A[i] <= sortB[left][0]) {
+                res[sortB[right][1]] = A[i];
+                right--;
+            } else {
+                res[sortB[left][1]] = A[i];
+                left++;
+            }
+        }
+        return res;
+    }
 }

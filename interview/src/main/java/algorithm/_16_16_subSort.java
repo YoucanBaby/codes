@@ -23,32 +23,26 @@ public class _16_16_subSort {
             return new int[] {-1, -1};
         }
 
-        int end = -1;
-        int start = -1;
+        int right = -1;
+        int left = -1;
         int max = Integer.MIN_VALUE;
         int min = Integer.MAX_VALUE;
         int N = nums.length;
 
-        // 从左向右遍历
-        for(int i = 0; i < N; i++){
-            // 如果右边的值小于左边的最大值，就更新end；反之，更新max
-            if(nums[i] < max){
-                end = i;
-            }else{
-                max = nums[i];
+        // 从左向右遍历，如果右边的值小于左边的最大值，就更新右边界
+        for (int i = 0; i < N; i++) {
+            if (nums[i] < max) {
+                right = i;
             }
+            max = Math.max(max, nums[i]);
         }
-
-        // 从右向左遍历
+        // 从右向左遍历，如果左边的值大于右边的最小值，就更新左边界
         for (int i = N - 1; i >= 0; i--) {
-            // 如果左边的值大于右边的最小值，就更新start；反之，更新min
-            if(nums[i] > min){
-                start = i;
-            }else{
-                min = nums[i];
+            if (nums[i] > min) {
+                left = i;
             }
+            min = Math.min(min, nums[i]);
         }
-
-        return new int[] {start, end};
+        return new int[] {left, right};
     }
 }

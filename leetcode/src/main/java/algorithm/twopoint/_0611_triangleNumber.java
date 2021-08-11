@@ -1,5 +1,6 @@
 package algorithm.twopoint;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -15,7 +16,6 @@ public class _0611_triangleNumber {
         Arrays.sort(nums);
         int N = nums.length;
         int res = 0;
-
         for (int i = N - 1; i >= 2; i--) {
             int left = 0;
             int right = i - 1;
@@ -28,7 +28,6 @@ public class _0611_triangleNumber {
                 }
             }
         }
-
         return res;
     }
 }
