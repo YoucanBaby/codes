@@ -29,21 +29,23 @@ public class _0378_kthSmallest {
 
     public int kthSmallest(int[][] mat, int k) {
         int N = mat.length;
-        int left = mat[0][0];            // 左上角的值，矩阵的最小值，是值不是下标！！！
-        int right = mat[N - 1][N - 1];   // 右下角的值，矩阵的最大值
+        int left = mat[0][0];                   // 左上角的值，矩阵的最小值，是值不是下标！！！
+        int right = mat[N - 1][N - 1];          // 右下角的值，矩阵的最大值
 
-        while(left < right) {
+        while(left <= right) {
             int mid = (left + right) / 2;
-            if (check(mid, k, mat, N)) {    // k在mid的左边
-                right = mid;
-            } else {
+            if (getCount(mid, mat, N) == k) {
+                right = mid - 1;
+            } else if (getCount(mid, mat, N) < k) {
                 left = mid + 1;
+            } else {
+                right = mid - 1;
             }
         }
         return left;
     }
 
-    private boolean check(int mid, int target, int[][] mat, int N) {
+    private int getCount(int mid, int[][] mat, int N) {
         int i = N - 1;      // 从左下角开始
         int j = 0;
         int count = 0;
@@ -56,6 +58,6 @@ public class _0378_kthSmallest {
                 i--;
             }
         }
-        return target <= count;
+        return count;
     }
 }

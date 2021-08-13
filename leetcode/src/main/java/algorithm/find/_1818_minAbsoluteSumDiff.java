@@ -20,11 +20,10 @@ public class _1818_minAbsoluteSumDiff {
     }
 
     public int minAbsoluteSumDiff(int[] nums1, int[] nums2) {
-        int MOD = (int) (Math.pow(10, 9) + 7);
+        int MOD = (int) (1e9 + 7);
         int N = nums1.length;
-
         int[] nums = new int[N];
-        System.arraycopy(nums1,0, nums, 0, N);
+        System.arraycopy(nums1, 0, nums, 0, N);         // 深拷贝
         Arrays.sort(nums);
 
         int sum = 0;
@@ -48,16 +47,17 @@ public class _1818_minAbsoluteSumDiff {
         int left = 0;
         int right = nums.length - 1;
 
-        while (left < right) {
+        while (left <= right) {
             int mid = (left + right) / 2;
             if (nums[mid] == target) {
                 return mid;
             } else if (nums[mid] < target) {
                 left = mid + 1;
-            } else {
-                right = mid;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
             }
         }
-        return left;
+        return left == nums.length ? left - 1 : left;       // 左边界越界
     }
+
 }
