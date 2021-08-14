@@ -1,11 +1,11 @@
-package data.array;
+package data.matrix;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @BelongsProject: codes
- * @BelongsPackage: data.array
+ * @BelongsPackage: data.matrix
  * @Author: xuyifang
  * @CreateTime: 2021-07-08 14:24
  * @Description:

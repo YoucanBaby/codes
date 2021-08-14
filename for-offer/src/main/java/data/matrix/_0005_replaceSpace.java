@@ -1,4 +1,4 @@
-package data.array;
+package data.matrix;
 
 /**
  * @BelongsProject: ForOffer

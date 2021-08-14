@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * @BelongsProject: codes
- * @BelongsPackage: data.array
+ * @BelongsPackage: data.matrix
  * @Author: xuyifang
  * @CreateTime: 2021-07-02 00:16
  * @Description:

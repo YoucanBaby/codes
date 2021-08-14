@@ -1,10 +1,10 @@
-package data.array;
+package data.matrix;
 
 import java.util.*;
 
 /**
  * @BelongsProject: codes
- * @BelongsPackage: data.array
+ * @BelongsPackage: data.matrix
  * @Author: xuyifang
  * @CreateTime: 2021-07-07 16:26
  * @Description:

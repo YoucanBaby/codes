@@ -1,11 +1,10 @@
-package data.array;
+package data.matrix;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
  * @BelongsProject: ForOffer
- * @BelongsPackage: data.array
+ * @BelongsPackage: data.matrix
  * @Author: xuyifang
  * @CreateTime: 2021-06-11 14:39
  * @Description:

@@ -1,8 +1,8 @@
-package data.array;
+package data.matrix;
 
 /**
  * @BelongsProject: codes
- * @BelongsPackage: data.array
+ * @BelongsPackage: data.matrix
  * @Author: xuyifang
  * @CreateTime: 2021-07-10 11:25
  * @Description:

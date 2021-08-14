@@ -16,7 +16,7 @@ public class _0162_findPeakElement {
 
         while (left < right) {
             int mid = (left + right) / 2;
-            if (nums[mid] >= nums[mid + 1]) {
+            if (nums[mid] >= nums[mid + 1]) {       // >或者>=都可以
                 right = mid;
             } else {
                 left = mid + 1;

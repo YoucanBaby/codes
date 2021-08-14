@@ -1,4 +1,4 @@
-package data.array;
+package data.matrix;
 
 import java.util.Arrays;
 

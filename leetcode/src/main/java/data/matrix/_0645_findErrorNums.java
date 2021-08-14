@@ -1,4 +1,4 @@
-package data.array;
+package data.matrix;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * @BelongsProject: ForOffer
- * @BelongsPackage: data.array
+ * @BelongsPackage: data.matrix
  * @Author: xuyifang
  * @CreateTime: 2021-06-11 18:04
  * @Description:

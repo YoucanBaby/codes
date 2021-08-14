@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 
 /**
  * @BelongsProject: ForOffer
- * @BelongsPackage: data.array
+ * @BelongsPackage: data.matrix
  * @Author: xuyifang
  * @CreateTime: 2021-06-11 13:19
  * @Description:
