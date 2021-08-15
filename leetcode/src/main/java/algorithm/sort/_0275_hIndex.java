@@ -18,11 +18,10 @@ public class _0275_hIndex {
         int N = citations.length;
         int left = 0;
         int right = N - 1;
-        while (left < right) {
+        while (left <= right) {
             int mid = (left + right) / 2;
-            int h = N - mid;
-            if (h <= citations[mid]) {
-                right = mid;
+            if (citations[mid] >= N - mid) {
+                right = mid - 1;
             } else {
                 left = mid + 1;
             }

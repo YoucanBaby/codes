@@ -23,14 +23,14 @@ public class _0456_find132pattern {
 
     public boolean find132pattern(int[] nums) {
         Deque<Integer> stack = new LinkedList<>();
-        int maxK = Integer.MIN_VALUE;
+        int maxJ = Integer.MIN_VALUE;
 
         for (int i = nums.length - 1; i >= 0; i--) {
-            if (nums[i] < maxK)
+            if (nums[i] < maxJ) {
                 return true;
-
+            }
             while (!stack.isEmpty() && nums[i] > stack.peek()) {
-                maxK = stack.pop();
+                maxJ = stack.pop();
             }
             stack.push(nums[i]);
         }

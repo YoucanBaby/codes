@@ -22,22 +22,19 @@ public class _0240_searchMatrix {
         System.out.println(solution.searchMatrix(matrix, target));
     }
 
-    public boolean searchMatrix(int[][] matrix, int target) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
-            return false;
-        }
-        int rows = matrix.length - 1;
-        int cols = matrix[0].length - 1;
-        int r = 0;
-        int c = cols;
+    public boolean searchMatrix(int[][] mat, int target) {
+        int M = mat.length;
+        int N = mat[0].length;
+        int x = 0;
+        int y = N - 1;
 
-        while (r <= rows && c >= 0) {
-            if (matrix[r][c] == target) {
+        while (x < M && y >= 0) {
+            if (mat[x][y] == target) {
                 return true;
-            } else if (matrix[r][c] > target) {
-                c--;
+            } else if (mat[x][y] > target) {
+                y--;
             } else {
-                r++;
+                x++;
             }
         }
         return false;
