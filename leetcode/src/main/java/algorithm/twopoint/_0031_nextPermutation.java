@@ -1,4 +1,4 @@
-package data.matrix;
+package algorithm.twopoint;
 
 import java.util.Arrays;
 
@@ -22,30 +22,26 @@ public class _0031_nextPermutation {
     public void nextPermutation(int[] nums) {
         int N = nums.length;
 
-        // 从后向前找第一个顺序对（i，i+1），使得nums[i]<nums[i+1]
-        int i = N - 2;
-        while (i >= 0 && nums[i] >= nums[i + 1]) {
-            i--;
+        int left = N - 2;
+        while (left >= 0 && nums[left] >= nums[left + 1]) {
+            left--;
         }
 
-        // 从后向前找 nums[i] < nums[j]
-        int j = N - 1;
-        if (i >= 0) {
-            while (j >= 0 && nums[i] >= nums[j]) {
-                j--;
+        int right = N - 1;
+        if (left >= 0) {
+            while (right >= 0 && nums[left] >= nums[right]) {
+                right--;
             }
-            // 交换 nums[i] 与 nums[j]
-            swap(nums, i, j);
+            swap(nums, left, right);
         }
-        // 反转区间 [i+1,n)
-        reverse(nums, i + 1, N - 1);
+        reverse(nums, left + 1, N - 1);
     }
 
-    public void reverse(int[] nums, int left, int right) {
-        while (left < right) {
-            swap(nums, left, right);
-            left++;
-            right--;
+    public void reverse(int[] nums, int i, int j) {
+        while (i < j) {
+            swap(nums, i, j);
+            i++;
+            j--;
         }
     }
 

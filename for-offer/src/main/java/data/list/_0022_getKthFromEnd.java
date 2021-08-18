@@ -14,18 +14,16 @@ public class _0022_getKthFromEnd {
     }
 
     public ListNode getKthFromEnd(ListNode head, int k) {
-        ListNode p1 = head;
-        ListNode p2 = head;
+        ListNode slow = head;
+        ListNode fast = head;
 
         for (int i = 0; i < k; i++) {
-            p2 = p2.next;
+            fast = fast.next;
         }
-
-        while (p2 != null) {
-            p1 = p1.next;
-            p2 = p2.next;
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
         }
-
-        return p1;
+        return slow;
     }
 }

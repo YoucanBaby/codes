@@ -11,21 +11,18 @@ public class _0011_maxArea {
 
 
     public int maxArea(int[] nums) {
-        int L = 0;
-        int R = nums.length - 1;
         int res = 0;
-
-        while (L < R) {
-            int area = Math.min(nums[L], nums[R]) * (R - L);
+        int left = 0;
+        int right = nums.length - 1;
+        while (left < right) {
+            int area = Math.min(nums[left], nums[right]) * (right - left);
             res = Math.max(res, area);
-
-            if (nums[L] < nums[R]) {
-                L++;
+            if (nums[left] < nums[right]) {
+                left++;
             } else {
-                R--;
+                right--;
             }
         }
-
         return res;
     }
 }

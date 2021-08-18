@@ -13,20 +13,18 @@ public class _1838_maxFrequency {
 
     public int maxFrequency(int[] nums, int k) {
         Arrays.sort(nums);
-        int N = nums.length;
-        long total = 0;
-        int L = 0;
+        long sum = 0;         // 总共的操作次数
         int res = 1;
 
-        for (int R = 1; R < N; R++) {
-            total += (long) (nums[R] - nums[R - 1]) * (R - L);
-            while (total > k) {
-                total -= nums[R] - nums[L];
-                L++;
+        int left = 0;
+        for (int right = 1; right < nums.length; right++) {
+            sum += (long) (nums[right] - nums[right - 1]) * (right - left);
+            while (sum > k) {
+                sum -= nums[right] - nums[left];
+                left++;
             }
-            res = Math.max(res, R - L + 1);
+            res = Math.max(res, right - left + 1);
         }
-
         return res;
     }
 }
