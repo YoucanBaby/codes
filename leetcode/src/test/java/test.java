@@ -11,55 +11,50 @@ import java.util.*;
  */
 
 public class test {
-
     public static void main(String[] args) {
         test test = new test();
-        int[] nums = {1,2,2,2,4,5,6};
-        int target = 2;
+        int[] nums = {200,5,10,15,40,32,100};
+        int K = 2;
 
-        System.out.println(test.binarySearch1(nums, target));
-        System.out.println(test.binarySearch2(nums, target));
+        System.out.println(Arrays.toString(test.solution(nums, K)));
     }
 
-
-
-    public int binarySearch1(int[] nums, int target) {
-        int left = 0;
-        int right = nums.length - 1;
-
-        while (left <= right) {
-            int mid =  (left + right) / 2;
-            if (nums[mid] == target) {
-                right = mid - 1;
-            } else if (nums[mid] < target) {
-                left = mid + 1;
-            } else if (nums[mid] > target) {
-                right = mid - 1;
-            }
-        }
-        if (left >= nums.length || nums[left] != target) {
-            return -1;
-        }
-        return left;
+    public int[] solution(int[] nums, int K) {
+        quickSort(nums, 0, nums.length - 1, K);
+        return Arrays.copyOfRange(nums, nums.length - K, nums.length);
     }
 
-    public int binarySearch2(int[] nums, int target) {
-        int left = 0;
-        int right = nums.length - 1;
+    private void quickSort(int[] nums, int left, int right, int K) {
+        int mid = patition(nums, left, right);
+        if (mid == nums.length - K) {
+            return;
+        } else if (mid > nums.length - K) {
+            quickSort(nums, 0, mid, K);
+        } else {
+            quickSort(nums, mid + 1, right, K);
+        }
+    }
 
-        while (left <= right) {
-            int mid =  (left + right) / 2;
-            if (nums[mid] == target) {
-                left = mid + 1;
-            } else if (nums[mid] < target) {
-                left = mid + 1;
-            } else if (nums[mid] > target) {
-                right = mid - 1;
+    private int patition(int[] nums, int left, int right) {
+        int p1 = left;
+        int p2 = right;
+        int pivot = nums[right];
+        while (p1 < p2) {
+            while (p1 < p2 && nums[p1] < pivot) {
+                p1++;
             }
+            while (p1 < p2 && nums[p2] > pivot) {
+                p2--;
+            }
+            swap(nums, p1, p2);
         }
-        if (right < 0 || nums[right] != target) {
-            return -1;
-        }
-        return left;
+        swap(nums, p1, right);
+        return p1;
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }

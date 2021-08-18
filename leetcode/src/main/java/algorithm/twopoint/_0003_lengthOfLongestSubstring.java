@@ -1,6 +1,8 @@
 package algorithm.twopoint;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -12,27 +14,24 @@ import java.util.Set;
  */
 public class _0003_lengthOfLongestSubstring {
 
-    public static void main(String[] args) {
-
-    }
 
     public int lengthOfLongestSubstring(String s) {
-        int N = s.length();
-        if (N <= 1) {
-            return N;
+        if (s.length() <= 1) {
+            return s.length();
         }
 
+        int N = s.length();
         Set<Character> set = new HashSet<>();
-        int right = 0;
-        int ret = 0;
-        for (int left = 0; left < N; left++) {
-            while (right < N && !set.contains(s.charAt(right))) {
-                set.add(s.charAt(right));
-                right++;
+        int res = 0;
+        int left = 0;
+        for (int right = 0; right < N; right++) {
+            while (set.contains(s.charAt(right))) {
+                set.remove(s.charAt(left));
+                left++;
             }
-            ret = Math.max(ret, right - left);
-            set.remove(s.charAt(left));
+            set.add(s.charAt(right));
+            res = Math.max(res, set.size());
         }
-        return ret;
+        return res;
     }
 }

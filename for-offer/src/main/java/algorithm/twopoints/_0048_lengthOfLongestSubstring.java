@@ -19,19 +19,18 @@ public class _0048_lengthOfLongestSubstring {
             return s.length();
         }
 
-        char[] arr = s.toCharArray();
-        Map<Character, Integer> map = new HashMap<>();
+        Set<Character> set = new HashSet<>();
         int res = 0;
-        int left = -1;
-
+        int left = 0;
         for (int right = 0; right < s.length(); right++) {
-            if (map.containsKey(arr[right])) {
-                left = Math.max(left, map.get(arr[right]));
+            char c = s.charAt(right);
+            while (!set.isEmpty() && set.contains(c)) {
+                set.remove(s.charAt(left));
+                left++;
             }
-            map.put(arr[right], right);
-            res = Math.max(res, right - left);
+            set.add(s.charAt(right));
+            res = Math.max(res, set.size());
         }
-
         return res;
     }
 }

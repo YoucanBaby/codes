@@ -58,8 +58,6 @@ public class _0632_smallestRange {
         return res;
     }
 
-
-
     public int[] smallestRange1(List<List<Integer>> nums) {
         int N = 0;          // 元素总数
         for (List<Integer> num : nums) {
@@ -99,5 +97,56 @@ public class _0632_smallestRange {
             }
         }
         return res;
+    }
+
+
+    public int[] smallestRange2(List<List<Integer>> nums) {
+        Map<Integer, List<Integer>> map = new HashMap<>();            // <值, [区间的位置]>
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        // 找出最大值，最小值，初始化map
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = 0; j < nums.get(i).size(); j++) {
+                if (!map.containsKey(nums.get(i).get(j))) {
+                    map.put(nums.get(i).get(j), new ArrayList<Integer>());
+                }
+                map.get(nums.get(i).get(j)).add(i);
+                max = Math.max(max, nums.get(i).get(j));
+                min = Math.min(min, nums.get(i).get(j));
+            }
+        }
+
+        int[] count = new int[nums.size()];     // 在滑动窗口中，每个区间的个数
+        int size = 0;                           // 合格区间的个数
+        int start = - (int) 1e5;                // 结果
+        int end = (int) 1e5;
+        
+        int left = min;
+        for (int right = min; right <= max; right++) {
+            if (map.containsKey(right)) {
+                for (int index : map.get(right)) {
+                    count[index]++;
+                    if (count[index] == 1) {
+                        size++;
+                    }
+                }
+                while (size == nums.size()) {
+                    if (map.containsKey(left)) {
+                        if (right - left < end - start) {
+                            start = left;
+                            end = right;
+                        }
+                        for (int index : map.get(left)) {
+                            count[index]--;
+                            if (count[index] == 0) {
+                                size--;
+                            }
+                        }
+                    }
+                    left++;
+                }
+            }
+        }
+        return new int[] {start, end};
     }
 }

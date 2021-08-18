@@ -11,6 +11,32 @@ import java.util.Arrays;
  */
 public class _0567_checkInclusion {
 
+
+    public boolean checkInclusion3(String s1, String s2) {
+        if (s1.length() > s2.length()) {
+            return false;
+        }
+
+        int[] freq = new int[128];
+        for (int i = 0; i < s1.length(); i++) {
+            freq[s1.charAt(i)]++;
+        }
+        
+        int left = 0;
+        for (int right = 0; right < s2.length(); right++) {
+            freq[s2.charAt(right)]--;
+            while (freq[s2.charAt(right)] < 0) {
+                freq[s2.charAt(left)]++;
+                left++;
+            }
+            if (right - left + 1 == s1.length()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public boolean checkInclusion1(String s1, String s2) {
         int M = s1.length();
         int N = s2.length();
@@ -39,7 +65,6 @@ public class _0567_checkInclusion {
 
         return false;
     }
-
 
     public boolean checkInclusion2(String s1, String s2) {
         int M = s1.length();
@@ -95,4 +120,5 @@ public class _0567_checkInclusion {
 
         return false;
     }
+
 }
