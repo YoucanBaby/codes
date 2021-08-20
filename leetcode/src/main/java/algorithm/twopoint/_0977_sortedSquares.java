@@ -13,12 +13,11 @@ public class _0977_sortedSquares {
 
     public int[] sortedSquares(int[] nums) {
         int N = nums.length;
-        int left = 0;
-        int right = N - 1;
-
         int index = N - 1;
         int[] res = new int[N];
 
+        int left = 0;
+        int right = N - 1;
         while (left <= right) {
             if (Math.abs(nums[left]) < Math.abs(nums[right])) {
                 res[index] = (int) Math.pow(nums[right], 2);
@@ -30,7 +29,6 @@ public class _0977_sortedSquares {
                 left++;
             }
         }
-
         return res;
     }
 }

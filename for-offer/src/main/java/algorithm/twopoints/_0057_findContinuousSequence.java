@@ -45,4 +45,26 @@ public class _0057_findContinuousSequence {
 
         return res.toArray(new int[0][0]);
     }
+
+    public int[][] findContinuousSequence1(int target) {
+        List<int[]> res = new ArrayList<>();
+        int sum = 0;
+
+        int left = 1;
+        for (int right = 1; right < target; right++) {
+            sum += right;
+            while (sum > target) {
+                sum -= left;
+                left++;
+            }
+            if (sum == target) {
+                int[] temp = new int[right - left + 1];
+                for (int i = left; i <= right; i++) {
+                    temp[i - left] = i;
+                }
+                res.add(temp);
+            }
+        }
+        return res.toArray(new int[0][0]);
+    }
 }

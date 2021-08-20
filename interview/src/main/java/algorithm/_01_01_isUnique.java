@@ -20,7 +20,7 @@ public class _01_01_isUnique {
             if ((mark & bitIndex) != 0) {
                 return false;
             } else {
-                mark = (mark | bitIndex);
+                mark |= bitIndex;
             }
         }
         return true;

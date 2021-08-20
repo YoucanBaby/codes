@@ -15,11 +15,11 @@ public class _0334_increasingTriplet {
         int mid = Integer.MAX_VALUE;
 
         for (int num : nums) {
-            if (small >= num) {
+            if (num <= small) {
                 small = num;
-            } else if (mid >= num) {
+            } else if (num <= mid) {
                 mid = num;
-            } else if (mid < num) {
+            } else {
                 return true;
             }
         }

@@ -10,19 +10,18 @@ package algorithm.twopoints;
 public class _0058_reverseWords {
 
     public String reverseWords(String s) {
-        s = s.trim();       // 删除首尾空格
+        s = s.trim();                           // 删除首尾空格
         String[] strs = s.split(" ");    // 以空格分割字符串s
         StringBuilder sb = new StringBuilder();
 
         for (String str : strs) {
-            if (str.equals("")) {
+            if (str.equals("")) {               // 遇到空字符串就跳过
                 continue;
             } else {
                 sb.insert(0, " ");
                 sb.insert(0, str);
             }
         }
-
-        return sb.toString().trim();
+        return sb.toString().trim();            // 最后删除首位的空格
     }
 }

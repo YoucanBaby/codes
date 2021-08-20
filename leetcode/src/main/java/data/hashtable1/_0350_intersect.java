@@ -1,4 +1,4 @@
-package data.matrix;
+package data.hashtable1;
 
 import java.util.*;
 

@@ -14,20 +14,17 @@ public class _0006_reversePrint {
     }
 
     public int[] reversePrint(ListNode head) {
-        ListNode cur = head;
         int N = 0;
-
-        while (cur != null) {
+        for (ListNode cur = head; cur != null; cur = cur.next) {
             N++;
-            cur = cur.next;
         }
 
-        int[] ret = new int[N];
-        cur = head;
+        int[] res = new int[N];
+        ListNode cur = head;
         for (int i = N - 1; i >= 0; i--) {
-            ret[i] = cur.val;
+            res[i] = cur.val;
             cur = cur.next;
         }
-        return ret;
+        return res;
     }
 }

@@ -18,10 +18,10 @@ public class _0021_exchange {
         int right = nums.length - 1;
 
         while (left < right) {
-            while (left < right && nums[left] % 2 == 1) {
+            while (left < right && (nums[left] & 1) == 1) {
                 left++;
             }
-            while (left < right && nums[right] % 2 == 0) {
+            while (left < right && (nums[right] & 1) == 0) {
                 right--;
             }
             swap(nums, left, right);

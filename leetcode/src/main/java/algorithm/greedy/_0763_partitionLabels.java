@@ -30,7 +30,6 @@ public class _0763_partitionLabels {
                 left = i + 1;
             }
         }
-
         return res;
     }
 }

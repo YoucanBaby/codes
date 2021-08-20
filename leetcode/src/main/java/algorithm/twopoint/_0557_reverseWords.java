@@ -1,4 +1,4 @@
-package data.matrix;
+package algorithm.twopoint;
 
 /**
  * @BelongsProject: codes
