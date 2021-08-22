@@ -12,26 +12,21 @@ import java.util.Set;
  */
 public class _0653_findTarget {
 
-    public boolean findTarget(TreeNode root, int k) {
-        Set<Integer> set = new HashSet<>();
-        boolean res = dfs(root, k, set);
-        return res;
-    }
+    Set<Integer> set = new HashSet<>();
 
-    public boolean dfs(TreeNode root, int k, Set<Integer> set) {
+    public boolean findTarget(TreeNode root, int target) {
         if (root == null) {
             return false;
         }
 
-
         if (set.contains(root.val)) {
             return true;
         } else {
-            set.add(k - root.val);
+            set.add(target - root.val);
         }
 
-        boolean left = dfs(root.left, k, set);
-        boolean right = dfs(root.right, k, set);
+        boolean left = findTarget(root.left, target);
+        boolean right = findTarget(root.right, target);
 
         return left || right;
     }

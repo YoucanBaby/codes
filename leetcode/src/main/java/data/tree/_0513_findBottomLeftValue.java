@@ -9,15 +9,15 @@ package data.tree;
  */
 public class _0513_findBottomLeftValue {
 
-    int maxDepth = -1;
     int res = 0;
+    int maxDepth = 0;
 
     public int findBottomLeftValue(TreeNode root) {
         dfs(root, 1);
         return res;
     }
 
-    public void dfs(TreeNode root, int depth) {
+    private void dfs(TreeNode root, int depth) {
         if (root == null) {
             return;
         }
@@ -26,6 +26,7 @@ public class _0513_findBottomLeftValue {
             res = root.val;
             maxDepth = depth;
         }
+
         dfs(root.left, depth + 1);
         dfs(root.right, depth + 1);
     }

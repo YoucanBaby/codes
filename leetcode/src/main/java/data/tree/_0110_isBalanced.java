@@ -10,20 +10,19 @@ package data.tree;
 public class _0110_isBalanced {
 
     public boolean isBalanced(TreeNode root) {
-        return recur(root) == -1 ? false : true;
+        return dfs(root) == -1 ? false : true;
     }
 
-    public int recur(TreeNode root) {
+    public int dfs(TreeNode root) {
         if (root == null) {
             return 0;
         }
 
-        int leftDepth = recur(root.left);
+        int leftDepth = dfs(root.left);
         if (leftDepth == -1) {
             return -1;
         }
-
-        int rightDepth = recur(root.right);
+        int rightDepth = dfs(root.right);
         if (rightDepth == -1) {
             return -1;
         }
@@ -32,6 +31,33 @@ public class _0110_isBalanced {
             return Math.max(leftDepth, rightDepth) + 1;
         } else {
             return -1;
+        }
+    }
+
+    class Solution {
+        public boolean isBalanced(TreeNode root) {
+            return dfs(root) == -1 ? false : true;
+        }
+
+        public int dfs(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+
+            int leftDepth = dfs(root.left);
+            if (leftDepth == -1) {
+                return -1;
+            }
+            int rightDepth = dfs(root.right);
+            if (rightDepth == -1) {
+                return -1;
+            }
+
+            if (Math.abs(leftDepth - rightDepth) <= 1) {
+                return Math.max(leftDepth, rightDepth) + 1;
+            } else {
+                return -1;
+            }
         }
     }
 }

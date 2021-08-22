@@ -12,30 +12,28 @@ import java.util.List;
  */
 public class _0257_binaryTreePaths {
 
-    public static void main(String[] args) {
 
-    }
 
     public List<String> binaryTreePaths(TreeNode root) {
-        List<String> paths = new ArrayList<>();
-        constructPaths(root, "", paths);
-        return paths;
+        List<String> res = new ArrayList<>();
+        constructPaths(root, res, "");
+        return res;
     }
 
-    public void constructPaths(TreeNode root, String s, List<String> paths) {
+    public void constructPaths(TreeNode root, List<String> res, String path) {
         if (root == null) {
             return;
         }
 
-        StringBuilder path = new StringBuilder(s);
-        path.append(root.val);
+        StringBuilder sb = new StringBuilder(path);
+        sb.append(root.val);
 
         if (root.left == null && root.right == null) {
-            paths.add(path.toString());
+            res.add(sb.toString());
         } else {
-            path.append("->");
-            constructPaths(root.left, path.toString(), paths);
-            constructPaths(root.right, path.toString(), paths);
+            sb.append("->");
+            constructPaths(root.left, res, sb.toString());
+            constructPaths(root.right, res, sb.toString());
         }
     }
 }

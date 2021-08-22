@@ -13,8 +13,6 @@ public class _0404_sumOfLeftLeaves {
 
     }
 
-    int sum = 0;
-
     public int sumOfLeftLeaves(TreeNode root) {
         return dfs(root, false);
     }
@@ -28,38 +26,10 @@ public class _0404_sumOfLeftLeaves {
         if (flag == true && root.left == null && root.right == null) {
             value = root.val;
         }
+
         int leftValue = dfs(root.left, true);
-        int rightValue = dfs(root.right,false);
+        int rightValue = dfs(root.right, false);
 
-        return leftValue + rightValue + value;
+        return value + leftValue + rightValue;
     }
-
-    public int sumOfTree(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-
-        int value = root.val;
-        int leftValue = sumOfTree(root.left);
-        int rightValue = sumOfTree(root.right);
-
-        return leftValue + rightValue + value;
-    }
-
-    public int sumOfLeaves(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-
-        int value = 0;
-        if (root.left == null && root.right == null) {
-            value = root.val;
-        }
-
-        int leftValue = sumOfLeaves(root.left);
-        int rightValue = sumOfLeaves(root.right);
-
-        return leftValue + rightValue + value;
-    }
-
 }

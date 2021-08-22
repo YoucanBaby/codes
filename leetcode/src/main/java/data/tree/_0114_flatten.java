@@ -9,6 +9,7 @@ package data.tree;
  */
 public class _0114_flatten {
 
+
     public void flatten(TreeNode root) {
         if (root == null) {
             return;
@@ -17,13 +18,15 @@ public class _0114_flatten {
         flatten(root.left);
         flatten(root.right);
 
+        TreeNode left = root.left;
         TreeNode right = root.right;
-        root.right = root.left;
         root.left = null;
+        root.right = left;
 
-        while (root.right != null) {
-            root = root.right;
+        TreeNode cur = root;
+        while (cur.right != null) {
+            cur = cur.right;
         }
-        root.right = right;
+        cur.right = right;
     }
 }

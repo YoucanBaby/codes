@@ -21,10 +21,8 @@ public class _0112_hasPathSum {
         if (root.left == null && root.right ==null) {
             return root.val == sum;
         }
-        boolean left = hasPathSum(root.left, sum - root.val);
-        boolean right = hasPathSum(root.right, sum - root.val);
 
-        return left || right;
+        return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
     }
 
 

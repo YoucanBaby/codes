@@ -8,6 +8,8 @@ package data.tree;
  * @Description:
  */
 public class _0572_isSubtree {
+
+
     class Solution {
         public boolean isSubtree(TreeNode A, TreeNode B) {
             if (A == null && B == null) {
@@ -29,8 +31,7 @@ public class _0572_isSubtree {
             }
 
             if (A.val == B.val) {
-                return isSameTree(A.left, B.left)
-                        && isSameTree(A.right, B.right);
+                return isSameTree(A.left, B.left) && isSameTree(A.right, B.right);
             } else {
                 return false;
             }

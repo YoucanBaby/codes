@@ -12,30 +12,27 @@ import java.util.List;
  */
 public class _0113_pathSum {
 
-    public static void main(String[] args) {
+    List<List<Integer>> res = new ArrayList<>();
+    List<Integer> path = new ArrayList<>();
 
+    public List<List<Integer>> pathSum(TreeNode root, int target) {
+        dfs(root, target);
+        return res;
     }
 
-    public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> paths = new ArrayList<>();
-        dfs(root, sum, paths, new ArrayList<Integer>());
-        return paths;
-    }
-
-    public void dfs(TreeNode root, int sum, List<List<Integer>> paths, List<Integer> path) {
+    public void dfs(TreeNode root, int target) {
         if (root == null) {
             return;
         }
 
         path.add(root.val);
-
-        if (root.left == null && root.right == null) {
-            if (root.val == sum) {
-                paths.add(path);
-            }
-        } else {
-            dfs(root.left, sum - root.val, paths, path);
-            dfs(root.right, sum - root.val, paths, path);
+        if (root.val == target && root.left == null && root.right == null) {
+            res.add(new ArrayList<>(path));
         }
+
+        dfs(root.left, target - root.val);
+        dfs(root.right, target - root.val);
+
+        path.remove(path.size() - 1);
     }
 }

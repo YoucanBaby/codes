@@ -13,24 +13,14 @@ public class _0111_minDepth {
         if (root == null) {
             return 0;
         }
-        if (root.left == null && root.right == null) {
-            return 1;
-        }
 
-        int leftDepth = minDepth(root.left);
-        int rightDepth = minDepth(root.right);
-        int depth = 0;
-        if (root.left == null) {
-            depth = rightDepth + 1;
-        }
-        else if (root.right == null) {
-            depth = leftDepth + 1;
+        int leftMinDepth = minDepth(root.left);
+        int rightMinDepth = minDepth(root.right);
+
+        if (root.left == null || root.right == null) {
+            return Math.max(leftMinDepth, rightMinDepth) + 1;
         } else {
-            depth = Math.min(leftDepth, rightDepth) + 1;
+            return Math.min(leftMinDepth, rightMinDepth) + 1;
         }
-
-        return depth;
     }
-
-
 }

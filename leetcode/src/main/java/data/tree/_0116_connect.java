@@ -21,56 +21,25 @@ public class _0116_connect {
         public Node next;
     }
 
-    public Node connect1(Node root) {
-        if (root == null) {
-            return null;
-        }
-
-        Deque<Node> deque = new ArrayDeque<>();
-        deque.addLast(root);
-
-        while (!deque.isEmpty()) {
-            List<Node> level = new ArrayList<>();
-
-            int N = deque.size();
-            for (int i = 0; i < N; i++) {
-                Node cur = deque.removeFirst();
-                level.add(cur);
-
-                if (cur.left != null) {
-                    deque.addLast(cur.left);
-                }
-                if (cur.right != null) {
-                    deque.addLast(cur.right);
-                }
-            }
-
-            int M = level.size();
-            for (int i = 0; i < M - 1; i++) {
-                level.get(i).next = level.get(i + 1);
-            }
-        }
-
-        return root;
-    }
-
     // 递归
     public Node connect(Node root) {
         if (root == null) {
             return null;
         }
-
-        if (root.left != null) {
-            root.left.next = root.right;
-        }
-        if (root.right != null && root.next != null) {
-            root.right.next = root.next.left;
-        }
-        connect(root.left);
-        connect(root.right);
-
-
+        connectTwoNodes(root.left, root.right);
         return root;
+    }
+
+    private void connectTwoNodes(Node node1, Node node2) {
+        if (node1 == null || node2 == null) {
+            return;
+        }
+        node1.next = node2;
+
+        connectTwoNodes(node1.left, node1.right);
+        connectTwoNodes(node2.left, node2.right);
+
+        connectTwoNodes(node1.right, node2.left);
     }
 }
 

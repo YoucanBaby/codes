@@ -1,5 +1,8 @@
 package data.tree;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @BelongsProject: codes
  * @BelongsPackage: data.tree
@@ -9,25 +12,28 @@ package data.tree;
  */
 public class _0437_pathSum {
 
-    public int pathSum(TreeNode root, int sum) {
-        if (root == null) {
-            return 0;
-        }
+    Map<Integer, Integer> preSumCount =  new HashMap<Integer, Integer>();   // <前缀和，前缀和出现的次数>
 
-        return recur(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
+    public int pathSum(TreeNode root, int target) {
+        preSumCount.put(0, 1);
+        return dfs(root, target, 0);
     }
 
-    public int recur(TreeNode root, int sum) {
+    // 根节点root，目标值target，当前路径上的和sum
+    private int dfs(TreeNode root, int target, int sum) {
         if (root == null) {
             return 0;
         }
 
-        sum -= root.val;
-        int temp = 0;
-        if (sum == 0) {
-            temp = 1;
-        }
+        int res = 0;
+        sum += root.val;
+        res += preSumCount.getOrDefault(sum - target, 0);
+        preSumCount.put(sum, preSumCount.getOrDefault(sum, 0) + 1);
 
-        return temp + recur(root.left, sum) + recur(root.right, sum);
+        res += dfs(root.left, target, sum);
+        res += dfs(root.right, target, sum);
+
+        preSumCount.put(sum, preSumCount.getOrDefault(sum, 0) - 1);
+        return res;
     }
 }
