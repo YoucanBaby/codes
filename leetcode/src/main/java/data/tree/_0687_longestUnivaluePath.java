@@ -27,10 +27,10 @@ public class _0687_longestUnivaluePath {
         int arrowLeft = 0;
         int arrowRight = 0;
         if (root.left != null && root.left.val == root.val) {
-            arrowLeft += left + 1;
+            arrowLeft = left + 1;
         }
         if (root.right != null && root.right.val == root.val) {
-            arrowRight += right + 1;
+            arrowRight = right + 1;
         }
         res = Math.max(res, arrowLeft + arrowRight);
 
