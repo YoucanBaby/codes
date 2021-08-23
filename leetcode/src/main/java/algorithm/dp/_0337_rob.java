@@ -27,4 +27,25 @@ public class _0337_rob {
 
         return new int[] {dp0, dp1};
     }
+
+
+    class Solution {
+        public int rob(TreeNode root) {
+            int[] res = dfs(root);
+            return Math.max(res[0], res[1]);
+        }
+
+        private int[] dfs(TreeNode root) {
+            if (root == null) {
+                return new int[] {0,0};
+            }
+
+            int[] left = dfs(root.left);
+            int[] right = dfs(root.right);
+
+            int dp0 = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+            int dp1 = root.val + left[0] + right[0];
+            return new int[] {dp0, dp1};
+        }
+    }
 }

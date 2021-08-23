@@ -26,12 +26,13 @@ public class _0113_pathSum {
         }
 
         path.add(root.val);
-        if (root.val == target && root.left == null && root.right == null) {
+        target -= root.val;
+        if (target == 0 && root.left == null && root.right == null) {
             res.add(new ArrayList<>(path));
         }
 
-        dfs(root.left, target - root.val);
-        dfs(root.right, target - root.val);
+        dfs(root.left, target);
+        dfs(root.right, target);
 
         path.remove(path.size() - 1);
     }

@@ -1,5 +1,8 @@
 package data.tree;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * @BelongsProject: codes
  * @BelongsPackage: data.tree
@@ -10,23 +13,17 @@ package data.tree;
 public class _0033_verifyPostorder {
 
     public boolean verifyPostorder(int[] postorder) {
-        return recur(postorder, 0, postorder.length - 1);
-    }
-
-    public boolean recur(int[] postorder, int left, int right) {
-        if (left >= right) {
-            return true;
+        Deque<Integer> stack = new ArrayDeque<>();      // 右边是栈顶
+        int root = Integer.MAX_VALUE;
+        for (int i = postorder.length - 1; i >= 0; i--) {
+            if (postorder[i] > root) {
+                return false;
+            }
+            while (!stack.isEmpty() && stack.getLast() > postorder[i]) {
+                root = stack.removeLast();
+            }
+            stack.addLast(postorder[i]);
         }
-
-        int index = left;
-        while (postorder[index] < postorder[right]) {
-            index++;
-        }
-        int mid = index;
-        while (postorder[index] > postorder[right]) {
-            index++;
-        }
-
-        return index == right && recur(postorder, left, mid - 1) && recur(postorder, mid, right - 1);
+        return true;
     }
 }

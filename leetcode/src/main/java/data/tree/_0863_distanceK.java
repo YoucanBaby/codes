@@ -23,38 +23,37 @@ public class _0863_distanceK {
         return res;
     }
 
+    // 前序遍历，找目标节点，并把它的父亲节点变成根节点
     public boolean dfs(TreeNode root, TreeNode target, TreeNode father) {
         if (root == null) {
             return false;
         }
-        // 如果搜到了目标节点，那么它爸爸就是新树的根，
+
         if (root == target) {
-            this.father = father;
+            this.father = father;                   // 如果当前节点是目标节点
             return true;
         }
-        // 如果我成了左儿子的儿子，那我的爸爸就是我的新的左儿子
-        if (dfs(root.left, target, root)) {
+
+        if (dfs(root.left, target, root)) {         // 如果当前节点的左儿子是目标节点，那它的左节点改成它的父亲
             root.left = father;
             return true;
         }
-        // 如果我成了我右儿子的儿子，那我的爸爸就是我的新的右儿子
-        if (dfs(root.right, target, root)) {
+        if (dfs(root.right, target, root)) {        // 如果当前节点的右儿子是目标节点，那它的右节点改成它的父亲
             root.right = father;
             return true;
         }
-        // 递归的时候返回：爸爸
         return false;
     }
 
+    // 前序遍历，找深度为k的节点的值
     public void search(TreeNode root, int depth, int K) {
         if (root == null) {
             return;
         }
         if (depth == K) {
             res.add(root.val);
-        } else {
-            search(root.left, depth + 1, K);
-            search(root.right, depth + 1, K);
         }
+        search(root.left, depth + 1, K);
+        search(root.right, depth + 1, K);
     }
 }

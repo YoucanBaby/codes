@@ -12,27 +12,23 @@ import java.util.Map;
  */
 public class _0105_buildTree {
 
-    public static void main(String[] args) {
-
-    }
-
+    int[] preorder;
     Map<Integer, Integer> map;
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        int preLen = preorder.length;
-        int inLen = inorder.length;
-
-        map = new HashMap<>();
-        for (int i = 0; i < inLen; i++) {
+        this.preorder = preorder;
+        this.map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
             map.put(inorder[i], i);
         }
 
-        return buildTree(preorder, 0, preLen - 1, inorder, 0, inLen);
+        return buildTree(0, preorder.length - 1,
+                0, inorder.length - 1);
     }
 
-    public TreeNode buildTree(int[] preorder, int preLeft, int preRight,
-                              int[] inorder, int inLeft, int inRight) {
-
+    // 前序遍历数组的左/右边界，中序遍历数组的左/右边界
+    public TreeNode buildTree(int preLeft, int preRight,
+                              int inLeft, int inRight) {
         if (preLeft > preRight || inLeft > inRight) {
             return null;
         }
@@ -41,12 +37,49 @@ public class _0105_buildTree {
         TreeNode root = new TreeNode(rootValue);
         int pIndex = map.get(rootValue);
 
-        root.left = buildTree(preorder, preLeft + 1, pIndex - inLeft + preLeft,
-                            inorder, inLeft, pIndex - 1);
-
-        root.right = buildTree(preorder, pIndex - inLeft + preLeft + 1, preRight,
-                            inorder, pIndex + 1, inRight);
+        root.left = buildTree(preLeft + 1, preLeft + pIndex - inLeft,
+                inLeft, pIndex - 1);
+        root.right = buildTree(preLeft + pIndex - inLeft + 1, preRight,
+                pIndex + 1, inRight);
 
         return root;
+    }
+
+
+
+    // 练习
+    class Solution {
+        int[] preorder;
+        Map<Integer, Integer> map;
+
+        public TreeNode buildTree(int[] preorder, int[] inorder) {
+            this.preorder = preorder;
+            this.map = new HashMap<>();
+            for (int i = 0; i < inorder.length; i++) {
+                map.put(inorder[i], i);
+            }
+
+            return buildTree(0, preorder.length - 1,
+                             0, inorder.length - 1);
+        }
+
+        // 前序遍历数组的左/右边界，中序遍历数组的左/右边界
+        public TreeNode buildTree(int preLeft, int preRight,
+                                  int inLeft, int inRight) {
+            if (preLeft > preRight || inLeft > inRight) {
+                return null;
+            }
+
+            int rootValue = preorder[preLeft];
+            TreeNode root = new TreeNode(rootValue);
+            int pIndex = map.get(rootValue);
+
+            root.left = buildTree(preLeft + 1, preLeft + pIndex - inLeft,
+                                  inLeft, pIndex - 1);
+            root.right = buildTree(preLeft + pIndex - inLeft + 1, preRight,
+                                   pIndex + 1, inRight);
+
+            return root;
+        }
     }
 }

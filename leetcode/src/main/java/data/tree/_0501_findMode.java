@@ -12,46 +12,48 @@ import java.util.List;
  */
 public class _0501_findMode {
 
-    int preValue;
-    int count = 0;
-    int maxCount = 0;
-    List<Integer> list = new ArrayList<>();
 
-    public int[] findMode(TreeNode root) {
-        dfs(root);
+    class Solution {
+        int preValue = 0;
+        int count = 0;
+        int maxCount = 0;
+        List<Integer> list = new ArrayList<>();
 
-        int[] res = new int[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            res[i] = list.get(i);
+        public int[] findMode(TreeNode root) {
+            dfs(root);
+
+            int[] res = new int[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                res[i] = list.get(i);
+            }
+            return res;
         }
 
-        return res;
-    }
+        private void dfs(TreeNode root) {
+            if (root == null) {
+                return;
+            }
 
-    public void dfs(TreeNode root) {
-        if (root == null) {
-            return;
+            dfs(root.left);
+            update(root.val);
+            dfs(root.right);
         }
 
-        dfs(root.left);
-        update(root.val);
-        dfs(root.right);
-    }
+        private void update(int val) {
+            if (val == preValue) {
+                count++;
+            } else {
+                preValue = val;
+                count = 1;
+            }
 
-    public void update(int val) {
-        if (val == preValue) {
-            count++;
-        } else {
-            preValue = val;
-            count = 1;
-        }
-
-        if (count == maxCount) {
-            list.add(preValue);
-        } else if (count > maxCount) {
-            list.clear();
-            list.add(preValue);
-            maxCount = count;
+            if (count == maxCount) {
+                list.add(preValue);
+            } else if (count > maxCount) {
+                list.clear();
+                list.add(preValue);
+                maxCount = count;
+            }
         }
     }
 }

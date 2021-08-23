@@ -11,9 +11,6 @@ import java.util.*;
  */
 public class _0144_preorderTraversal {
 
-    public static void main(String[] args) {
-
-    }
 
     // 迭代
     public List<Integer> preorderTraversal1(TreeNode root) {
@@ -37,11 +34,9 @@ public class _0144_preorderTraversal {
                 stack.addFirst(node);           // 中
                 stack.addFirst(null);
             } else {
-                node = stack.removeFirst();
-                res.add(node.val);
+                res.add(stack.removeFirst().val);
             }
         }
-
         return res;
     }
 
@@ -59,5 +54,12 @@ public class _0144_preorderTraversal {
         res.add(root.val);
         preorder(root.left, res);
         preorder(root.right, res);
+    }
+
+    // 练习迭代
+    class Solution {
+        public List<Integer> preorderTraversal(TreeNode root) {
+            return null;
+        }
     }
 }

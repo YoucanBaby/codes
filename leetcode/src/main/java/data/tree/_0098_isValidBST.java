@@ -9,27 +9,23 @@ package data.tree;
  */
 public class _0098_isValidBST {
 
-    public static void main(String[] args) {
 
-    }
+    class Solution {
+        TreeNode pre;           // 上一次处理的节点
 
-    // 上一次处理的节点
-    TreeNode pre;
+        public boolean isValidBST(TreeNode root) {
+            if (root == null) {
+                return true;
+            }
 
-    public boolean isValidBST(TreeNode root) {
-        if (root == null) {
-            return true;
+            boolean left = isValidBST(root.left);
+            if (pre != null && pre.val >= root.val) {
+                return false;
+            }
+            pre = root;
+            boolean right = isValidBST(root.right);
+
+            return left && right;
         }
-
-        boolean L = isValidBST(root.left);
-
-        if (pre != null && pre.val >= root.val) {
-            return false;
-        }
-        pre = root;
-
-        boolean R = isValidBST(root.right);
-
-        return L && R;
     }
 }

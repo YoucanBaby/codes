@@ -13,11 +13,11 @@ public class _0559_maxDepth {
         if (root == null) {
             return 0;
         }
-        int maxDepth = 1;
+
+        int max = 0;
         for (Node node : root.children) {
-            int depth = maxDepth(node) + 1;
-            maxDepth = Math.max(maxDepth, depth);
+            max = Math.max(max, maxDepth(node));
         }
-        return maxDepth;
+        return max + 1;
     }
 }

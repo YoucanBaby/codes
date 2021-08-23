@@ -46,4 +46,33 @@ public class _0109_sortedListToBST {
         return root;
     }
 
+
+    class Solution {
+        public TreeNode sortedListToBST(ListNode head) {
+            if (head == null) {
+                return null;
+            }
+            if (head.next == null) {
+                return new TreeNode(head.val);      // 只有一个节点就提前返回
+            }
+
+            ListNode pre = null;
+            ListNode slow = head;
+            ListNode fast = head;
+            while (fast != null && fast.next != null) {
+                pre = slow;
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            ListNode next = slow.next;
+            pre.next = null;        // 断开节点，避免成环
+            slow.next = null;
+
+            TreeNode root = new TreeNode(slow.val);
+            root.left = sortedListToBST(head);
+            root.right = sortedListToBST(next);
+
+            return root;
+        }
+    }
 }

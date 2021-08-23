@@ -38,11 +38,9 @@ public class _0145_postorderTraversal {
                     stack.addFirst(node.left);      // 左
                 }
             } else {
-                node = stack.removeFirst();
-                res.add(node.val);
+                res.add(stack.removeFirst().val);
             }
         }
-
         return res;
     }
 

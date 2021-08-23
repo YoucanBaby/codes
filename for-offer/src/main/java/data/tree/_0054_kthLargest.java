@@ -24,11 +24,10 @@ public class _0054_kthLargest {
         }
 
         dfs(root.right);
+        k--;
         if (k == 0) {
-            return;
-        } else {
             res = root.val;
-            k--;
+            return;
         }
         dfs(root.left);
     }

@@ -1,6 +1,7 @@
 package data.tree.nTree;
 
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import data.tree.TreeNode;
 
 import java.util.*;
@@ -24,17 +25,15 @@ public class _0429_levelOrder {
         deque.addLast(root);
 
         while (!deque.isEmpty()) {
-            int N = deque.size();
             List<Integer> level = new ArrayList<>();
+            int size = deque.size();
 
-            for (int i = 0; i < N; i++) {
+            for (int i = 0; i < size; i++) {
                 Node node = deque.removeFirst();
                 if (node != null) {
                     level.add(node.val);
                 }
-
                 deque.addAll(node.children);
-
             }
             res.add(level);
         }

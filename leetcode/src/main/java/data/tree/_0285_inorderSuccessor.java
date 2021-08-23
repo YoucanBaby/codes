@@ -25,4 +25,18 @@ public class _0285_inorderSuccessor {
             }
         }
     }
+
+
+    public TreeNode inorderSuccessor1(TreeNode root, TreeNode p) {
+        TreeNode res = null;
+        while (root != null) {
+            if (root.val <= p.val) {
+                root = root.right;
+            } else {
+                res = root;
+                root = root.left;
+            }
+        }
+        return res;
+    }
 }

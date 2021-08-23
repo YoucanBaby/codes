@@ -37,11 +37,9 @@ public class _0094_inorderTraversal {
                     stack.addFirst(node.left);      // 左
                 }
             } else {
-                node = stack.removeFirst();
-                res.add(node.val);
+                res.add(stack.removeFirst().val);
             }
         }
-
         return res;
     }
 

@@ -14,9 +14,6 @@ import java.util.List;
  */
 public class _0107_levelOrderBottom {
 
-    public static void main(String[] args) {
-
-    }
 
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         if (root == null) {
@@ -28,10 +25,10 @@ public class _0107_levelOrderBottom {
         deque.addLast(root);
 
         while (!deque.isEmpty()) {
-            int N = deque.size();
+            int size = deque.size();
             List<Integer> level = new ArrayList<>();
 
-            for (int i = 0; i < N; i++) {
+            for (int i = 0; i < size; i++) {
                 root = deque.removeFirst();
                 level.add(root.val);
                 if (root.left != null) {
@@ -43,7 +40,6 @@ public class _0107_levelOrderBottom {
             }
             res.add(0, level);
         }
-
         return res;
     }
 }

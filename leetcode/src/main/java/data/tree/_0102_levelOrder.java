@@ -14,33 +14,32 @@ import java.util.List;
  */
 public class _0102_levelOrder {
 
-    public List<List<Integer>> levelOrder(TreeNode root) {
 
-        List<List<Integer>> res = new ArrayList<>();
+    public List<List<Integer>> levelOrder(TreeNode root) {
         if (root == null) {
-            return res;
+            return new ArrayList<>();
         }
 
+        List<List<Integer>> res = new ArrayList<>();
         Deque<TreeNode> deque = new ArrayDeque<>();
-        deque.addFirst(root);
+        deque.addLast(root);
 
         while (!deque.isEmpty()) {
-            int N = deque.size();
             List<Integer> level = new ArrayList<>();
+            int size = deque.size();
 
-            for (int i = 0; i < N; i++) {
-                TreeNode cur = deque.removeLast();
-                level.add(cur.val);
-                if (cur.left != null) {
-                    deque.addFirst(cur.left);
+            for (int i = 0; i < size; i++) {
+                TreeNode node = deque.removeFirst();
+                level.add(node.val);
+                if (node.left != null) {
+                    deque.addLast(node.left);
                 }
-                if (cur.right != null) {
-                    deque.addFirst(cur.right);
+                if (node.right != null) {
+                    deque.addLast(node.right);
                 }
             }
             res.add(level);
         }
-
         return res;
     }
 }

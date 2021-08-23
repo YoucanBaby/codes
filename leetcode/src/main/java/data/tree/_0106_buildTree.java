@@ -12,43 +12,39 @@ import java.util.Map;
  */
 public class _0106_buildTree {
 
-    public static void main(String[] args) {
-
-    }
-
+    int[] postorder;
     Map<Integer, Integer> map;
 
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-        int inLen = inorder.length;
-        int postLen = postorder.length;
-
-        map = new HashMap<>();
-        for (int i = 0; i < inLen; i++) {
+        this.postorder = postorder;
+        this.map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
             map.put(inorder[i], i);
         }
 
-        return buildTree(inorder, 0, inLen - 1,
-                    postorder, 0, postLen - 1);
+        return buildTree(0, inorder.length - 1,
+                0, postorder.length - 1);
     }
 
-    // 左右边界都能取到
-    public TreeNode buildTree(int[] inorder, int inLeft, int inRight,
-                              int[] postorder, int postLeft, int postRight) {
-
+    public TreeNode buildTree(int inLeft, int inRight,
+                              int postLeft, int postRight) {
         if (inLeft > inRight || postLeft > postRight) {
             return null;
         }
 
         int rootValue = postorder[postRight];
-        int pIndex = map.get(rootValue);
         TreeNode root = new TreeNode(rootValue);
+        int pIndex = map.get(rootValue);
 
-        root.left = buildTree(inorder, inLeft, pIndex - 1,
-                            postorder, postLeft, postRight - inRight + pIndex - 1);
-
-        root.right = buildTree(inorder, pIndex + 1, inRight,
-                            postorder, postRight - inRight + pIndex, postRight - 1);
-
+        root.left = buildTree(inLeft, pIndex - 1,
+                postLeft, postLeft + pIndex - inLeft - 1);
+        root.right = buildTree(pIndex + 1, inRight,
+                postLeft + pIndex - inLeft, postRight - 1);
         return root;
+    }
+
+
+    class Solution {
+
     }
 }

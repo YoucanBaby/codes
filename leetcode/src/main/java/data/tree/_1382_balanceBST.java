@@ -29,10 +29,8 @@ public class _1382_balanceBST {
     ArrayList<Integer> list = new ArrayList<>();
 
     public TreeNode balanceBST(TreeNode root) {
-        // 二叉搜索树转为动态数组
-        bst2List(root);
-        // 通过动态数组构造平衡的二叉搜索树
-        return dfs(0, list.size() - 1);
+        bst2List(root);                               // 二叉搜索树转为动态数组
+        return dfs(0, list.size() - 1);     // 通过动态数组构造平衡的二叉搜索树
     }
 
     public TreeNode dfs(int left, int right) {
@@ -53,9 +51,8 @@ public class _1382_balanceBST {
         if (root == null) {
             return;
         }
-        // 中序遍历
         bst2List(root.left);
-        list.add(root.val);
+        list.add(root.val);         // 中序遍历
         bst2List(root.right);
     }
 

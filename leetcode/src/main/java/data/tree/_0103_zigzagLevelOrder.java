@@ -29,7 +29,12 @@ public class _0103_zigzagLevelOrder {
 
             for (int i = 0; i < N; i++) {
                 TreeNode node = deque.removeFirst();
-                level.add(node.val);
+                if (flag) {
+                    level.add(node.val);
+                } else {
+                    level.add(0, node.val);
+                }
+
                 if (node.left != null) {
                     deque.add(node.left);
                 }
@@ -37,13 +42,9 @@ public class _0103_zigzagLevelOrder {
                     deque.add(node.right);
                 }
             }
-            if (!flag) {
-                Collections.reverse(level);
-            }
             res.add(level);
             flag = !flag;
         }
-
         return res;
     }
 }

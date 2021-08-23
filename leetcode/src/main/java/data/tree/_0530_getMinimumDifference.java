@@ -9,10 +9,6 @@ package data.tree;
  */
 public class _0530_getMinimumDifference {
 
-    public static void main(String[] args) {
-
-    }
-
     int res = Integer.MAX_VALUE;
     TreeNode pre;
 
@@ -21,16 +17,35 @@ public class _0530_getMinimumDifference {
             return 0;
         }
 
-        // 递归左子树
         getMinimumDifference(root.left);
-        // 如果root还在初始位置，即pre未初始化，就跳过这一步，把root赋给root
         if (pre != null) {
             res = Math.min(res, Math.abs(pre.val - root.val));
         }
         pre = root;
-        // 递归右子树
         getMinimumDifference(root.right);
 
         return res;
+    }
+
+    // 练习
+    class Solution {
+
+        int res = Integer.MAX_VALUE;
+        TreeNode pre = null;
+
+        public int getMinimumDifference(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+
+            getMinimumDifference(root.left);
+            if (pre != null) {
+                res = Math.min(res, Math.abs(pre.val - root.val));
+            }
+            pre = root;
+            getMinimumDifference(root.right);
+
+            return res;
+        }
     }
 }
