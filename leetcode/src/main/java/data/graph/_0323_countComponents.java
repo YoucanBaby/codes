@@ -11,25 +11,22 @@ import java.util.List;
  * @Description:
  */
 public class _0323_countComponents {
-    List<List<Integer>> list = new ArrayList<>();
-    int N;
+
+    List<List<Integer>> edges = new ArrayList<>();
     boolean[] visited;
 
-    public int countComponents(int n, int[][] edges) {
-        this.N = n;
+    public int countComponents(int N, int[][] graph) {
         visited = new boolean[N];
-        // 初始化所有的边
         for (int src = 0; src < N; src++) {
-            list.add(new ArrayList<>());
+            edges.add(new ArrayList<>());
         }
-        // 添加所有的边
-        for (int i = 0; i < edges.length; i++) {
-            int src = edges[i][0];
-            int dst = edges[i][1];
-            list.get(src).add(dst);
-            list.get(dst).add(src);
+        for (int i = 0; i < graph.length; i++) {
+            int src = graph[i][0];
+            int dst = graph[i][1];
+            edges.get(src).add(dst);
+            edges.get(dst).add(src);
         }
-        // 遍历所有的节点做DFS
+
         int count = 0;
         for (int src = 0; src < N; src++) {
             if (!visited[src]) {
@@ -42,7 +39,7 @@ public class _0323_countComponents {
 
     public void dfs(int src) {
         visited[src] = true;
-        for (int dst : list.get(src)) {
+        for (int dst : edges.get(src)) {
             if (!visited[dst]) {
                 dfs(dst);
             }

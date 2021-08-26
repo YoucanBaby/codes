@@ -7,20 +7,25 @@ import java.util.List;
  * @BelongsProject: codes
  * @BelongsPackage: data.graph
  * @Author: xuyifang
- * @CreateTime: 2021-07-08 17:51
+ * @CreateTime: 2021-08-25 14:31
  * @Description:
  */
-public class _0785_isBipartite {
+public class _0886_possibleBipartition {
 
-    int[][] graph;
+    List<List<Integer>> edges = new ArrayList<>();
     int[] visited;      // -1，蓝色；0，未染色；1，红色
 
-    public boolean isBipartite(int[][] graph) {
-        int N = graph.length;
-        this.graph = graph;
-        visited = new int[N];
+    public boolean possibleBipartition(int N, int[][] dislikes) {
+        visited = new int[N + 1];
+        for (int i = 0; i < N + 1; i++) {
+            edges.add(new ArrayList<>());
+        }
+        for (int[] dislike : dislikes) {
+            edges.get(dislike[0]).add(dislike[1]);
+            edges.get(dislike[1]).add(dislike[0]);
+        }
 
-        for (int src = 0; src < N; src++) {
+        for (int src = 1; src < N + 1; src++) {
             if (visited[src] == 0) {
                 if (dfs(src, 1) == false) {
                     return false;
@@ -32,7 +37,7 @@ public class _0785_isBipartite {
 
     public boolean dfs(int src, int color) {
         visited[src] = color;
-        for (int dst : graph[src]) {
+        for (int dst : edges.get(src)) {
             if (visited[dst] == 0) {
                 if (dfs(dst, -color) == false) {
                     return false;
@@ -43,19 +48,5 @@ public class _0785_isBipartite {
             }
         }
         return true;
-    }
-
-
-
-    public static void main(String[] args) {
-        int[][] graph = {
-                {1,2,3},
-                {0,2},
-                {0,1,3},
-                {0,2}
-        };
-        _0785_isBipartite solution = new _0785_isBipartite();
-
-        System.out.println(solution.isBipartite(graph));
     }
 }
