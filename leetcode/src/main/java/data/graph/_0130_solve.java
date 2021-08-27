@@ -9,59 +9,58 @@ package data.graph;
  */
 public class _0130_solve {
 
-    int[][] dirs = {
-            {-1, 0}, {1, 0},    // 上下
-            {0, -1}, {0 , 1}    // 左右
-    };
-    char[][] board;
-    int M;
-    int N;
 
-    public void solve(char[][] board) {
-        this.board = board;
-        M = board.length;
-        N = board[0].length;
 
-        // 遍历第0列和最后一列
-        for (int i = 0; i < M; i++) {
-            dfs(i, 0);
-            dfs(i, N - 1);
-        }
+    class Solution {
+        int[][] dirs = {
+                {-1, 0}, {1, 0},    // 上下
+                {0, -1}, {0 , 1}    // 左右
+        };
 
-        // 遍历第0行和最后一行
-        for (int j = 0; j < N; j++) {
-            dfs(0, j);
-            dfs(M - 1, j);
-        }
+        char[][] mat;
+        int M;
+        int N;
 
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-                if (board[i][j] == 'O') {
-                    board[i][j] = 'X';
-                } else if (board[i][j] == 'B') {
-                    board[i][j] = 'O';
+        public void solve(char[][] mat) {
+            this.mat = mat;
+            M = mat.length;
+            N = mat[0].length;
+
+            // 遍历第0列和最后一列
+            for (int x = 0; x < M; x++) {
+                dfs(x, 0);
+                dfs(x, N - 1);
+            }
+            // 遍历第0行和最后一行
+            for (int y = 0; y < N; y++) {
+                dfs(0, y);
+                dfs(M - 1, y);
+            }
+
+            for (int x = 0; x < M; x++) {
+                for (int y = 0; y < N; y++) {
+                    if (mat[x][y] == 'O') {
+                        mat[x][y] = 'X';
+                    } else if (mat[x][y] == 'B') {
+                        mat[x][y] = 'O';
+                    }
                 }
             }
         }
-    }
 
-    public void dfs(int i, int j) {
-        if (i < 0 || i >= M) {
-            return;
-        }
-        if (j < 0 || j >= N) {
-            return;
-        }
+        private void dfs(int x, int y) {
+            if (x < 0 || x >= M) {
+                return;
+            }
+            if (y < 0 || y >= N) {
+                return;
+            }
 
-        if (board[i][j] != 'O') {
-            return;
-        }else {
-            board[i][j] = 'B';
-            // 上下左右
-            for (int k = 0; k < dirs.length; k++) {
-                int nextI = i + dirs[k][0];
-                int nextJ = j + dirs[k][1];
-                dfs(nextI, nextJ);
+            if (mat[x][y] == 'O') {
+                mat[x][y] = 'B';
+                for (int[] dir : dirs) {
+                    dfs(x + dir[0], y + dir[1]);
+                }
             }
         }
     }

@@ -9,58 +9,57 @@ package data.graph;
  */
 public class _1020_numEnclaves {
 
-    int[][] grid;
-    int M;
-    int N;
+    class Solution {
+        int[][] dirs = {
+                {-1, 0}, {1, 0},    // 上下
+                {0, -1}, {0 , 1}    // 左右
+        };
 
-    public int numEnclaves(int[][] grid) {
-        this.grid = grid;
-        M = grid.length;
-        N = grid[0].length;
+        int[][] mat;
+        int M;
+        int N;
 
-        // 淹没第一列和最后一列
-        for (int i = 0; i < M; i++) {
-            dfs(i, 0);
-            dfs(i, N - 1);
-        }
+        public int numEnclaves(int[][] mat) {
+            this.mat = mat;
+            M = mat.length;
+            N = mat[0].length;
 
-        // 淹没第一行和最后一行
-        for (int j = 0; j < N; j++) {
-            dfs(0, j);
-            dfs(M - 1, j);
-        }
+            // 淹没第一列和最后一列
+            for (int x = 0; x < M; x++) {
+                dfs(x, 0);
+                dfs(x, N - 1);
+            }
+            // 淹没第一行和最后一行
+            for (int y = 0; y < N; y++) {
+                dfs(0, y);
+                dfs(M - 1, y);
+            }
 
-        int count = 0;
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-                if (grid[i][j] == 1) {
-                    count++;
+            int count = 0;
+            for (int x = 0; x < M; x++) {
+                for (int y = 0; y < N; y++) {
+                    if (mat[x][y] == 1) {
+                        count++;
+                    }
                 }
             }
+            return count;
         }
-        return count;
-    }
 
-    public void dfs(int i, int j) {
-        if (grid[i][j] == 0) {
-            return;
-        }
-        grid[i][j] = 0;
-        // 上
-        if (i >= 1) {
-            dfs(i - 1, j);
-        }
-        // 下
-        if (i <= M - 2) {
-            dfs(i + 1, j);
-        }
-        // 左
-        if (j >= 1) {
-            dfs(i, j - 1);
-        }
-        // 右
-        if (j <= N - 2) {
-            dfs(i, j + 1);
+        private void dfs(int x, int y) {
+            if (x < 0 || x >= M) {
+                return;
+            }
+            if (y < 0 || y >= N) {
+                return;
+            }
+
+            if (mat[x][y] == 1) {
+                mat[x][y] = 0;
+                for (int[] dir : dirs) {
+                    dfs(x + dir[0], y + dir[1]);
+                }
+            }
         }
     }
 }

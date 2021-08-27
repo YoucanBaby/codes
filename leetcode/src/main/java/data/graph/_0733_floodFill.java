@@ -9,43 +9,45 @@ package data.graph;
  */
 public class _0733_floodFill {
 
-    int[][] dirs = {
-            {-1, 0}, {1, 0},    // 上下
-            {0, -1}, {0 , 1}    // 左右
-    };
-    int[][] image;
-    int M;
-    int N;
-    int newColor;
+    class Solution {
+        int[][] dirs = {
+                {-1, 0}, {1, 0},    // 上下
+                {0, -1}, {0 , 1}    // 左右
+        };
 
-    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-        this.image = image;
-        M = image.length;
-        N = image[0].length;
-        this.newColor = newColor;
+        int[][] mat;
+        int M;
+        int N;
 
-        int oldColor = image[sr][sc];
-        if (oldColor == newColor) {
-            return image;
+        public int[][] floodFill(int[][] mat, int sr, int sc, int newColor) {
+            this.mat = mat;
+            this.M = mat.length;
+            this.N = mat[0].length;
+
+            int oldColor = mat[sr][sc];
+            if (oldColor == newColor) {
+                return mat;
+            }
+
+            dfs(sr, sc, oldColor, newColor);
+            return mat;
         }
-        dfs(sr, sc, oldColor);
 
-        return image;
-    }
+        private void dfs(int x, int y, int oldColor, int newColor) {
+            if (x < 0 || x >= M) {
+                return;
+            }
+            if (y < 0 || y >= N) {
+                return;
+            }
 
-    public void dfs(int i, int j, int oldColor) {
-        if (i < 0 || i >= M) {
-            return;
-        }
-        if (j < 0 || j >= N) {
-            return;
-        }
-        if (image[i][j] == oldColor) {
-            image[i][j] = newColor;
-            for (int k = 0; k < dirs.length; k++) {
-                int nextI = i + dirs[k][0];
-                int nextJ = j + dirs[k][1];
-                dfs(nextI, nextJ, newColor);
+            if (mat[x][y] == oldColor) {
+                mat[x][y] = newColor;
+                for (int[] dir : dirs) {
+                    int nextX = x + dir[0];
+                    int nextY = y + dir[1];
+                    dfs(nextX, nextY, oldColor, newColor);
+                }
             }
         }
     }

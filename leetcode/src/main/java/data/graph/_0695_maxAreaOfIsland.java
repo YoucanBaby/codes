@@ -46,4 +46,52 @@ public class _0695_maxAreaOfIsland {
                     + dfs(i, j - 1);    // 左
         }
     }
+
+
+    class Solution {
+        int[][] dirs = {
+                {-1, 0}, {1, 0},    // 上下
+                {0, -1}, {0 , 1}    // 左右
+        };
+
+        int[][] mat;
+        int M;
+        int N;
+
+        public int maxAreaOfIsland(int[][] mat) {
+            this.mat = mat;
+            M = mat.length;
+            N = mat[0].length;
+
+            int max = 0;
+            for (int x = 0; x < M; x++) {
+                for (int y = 0; y < N; y++) {
+                    int res = dfs(x, y);
+                    max = Math.max(max, res);
+                }
+            }
+            return max;
+        }
+
+        private int dfs(int x, int y) {
+            if (x < 0 || x >= M) {
+                return 0;
+            }
+            if (y < 0 || y >= N) {
+                return 0;
+            }
+
+            int count = 0;
+            if (mat[x][y] == 1) {
+                mat[x][y] = 0;
+                count++;
+                for (int[] dir : dirs) {
+                    int nextX = x + dir[0];
+                    int nextY = y + dir[1];
+                    count += dfs(nextX, nextY);
+                }
+            }
+            return count;
+        }
+    }
 }

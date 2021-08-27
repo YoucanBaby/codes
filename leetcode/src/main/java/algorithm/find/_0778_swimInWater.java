@@ -21,9 +21,9 @@ public class _0778_swimInWater {
                 max = Math.max(max, mat[i][j]);
             }
         }
+
         int left = 0;
         int right = max;
-
         while (left <= right) {
             int mid = (left + right) / 2;
             if (possible(mat, mid, 0, 0)) {
