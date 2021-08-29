@@ -12,78 +12,57 @@ import java.util.Deque;
  */
 public class _1091_shortestPathBinaryMatrix {
 
-    // 八连通
-    int[][] dirs = {
-            {-1, -1}, {-1, 0}, {-1, 1},     // 第一行
-            {0, -1},           {0, 1},      // 第二行
-            {1, -1}, {1, 0}, {1, 1},        // 第三行
-    };
-    int[][] grid;
-    int M;
-    int N;
-    boolean[][] visited;
-    int[][] dis;        // 记录到原点的距离
 
-    public int shortestPathBinaryMatrix(int[][] grid) {
-        this.grid = grid;
-        M = grid.length;
-        N = grid[0].length;
-        visited = new boolean[M][N];
-        dis = new int[M][N];
+    class Solution {
+        int[][] dirs = {
+                {-1, -1}, {-1, 0}, {-1, 1},
+                {0, -1},           {0, 1},
+                {1, -1}, {1, 0}, {1, 1}
+        };
 
-        // 排除特殊情况
-        if (grid[0][0] == 1) {
-            return -1;
-        }
-        if (M == 1 && N == 1) {
-            return 1;
-        }
+        public int shortestPathBinaryMatrix(int[][] mat) {
+            int N = mat.length;
+            boolean[][] visited = new boolean[N][N];
+            int[][] dist = new int[N][N];           // 当前节点到原点的距离
 
-        return bfs();
-    }
+            if (mat[0][0] == 1) {                   // 特殊情况
+                return -1;
+            }
+            if (N == 1) {
+                return 1;
+            }
 
-    public int bfs() {
-        Deque<Integer> deque = new ArrayDeque<>();
-        deque.addLast(0);
-        visited[0][0] = true;
-        dis[0][0] = 1;
+            Deque<int[]> deque = new ArrayDeque<>();
+            deque.addLast(new int[] {0,0});
+            visited[0][0] = true;
+            dist[0][0] = 1;
 
-        while (!deque.isEmpty()) {
-            int cur = deque.removeFirst();
-            // 一维坐标转二维坐标
-            int curI = cur / N;
-            int curJ = cur % N;
-            for (int k = 0; k < dirs.length; k++) {
-                int nextI = curI + dirs[k][0];
-                int nextJ = curJ + dirs[k][1];
+            while (!deque.isEmpty()) {
+                int[] cur = deque.removeFirst();
+                int x = cur[0];
+                int y = cur[1];
 
-                // 如果下个节点没有越界，没有访问过，而且值是0
-                if (inArea(nextI, nextJ) && !visited[nextI][nextJ] && grid[nextI][nextJ] == 0) {
-                    // 二维坐标转一维坐标
-                    int next = nextI * N + nextJ;
-                    // 更新队列，更新visited，更新dis
-                    deque.addLast(next);
-                    visited[nextI][nextJ] = true;
-                    dis[nextI][nextJ] = dis[curI][curJ] + 1;
+                for (int[] dir : dirs) {
+                    int nextX = x + dir[0];
+                    int nextY = y + dir[1];
 
-                    if (nextI == M - 1 && nextJ == N - 1) {
-                        return dis[nextI][nextJ];
+                    // 如果下个节点没有越界，没有访问过，而且值是0
+                    if (inArea(nextX, nextY, N) && !visited[nextX][nextY] && mat[nextX][nextY] == 0) {
+                        visited[nextX][nextY] = true;
+                        deque.addLast(new int[] {nextX, nextY});
+                        dist[nextX][nextY] = dist[x][y] + 1;
+
+                        if (nextX == N - 1 && nextY == N - 1) {
+                            return dist[nextX][nextY];
+                        }
                     }
                 }
             }
+            return -1;
         }
 
-        return -1;
+        private boolean inArea(int x, int y, int N) {
+            return x >= 0 && x < N && y >= 0 && y < N;
+        }
     }
-
-    public boolean inArea(int nextI, int nextJ) {
-        if (nextI < 0 || nextI >= M) {
-            return false;
-        }
-        if (nextJ < 0 || nextJ >= N) {
-            return false;
-        }
-        return true;
-    }
-
 }

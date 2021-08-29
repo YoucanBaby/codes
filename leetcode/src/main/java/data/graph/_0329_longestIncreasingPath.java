@@ -9,47 +9,51 @@ package data.graph;
  */
 public class _0329_longestIncreasingPath {
 
-    int[][] dirs = {
-            {-1, 0}, {1, 0},
-            {0, -1}, {0, 1}
-    };
-    int[][] matrix;
-    int M;
-    int N;
-    int[][] visited;
 
+    class Solution {
+        int[][] dirs = {
+                {-1, 0}, {1, 0},
+                {0, -1}, {0, 1}
+        };
 
-    public int longestIncreasingPath(int[][] matrix) {
-        this.matrix = matrix;
-        M = matrix.length;
-        N = matrix[0].length;
-        visited = new int[M][N];
+        int[][] mat;
+        int M;
+        int N;
+        int[][] visited;
 
-        int res = 0;
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-                if (visited[i][j] == 0) {
-                    res = Math.max(res, dfs(i, j));
+        public int longestIncreasingPath(int[][] mat) {
+            this.mat = mat;
+            M = mat.length;
+            N = mat[0].length;
+            visited = new int[M][N];
+
+            int res = 0;
+            for (int x = 0; x < M; x++) {
+                for (int y = 0; y < N; y++) {
+                    if (visited[x][y] == 0) {
+                        res = Math.max(res, dfs(x, y));
+                    }
                 }
             }
+            return res;
         }
-        return res;
-    }
 
-    public int dfs(int i, int j) {
-        if (visited[i][j] != 0) {
-            return visited[i][j];
-        }
-        visited[i][j]++;
-        for (int[] dir : dirs) {
-            int nextI = i + dir[0];
-            int nextJ = j + dir[1];
-            if (nextI >= 0 && nextI < M && nextJ >= 0 && nextJ < N) {
-                if (matrix[i][j] < matrix[nextI][nextJ]) {
-                    visited[i][j] = Math.max(visited[i][j], dfs(nextI, nextJ) + 1);
+        public int dfs(int x, int y) {
+            if (visited[x][y] == 0) {
+                visited[x][y] = 1;
+                for (int[] dir : dirs) {
+                    int nextX = x + dir[0];
+                    int nextY = y + dir[1];
+                    if (inArea(nextX, nextY) && mat[nextX][nextY] > mat[x][y]) {
+                        visited[x][y] = Math.max(visited[x][y], dfs(nextX, nextY) + 1);
+                    }
                 }
             }
+            return visited[x][y];
         }
-        return visited[i][j];
+
+        private boolean inArea(int x, int y) {
+            return x >= 0 && x < M && y >= 0 && y < N;
+        }
     }
 }

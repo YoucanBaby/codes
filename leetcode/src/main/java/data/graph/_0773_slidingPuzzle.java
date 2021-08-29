@@ -26,14 +26,14 @@ public class _0773_slidingPuzzle {
             {0, 4}, {1, 3, 5}, {2, 4}       // 第1行
     };
 
-    public int slidingPuzzle(int[][] board) {
-        int M = board.length;
-        int N = board[0].length;
+    public int slidingPuzzle(int[][] mat) {
+        int M = mat.length;
+        int N = mat[0].length;
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < M; i++) {
             for (int j = 0; j < N; j++) {
-                char c = (char) (board[i][j] + '0');
+                char c = (char) (mat[i][j] + '0');
                 sb.append(c);
             }
         }
@@ -44,18 +44,18 @@ public class _0773_slidingPuzzle {
 
         Deque<String> deque = new ArrayDeque<>();
         deque.addLast(src);
-
         Map<String, Integer> visited = new HashMap();
         visited.put(src, 0);
 
         while (!deque.isEmpty()) {
             String cur = deque.removeFirst();
-            List<String> nexts = createNexts(cur);
+            List<String> nextList = getNext(cur);
 
-            for (String next : nexts) {
+            for (String next : nextList) {
                 if (!visited.containsKey(next)) {
                     deque.addLast(next);
                     visited.put(next, visited.get(cur) + 1);
+
                     if (next.equals("123450")) {
                         return visited.get(next);
                     }
@@ -65,16 +65,15 @@ public class _0773_slidingPuzzle {
         return -1;
     }
 
-    public List<String> createNexts(String cur) {
-        List<String> nexts = new ArrayList<>();
-        char[] arr = cur.toCharArray();
+    public List<String> getNext(String cur) {
+        List<String> nextList = new ArrayList<>();
         int i = cur.indexOf('0');
         for (int j : neighbors[i]) {
-            swap(arr, i, j);
-            nexts.add(new String(arr));
-            swap(arr, i, j);
+            char[] next = cur.toCharArray();
+            swap(next, i, j);
+            nextList.add(new String(next));
         }
-        return nexts;
+        return nextList;
     }
 
     public void swap(char[] arr, int i, int j) {
