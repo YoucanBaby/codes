@@ -13,65 +13,61 @@ import java.util.List;
 public class _0051_solveNQueens {
 
     List<List<String>> res = new ArrayList<>();
-    char[][] chess;         // 棋盘
 
     public List<List<String>> solveNQueens(int n) {
-        // 初始化棋盘
-        chess = new char[n][n];
+        char[][] mat = new char[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                chess[i][j] = '.';
+                mat[i][j] = '.';            // 初始化棋盘
             }
         }
 
-        dfs(0);
+        dfs(mat, 0);
         return res;
     }
 
-    // row，当前在棋盘的第几行
-    public void dfs(int row) {
-        // 如果已经递归完最后一行了，就把棋盘转成List，添加到结果中
-        if (row == chess.length) {
-            res.add(chessToList(chess));
+    // x，当前位置在棋盘的第几行
+    public void dfs(char[][] mat, int x) {
+        if (x == mat.length) {
+            res.add(matToList(mat));
             return;
         }
-        // 遍历棋盘的列
-        for (int col = 0; col < chess.length; col++) {
-            if (isValid(chess, row, col)) {
-                chess[row][col] = 'Q';
-                dfs(row + 1);           // 递归
-                chess[row][col] = '.';      // 回溯
+
+        for (int y = 0; y < mat.length; y++) {
+            if (isValid(mat, x, y)) {
+                mat[x][y] = 'Q';
+                dfs(mat, x + 1);
+                mat[x][y] = '.';
             }
         }
     }
 
-    public boolean isValid(char[][] chess, int row, int col) {
-        // 判断当前列有没有皇后
-        for (int i = 0; i < row; i++) {
-            if (chess[i][col] == 'Q') {
+    public boolean isValid(char[][] mat, int x, int y) {
+        // 判断当前位置上方有没有皇后
+        for (int i = x - 1; i >= 0; i--) {
+            if (mat[i][y] == 'Q') {
                 return false;
             }
         }
         // 判断右上角有没有皇后
-        for (int i = row - 1, j = col + 1; i >= 0 && j < chess.length; i--, j++) {
-            if (chess[i][j] == 'Q') {
+        for (int i = x - 1, j = y + 1; i >= 0 && j < mat.length; i--, j++) {
+            if (mat[i][j] == 'Q') {
                 return false;
             }
         }
         // 判断左上角有没有皇后
-        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
-            if (chess[i][j] == 'Q') {
+        for (int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
+            if (mat[i][j] == 'Q') {
                 return false;
             }
         }
         return true;
     }
 
-    // 棋盘转成数组
-    public List<String> chessToList(char[][] chess) {
+    public List<String> matToList(char[][] mat) {
         List<String> path = new ArrayList<>();
-        for (int i = 0; i < chess.length; i++) {
-            path.add(new String(chess[i]));
+        for (int i = 0; i < mat.length; i++) {
+            path.add(new String(mat[i]));
         }
         return path;
     }

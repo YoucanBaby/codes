@@ -17,6 +17,7 @@ public class _0679_judgePoint24 {
         for (int num : nums) {
             list.add((double) num);
         }
+
         return dfs(list);
     }
 
@@ -24,6 +25,7 @@ public class _0679_judgePoint24 {
         if (nums.size() == 1) {
             return Math.abs(nums.get(0) - 24) <= 0.0000000001;
         }
+
         for (int i = 0; i < nums.size(); i++) {
             for (int j = i + 1; j < nums.size(); j++) {
                 List<Double> copy = new ArrayList<>(nums);
@@ -32,22 +34,22 @@ public class _0679_judgePoint24 {
                 boolean valid = false;
 
                 copy.add(a + b);
-                valid = valid || dfs(copy);
+                valid |= dfs(copy);
 
                 copy.set(copy.size() - 1, a - b);
-                valid = valid || dfs(copy);
+                valid |= dfs(copy);
 
                 copy.set(copy.size() - 1, a / b);
-                valid = valid || dfs(copy);
+                valid |= dfs(copy);
 
                 copy.set(copy.size() - 1, a * b);
-                valid = valid || dfs(copy);
+                valid |= dfs(copy);
 
                 copy.set(copy.size() - 1, b - a);
-                valid = valid || dfs(copy);
+                valid |= dfs(copy);
 
                 copy.set(copy.size() - 1, b / a);
-                valid = valid || dfs(copy);
+                valid |= dfs(copy);
 
                 if (valid) {
                     return true;

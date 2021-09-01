@@ -12,30 +12,28 @@ import java.util.List;
  */
 public class _0526_countArrangement {
 
-    int i = 1;          // 第i位
     int res = 0;
 
     public int countArrangement(int N) {
         boolean[] used = new boolean[N + 1];
-        dfs(used, N);
+        dfs(1, N, used);
         return res;
     }
 
-    private void dfs(boolean[] used, int N) {
-        if (i == N + 1) {
+    private void dfs(int index, int N, boolean[] used) {
+        if (index == N + 1) {
             res++;
             return;
         }
+
         for (int num = 1; num <= N; num++) {      // 第i位上的数字
             if (used[num]) {
                 continue;
             }
-            if (num % i == 0 || i % num == 0) {
-                i++;
+            if (num % index == 0 || index % num == 0) {
                 used[num] = true;
-                dfs(used, N);
+                dfs(index + 1, N, used);
                 used[num] = false;
-                i--;
             }
         }
     }

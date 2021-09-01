@@ -31,24 +31,24 @@ public class _0037_solveSudoku {
         }
     }
 
-    public void solveSudoku(char[][] board) {
-        dfs(board);
+    public void solveSudoku(char[][] mat) {
+        dfs(mat);
     }
 
-    public boolean dfs(char[][] board) {
+    public boolean dfs(char[][] mat) {
         // 遍历行和列, 每次递归都从(0,0)开始遍历
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                if (board[i][j] != '.') {       // 当前位置有值了
+        for (int i = 0; i < mat.length; i++) {
+            for (int j = 0; j < mat[0].length; j++) {
+                if (mat[i][j] != '.') {       // 当前位置有值了
                     continue;
                 }
                 for (char k = '1'; k <= '9'; k++) {
-                    if (isValid(board, i, j, k)) {  // 棋盘是否合法
-                        board[i][j] = k;
-                        if (dfs(board) == true) {
+                    if (isValid(mat, i, j, k)) {  // 棋盘是否合法
+                        mat[i][j] = k;
+                        if (dfs(mat) == true) {
                             return true;            // 如果找到合适的一组就返回
                         }
-                        board[i][j] = '.';      // 回溯
+                        mat[i][j] = '.';      // 回溯
                     }
                 }
                 return false;   // 如果试遍了1~9，都没有找到，就返回false
@@ -81,5 +81,56 @@ public class _0037_solveSudoku {
             }
         }
         return true;
+    }
+
+    class Solution {
+        public void solveSudoku(char[][] mat) {
+            dfs(mat);
+        }
+
+        public boolean dfs(char[][] mat) {
+            for (int x = 0; x < mat.length; x++) {
+                for (int y = 0; y < mat[0].length; y++) {
+                    if (mat[x][y] != '.') {
+                        continue;
+                    }
+                    for (char k = '1'; k <= '9'; k++) {
+                        if (isValid(mat, x, y, k)) {
+                            mat[x][y] = k;
+                            if (dfs(mat)) {
+                                return true;
+                            }
+                            mat[x][y] = '.';
+                        }
+                    }
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private boolean isValid(char[][] mat, int x, int y, char k) {
+            for (int j = 0; j < mat[0].length; j++) {   // 判断这一行是否重复
+                if (mat[x][j] == k) {
+                    return false;
+                }
+            }
+            for (int i = 0; i < mat.length; i++) {      // 判断这一列是否重复
+                if (mat[i][y] == k) {
+                    return false;
+                }
+            }
+            // 判断九方格里是否重复
+            int startX = (x / 3) * 3;
+            int startY = (y / 3) * 3;
+            for (int i = startX; i < startX + 3; i++) {
+                for (int j = startY; j < startY + 3; j++) {
+                    if (mat[i][j] == k) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
     }
 }

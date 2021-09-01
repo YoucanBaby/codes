@@ -15,29 +15,31 @@ public class _0047_permuteUnique {
 
     List<List<Integer>> res = new ArrayList<>();
     List<Integer> path = new ArrayList<>();
+    boolean[] used;
 
     public List<List<Integer>> permuteUnique(int[] nums) {
         int N = nums.length;
-        boolean[] used = new boolean[N];
+        used = new boolean[N];
         Arrays.sort(nums);
 
-        dfs(nums, used);
+        dfs(nums);
         return res;
     }
 
-    public void dfs(int[] nums, boolean[] used) {
+    public void dfs(int[] nums) {
         if (path.size() == nums.length) {
             res.add(new ArrayList<>(path));
             return;
         }
+
         for (int i = 0; i < nums.length; i++) {
-            if (i > 0 && nums[i] == nums[i - 1] && used[i - 1] == true) {
+            if (i - 1 >= 0 && nums[i] == nums[i - 1] && used[i - 1] == true) {
                 continue;
             }
-            if (used[i] == false) {
+            if (!used[i]) {
                 path.add(nums[i]);
                 used[i] = true;
-                dfs(nums, used);
+                dfs(nums);
                 used[i] = false;
                 path.remove(path.size() - 1);
             }

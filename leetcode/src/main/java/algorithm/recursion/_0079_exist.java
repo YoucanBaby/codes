@@ -9,14 +9,18 @@ package algorithm.recursion;
  */
 public class _0079_exist {
 
-    public boolean exist(char[][] board, String word) {
-        int M = board.length;
-        int N = board[0].length;
+    int[][] dirs = {
+            {-1,0}, {1,0},
+            {0,-1}, {0,1}
+    };
 
-        // 从左上角开始找
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-                if (dfs(board, word, i, j, 0)) {
+    public boolean exist(char[][] mat, String word) {
+        int M = mat.length;
+        int N = mat[0].length;
+
+        for (int x = 0; x < M; x++) {
+            for (int y = 0; y < N; y++) {
+                if (dfs(mat, word, x, y, 0)) {
                     return true;
                 }
             }
@@ -24,26 +28,23 @@ public class _0079_exist {
         return false;
     }
 
-    // 棋盘，要找的字符串，棋盘下标[i,j]，要找的字符的下标index
-    public boolean dfs(char[][] board, String word, int i, int j, int index) {
+    public boolean dfs(char[][] board, String word, int x, int y, int index) {
         if (index == word.length()) {
             return true;
         }
-        // 如果棋盘下标越界，返回false
-        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length) {
-            return false;
-        }
-        // 如果当前的值不是我们要找的字符
-        if (board[i][j] != word.charAt(index)) {
+        if (x < 0 || x >= board.length || y < 0 || y >= board[0].length) {
             return false;
         }
 
-        board[i][j] = '\0';
-        // 递归上下左右，回溯
-        boolean res = dfs(board, word, i - 1, j, index + 1) || dfs(board, word, i + 1, j, index + 1)
-                || dfs(board, word, i, j - 1, index + 1) || dfs(board, word, i, j + 1, index + 1);
-        board[i][j] = word.charAt(index);
-        return res;
+        if (board[x][y] == word.charAt(index)) {
+            board[x][y] = '#';
+            for (int[] dir : dirs) {
+                if (dfs(board, word, x + dir[0], y + dir[1], index + 1)) {
+                    return true;
+                }
+            }
+            board[x][y] = word.charAt(index);
+        }
+        return false;
     }
-
 }

@@ -10,52 +10,50 @@ package algorithm.recursion;
 public class _0052_totalNQueens {
 
     int res = 0;
-    char[][] chess;
 
     public int totalNQueens(int n) {
-        chess = new char[n][n];
+        char[][] mat = new char[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                chess[i][j] = '.';
+                mat[i][j] = '.';
             }
         }
 
-        dfs(0);
+        dfs(mat, 0);
         return res;
     }
 
-    public void dfs(int row) {
-        if (row == chess.length) {
+    public void dfs(char[][] mat, int x) {
+        if (x == mat.length) {
             res++;
             return;
         }
-        
-        // 遍历棋盘的列
-        for (int col = 0; col < chess.length; col++) {
-            if (isValid(chess, row, col)) {
-                chess[row][col] = 'Q';
-                dfs(row + 1);
-                chess[row][col] = '.';
+
+        for (int y = 0; y < mat.length; y++) {
+            if (isValid(mat, x, y)) {
+                mat[x][y] = 'Q';
+                dfs(mat, x + 1);
+                mat[x][y] = '.';
             }
         }
     }
 
-    public boolean isValid(char[][] chess, int row, int col) {
-        // 判断当前列是否有没有皇后
-        for (int i = row - 1; i >= 0; i--) {
-            if (chess[i][col] == 'Q') {
+    public boolean isValid(char[][] mat, int x, int y) {
+        // 判断当前位置上方有没有皇后
+        for (int i = x - 1; i >= 0; i--) {
+            if (mat[i][y] == 'Q') {
                 return false;
             }
         }
         // 判断右上角有没有皇后
-        for (int i = row - 1, j = col + 1; i >= 0 && j < chess.length; i--, j++) {
-            if (chess[i][j] == 'Q') {
+        for (int i = x - 1, j = y + 1; i >= 0 && j < mat.length; i--, j++) {
+            if (mat[i][j] == 'Q') {
                 return false;
             }
         }
         // 判断左上角有没有皇后
-        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
-            if (chess[i][j] == 'Q') {
+        for (int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
+            if (mat[i][j] == 'Q') {
                 return false;
             }
         }
