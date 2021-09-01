@@ -12,43 +12,43 @@ import java.util.List;
  */
 public class _0131_partition {
 
-    List<List<String>> res = new ArrayList<>();
-    List<String> path = new ArrayList<>();
 
-    public List<List<String>> partition(String s) {
-        dfs(s, 0);
-        return res;
-    }
+    class Solution {
+        List<List<String>> res = new ArrayList<>();
+        List<String> path = new ArrayList<>();
 
-    public void dfs(String s, int start) {
-        if (start == s.length()) {
-            res.add(new ArrayList<>(path));
-            return;
+        public List<List<String>> partition(String s) {
+            dfs(s, 0);
+            return res;
         }
 
-        for (int i = start; i < s.length(); i++) {
-            // 如果不是回文串，跳过这个串
-            if (!isPalindrome(s, start, i)) {
-                continue;
+        public void dfs(String s, int start) {
+            if (start == s.length()) {
+                res.add(new ArrayList<>(path));
+                return;
             }
 
-            String str = s.substring(start, i + 1);
-            path.add(str);
-            dfs(s, i + 1);      // 递归
-            path.remove(path.size() - 1);   // 回溯
-        }
-    }
-
-    public boolean isPalindrome(String s, int start, int end) {
-        int left = start;
-        int right = end;
-        while (left < right) {
-            if (s.charAt(left) != s.charAt(right)) {
-                return false;
+            for (int i = start; i < s.length(); i++) {
+                String str = s.substring(start, i + 1);
+                if (isPalindrome(str)) {
+                    path.add(str);
+                    dfs(s, i + 1);
+                    path.remove(path.size() - 1);
+                }
             }
-            left++;
-            right--;
         }
-        return true;
+
+        private boolean isPalindrome(String str) {
+            int left = 0;
+            int right = str.length() - 1;
+            while (left < right) {
+                if (str.charAt(left) != str.charAt(right)) {
+                    return false;
+                }
+                left++;
+                right--;
+            }
+            return true;
+        }
     }
 }

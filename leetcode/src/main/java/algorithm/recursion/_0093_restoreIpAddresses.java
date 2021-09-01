@@ -47,4 +47,40 @@ public class _0093_restoreIpAddresses {
             }
         }
     }
+
+
+    class Solution {
+        List<String> res = new ArrayList<>();
+        StringBuilder path = new StringBuilder();
+
+        public List<String> restoreIpAddresses(String s) {
+            if (s.length() < 4 || s.length() > 12) {
+                return res;
+            }
+
+            dfs(s, 0, 0);
+            return res;
+        }
+
+        public void dfs(String s, int start, int pointNum) {
+            if (pointNum > 4) {
+                return;             // 剪枝
+            }
+            if (start == s.length() && pointNum == 4) {
+                res.add(path.toString().substring(1, path.length()));       // 去掉第一个'.'
+            }
+
+            for (int i = start; i < start + 3 && i < s.length(); i++) {
+                String str = s.substring(start, i + 1);
+                if (str.charAt(0) == '0' && str.length() > 1) {     // 跳过前导0
+                    continue;
+                }
+                if (Integer.valueOf(str) >= 0 && Integer.valueOf(str) <= 255) {
+                    path.append('.').append(str);
+                    dfs(s, i + 1, pointNum + 1);
+                    path.delete(path.lastIndexOf("."), path.length());
+                }
+            }
+        }
+    }
 }

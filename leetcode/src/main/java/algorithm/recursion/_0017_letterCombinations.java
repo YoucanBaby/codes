@@ -16,43 +16,44 @@ import java.util.Map;
  */
 public class _0017_letterCombinations {
 
-    Map<Character, String> map = new HashMap<>();
-    List<String> res = new ArrayList<>();
-    StringBuilder path = new StringBuilder();
 
-    public List<String> letterCombinations(String digits) {
-        // 处理特殊情况
-        if (digits.equals("")) {
-            return new ArrayList<>();
+
+    class Solution {
+        Map<Character, String> map = new HashMap<>();
+        List<String> res = new ArrayList<>();
+        StringBuilder path = new StringBuilder();
+
+        public List<String> letterCombinations(String s) {
+            if (s.equals("")) {
+                return new ArrayList<>();
+            }
+
+            map.put('2', "abc");
+            map.put('3', "def");
+            map.put('4', "ghi");
+            map.put('5', "jkl");
+            map.put('6', "mno");
+            map.put('7', "pqrs");
+            map.put('8', "tuv");
+            map.put('9', "wxyz");
+
+            dfs(s);
+            return res;
         }
 
-        // 初始化哈希表
-        map.put('2', "abc");
-        map.put('3', "def");
-        map.put('4', "ghi");
-        map.put('5', "jkl");
-        map.put('6', "mno");
-        map.put('7', "pqrs");
-        map.put('8', "tuv");
-        map.put('9', "wxyz");
+        private void dfs(String s) {
+            if (path.length() == s.length()) {
+                res.add(path.toString());
+                return;
+            }
 
-        dfs(digits);
-        return res;
-    }
-
-    public void dfs(String digits) {
-        if (path.length() == digits.length()) {
-            res.add(path.toString());
-            return;
-        }
-
-        char key = digits.charAt(path.length());
-        String value = map.get(key);
-
-        for (char c : value.toCharArray()) {
-            path.append(c);
-            dfs(digits);
-            path.deleteCharAt(path.length() - 1);
+            char key = s.charAt(path.length());
+            String value = map.get(key);
+            for (char c : value.toCharArray()) {
+                path.append(c);
+                dfs(s);
+                path.deleteCharAt(path.length() - 1);
+            }
         }
     }
 }

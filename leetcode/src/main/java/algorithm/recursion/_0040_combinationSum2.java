@@ -26,34 +26,29 @@ public class _0040_combinationSum2 {
     List<List<Integer>> res = new ArrayList<>();
     List<Integer> path = new ArrayList<>();
 
-    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        Arrays.sort(candidates);
-        dfs(candidates, target, 0, 0);
+    public List<List<Integer>> combinationSum2(int[] nums, int target) {
+        Arrays.sort(nums);
+        dfs(nums, target, 0, 0);
         return res;
     }
 
-    public void dfs(int[] candidates, int target, int sum, int start) {
+    public void dfs(int[] nums, int target, int sum, int start) {
         if (sum == target) {
             res.add(new ArrayList<>(path));
             return;
         }
 
-        for (int i = start; i < candidates.length; i++) {
-            // 剪枝
-            if (sum + candidates[i] > target) {
+        for (int i = start; i < nums.length; i++) {
+            if (sum + nums[i] > target) {     // 剪枝
                 break;
             }
-            // 树层去重，去重之前集合要排序
-            if (i > start && candidates[i] == candidates[i - 1]) {
+            if (i - 1 >= start && nums[i] == nums[i - 1]) {  // 去重
                 continue;
             }
 
-            int num = candidates[i];
-            sum += num;
-            path.add(num);
-            dfs(candidates, target, sum, i + 1);   // 递归
-            sum -= num;         // 回溯
-            path.remove(path.size() - 1);   // 回溯
+            path.add(nums[i]);
+            dfs(nums, target, sum + nums[i], i + 1);
+            path.remove(path.size() - 1);
         }
     }
 }

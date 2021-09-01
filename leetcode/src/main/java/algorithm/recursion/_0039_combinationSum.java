@@ -13,32 +13,32 @@ import java.util.List;
  */
 public class _0039_combinationSum {
 
-    List<List<Integer>> res = new ArrayList<>();
-    List<Integer> path = new ArrayList<>();
 
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        Arrays.sort(candidates);
-        dfs(candidates, target, 0, 0);
-        return res;
-    }
+    class Solution {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
 
-    public void dfs(int[] candidates, int target, int sum, int start) {
-        if (sum == target) {
-            res.add(new ArrayList<>(path));
-            return;
+        public List<List<Integer>> combinationSum(int[] nums, int target) {
+            Arrays.sort(nums);
+            dfs(nums, target, 0, 0);
+            return res;
         }
 
-        for (int i = start; i < candidates.length; i++) {
-            if (sum + candidates[i] > target) {
-                break;
+        public void dfs(int[] nums, int target, int sum, int start) {
+            if (sum == target) {
+                res.add(new ArrayList<>(path));
+                return;
             }
 
-            int num = candidates[i];
-            path.add(num);
-            sum += num;
-            dfs(candidates, target, sum, i);
-            sum -= num;
-            path.remove(path.size() - 1);
+            for (int i = start; i < nums.length; i++) {
+                if (sum + nums[i] > target) {
+                    return;
+                }
+
+                path.add(nums[i]);
+                dfs(nums, target, sum + nums[i], i);
+                path.remove(path.size() - 1);
+            }
         }
     }
 }
