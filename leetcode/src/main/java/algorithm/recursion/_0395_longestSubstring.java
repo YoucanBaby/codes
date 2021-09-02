@@ -27,11 +27,12 @@ public class _0395_longestSubstring {
             if (freq.get(c) >= k) {
                 continue;
             }
-            int res = 0;
-            for (String t : s.split(String.valueOf(c))) {
-                res = Math.max(res, longestSubstring(t, k));
+
+            int max = 0;
+            for (String splitS : s.split(c + "")) {
+                max = Math.max(max, longestSubstring(splitS, k));
             }
-            return res;
+            return max;
         }
         return s.length();
     }
