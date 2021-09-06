@@ -12,16 +12,18 @@ public class _0516_longestPalindromeSubseq {
     public int longestPalindromeSubseq(String s) {
         int N = s.length();
         int[][] dp = new int[N][N];
+
         for (int i = 0; i < N; i++) {
             dp[i][i] = 1;
         }
 
-        for (int i = N - 1; i >= 0; i--) {
-            for (int j = i + 1; j < N; j++) {
+        for (int len = 2; len <= N; len++) {
+            for (int i = 0; i + len - 1 < N; i++) {
+                int j = i + len - 1;
                 if (s.charAt(i) == s.charAt(j)) {
                     dp[i][j] = dp[i + 1][j - 1] + 2;
                 } else {
-                    dp[i][j] = Math.max(dp[i][j - 1], dp[i + 1][j]);
+                    dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
                 }
             }
         }

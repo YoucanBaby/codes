@@ -16,12 +16,13 @@ public class _0188_maxProfit {
 
         int N = prices.length;
         int[][] dp = new int[N][2 * K + 1];
-        for (int j = 1; j <= 2 * K; j += 2) {
+
+        for (int j = 1; j < 2 * K + 1; j += 2) {
             dp[0][j] = -prices[0];
         }
 
         for (int i = 1; i < N; i++) {
-            for (int j = 1; j <= 2 * K; j++) {
+            for (int j = 1; j < 2 * K + 1; j++) {
                 if ((j & 1) == 1) {
                     dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - 1] - prices[i]);
                 } else {

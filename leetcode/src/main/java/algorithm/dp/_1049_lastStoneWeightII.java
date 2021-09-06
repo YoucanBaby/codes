@@ -14,9 +14,10 @@ public class _1049_lastStoneWeightII {
         for (int num : nums) {
             sum += num;
         }
-
         int target = sum / 2;
+
         int[] dp = new int[target + 1];
+        dp[0] = 0;
 
         for (int i = 0; i < nums.length; i++) {
             for (int j = target; j >= nums[i]; j--) {

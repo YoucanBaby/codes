@@ -13,26 +13,29 @@ public class _0416_canPartition {
         int[] nums = {1,5,11,5};
         _0416_canPartition solution = new _0416_canPartition();
 
-        System.out.println(solution.canPartition1(nums));
+        System.out.println(solution.canPartition(nums));
     }
 
-    public boolean canPartition1(int[] nums) {
+    public boolean canPartition(int[] nums) {
         int sum = 0;
         for (int num : nums) {
             sum += num;
         }
-        // sum是奇数，返回false
         if ((sum & 1) == 1) {
             return false;
         }
-        int target = sum / 2;
 
+        int target = sum / 2;
         int[] dp = new int[target + 1];
+        dp[0] = 0;
+
         for (int i = 0; i < nums.length; i++) {
-            for (int j = target; j >= nums[i]; j--) {
-                dp[j] = Math.max(dp[j], dp[j - nums[i]] + nums[i]);
+            for (int j = target; j >= 0; j--) {
+                if (j - nums[i] >= 0) {
+                    dp[j] = Math.max(dp[j], dp[j - nums[i]] + nums[i]);
+                }
             }
         }
-        return dp[target] == target;    // 是否找到总和为(sum/2)的值
+        return dp[target] == target;
     }
 }

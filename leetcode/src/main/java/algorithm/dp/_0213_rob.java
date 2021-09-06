@@ -31,10 +31,11 @@ public class _0213_rob {
     }
 
     public int myRob(int[] nums) {
-        if (nums.length == 1) {
+        int N = nums.length;
+        if (N == 1) {
             return nums[0];
         }
-        int N = nums.length;
+
         int pre = nums[0];
         int cur = Math.max(nums[0], nums[1]);
 

@@ -18,8 +18,7 @@ public class _0139_wordBreak {
 
         for (int i = 0; i <= target - 1; i++) {
             for (int j = i + 1; j <= target; j++) {
-                String str = s.substring(i, j);
-                if (dp[i] == true && wordDict.contains(str)) {
+                if (dp[i] && wordDict.contains(s.substring(i, j))) {
                     dp[j] = true;
                 }
             }

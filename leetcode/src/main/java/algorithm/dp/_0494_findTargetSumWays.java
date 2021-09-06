@@ -20,6 +20,10 @@ public class _0494_findTargetSumWays {
         }
 
         int target = (S + sum) / 2;
+        if (target < 0) {
+            return 0;
+        }
+
         int[] dp = new int[target + 1];
         dp[0] = 1;
 

@@ -15,12 +15,18 @@ public class _0343_integerBreak {
         dp[1] = 0;
 
         for (int i = 2; i <= n; i++) {
-            for (int j = 1; j <= i - 1; j++) {
-                int res = Math.max(j * (i - j), j * dp[i - j]);
-                dp[i] = Math.max(dp[i], res);
+            for (int k = 1; k <= i - 1; k++) {
+                dp[i] = max(
+                        dp[i],
+                        k * (i - k),
+                        k * dp[i - k]
+                );
             }
         }
-
         return dp[n];
+    }
+
+    private int max(int a, int b, int c) {
+        return Math.max(a, Math.max(b, c));
     }
 }

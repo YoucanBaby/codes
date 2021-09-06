@@ -11,16 +11,15 @@ public class _0714_maxProfit {
 
 
     public int maxProfit(int[] prices, int fee) {
-        int buy = prices[0] + fee;      // 买入价格
-        int res = 0;
-        for (int i = 1; i < prices.length; i++) {
-            if (prices[i] + fee < buy) {    // 遇到更低的价格，更新买入价格
-                buy = prices[i] + fee;
-            } else if (prices[i] > buy) {   // 遇到更高的价格，卖出，并无费率的更新买入价格
-                res += prices[i] - buy;
-                buy = prices[i];
-            }
+        int N = prices.length;
+        int[][] dp = new int[N][2];
+
+        dp[0][1] = -prices[0] - fee;
+
+        for (int i = 1; i < N; i++) {
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i] - fee);
         }
-        return res;
+        return dp[N - 1][0];
     }
 }

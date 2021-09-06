@@ -12,13 +12,13 @@ import java.util.function.Predicate;
 public class _0121_maxProfit {
 
     public int maxProfit(int[] prices) {
-        int minPrice = prices[0];
-        int maxProfit = 0;
+        int min = prices[0];
+        int max = 0;
 
         for (int price : prices) {
-            minPrice = Math.min(minPrice, price);
-            maxProfit = Math.max(maxProfit, price - minPrice);
+            min = Math.min(min, price);
+            max = Math.max(max, price - min);
         }
-        return maxProfit;
+        return max;
     }
 }

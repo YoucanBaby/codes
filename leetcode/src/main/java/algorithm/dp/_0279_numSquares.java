@@ -51,13 +51,14 @@ public class _0279_numSquares {
         return dp[target];
     }
 
+
     public int numSquares2(int target) {
         int[] dp = new int[target + 1];
-        Arrays.fill(dp, Integer.MAX_VALUE);
+        Arrays.fill(dp, target + 1);
         dp[0] = 0;
 
-        for (int j = 0; j <= target; j++) {
-            for (int i = 1; i * i <= j; i++) {
+        for (int i = 1; i <= target; i++) {
+            for (int j = i * i; j <= target; j++) {
                 dp[j] = Math.min(dp[j], dp[j - i * i] + 1);
             }
         }

@@ -15,11 +15,10 @@ public class _0096_numTrees {
         dp[1] = 1;
 
         for (int i = 2; i <= N; i++) {
-            for (int j = 1; j <= i; j++) {
-                dp[i] += dp[j - 1] * dp[i - j];
+            for (int k = 1; k <= i; k++) {
+                dp[i] += dp[i - k] * dp[k - 1];
             }
         }
-
         return dp[N];
     }
 }

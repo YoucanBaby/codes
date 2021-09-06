@@ -25,7 +25,6 @@ public class _0062_uniquePaths {
                 dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
             }
         }
-
         return dp[M - 1][N - 1];
     }
 
@@ -37,7 +36,7 @@ public class _0062_uniquePaths {
 
         for (int i = 1; i < M; i++) {
             for (int j = 1; j < N; j++) {
-                dp[j] += dp[j - 1];
+                dp[j] = dp[j] +  dp[j - 1];
             }
         }
 

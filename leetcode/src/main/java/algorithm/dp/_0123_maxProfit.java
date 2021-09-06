@@ -12,6 +12,7 @@ public class _0123_maxProfit {
     public int maxProfit(int[] prices) {
         int N = prices.length;
         int[][] dp = new int[N][5];
+
         dp[0][1] = -prices[0];
         dp[0][3] = -prices[0];
 

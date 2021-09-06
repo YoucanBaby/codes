@@ -10,14 +10,14 @@ package algorithm.dp;
 public class _1143_longestCommonSubsequence {
 
 
-    public int longestCommonSubsequence(String str1, String str2) {
-        int M = str1.length();
-        int N = str2.length();
+    public int longestCommonSubsequence(String s1, String s2) {
+        int M = s1.length();
+        int N = s2.length();
         int[][] dp = new int[M + 1][N + 1];
 
         for (int i = 1; i <= M; i++) {
             for (int j = 1; j <= N; j++) {
-                if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
                     dp[i][j] = dp[i - 1][j - 1] + 1;
                 } else {
                     dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
