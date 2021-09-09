@@ -17,13 +17,13 @@ public class _0674_findLengthOfLCIS {
         int max = 1;
 
         for (int i = 1; i < nums.length; i++) {
-            if (nums[i - 1] < nums[i]) {
+            if (nums[i] > nums[i - 1]) {
                 cur++;
-            } else {
                 max = Math.max(max, cur);
+            } else {
                 cur = 1;
             }
         }
-        return Math.max(max, cur);
+        return max;
     }
 }

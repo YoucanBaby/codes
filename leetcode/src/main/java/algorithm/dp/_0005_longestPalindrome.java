@@ -19,6 +19,8 @@ public class _0005_longestPalindrome {
             for (int j = i; j < N; j++) {
                 if (s.charAt(i) == s.charAt(j) && (j - i <= 1 || dp[i + 1][j - 1])) {
                     dp[i][j] = true;
+                } else {
+                    dp[i][j] = false;
                 }
                 if (dp[i][j] && (j - i + 1) > res.length()) {
                     res = s.substring(i, j + 1);

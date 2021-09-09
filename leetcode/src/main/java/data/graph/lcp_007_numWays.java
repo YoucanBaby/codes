@@ -79,9 +79,7 @@ public class lcp_007_numWays {
 
         for (int i = 0; i < k; i++) {
             for (int[] node : relation) {
-                int src = node[0];
-                int dst = node[1];
-                dp[i + 1][dst] += dp[i][src];
+                dp[i + 1][node[1]] += dp[i][node[0]];
             }
         }
         return dp[k][n - 1];

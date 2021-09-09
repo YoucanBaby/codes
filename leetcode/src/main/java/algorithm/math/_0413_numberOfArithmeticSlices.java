@@ -10,21 +10,19 @@ package algorithm.math;
 public class _0413_numberOfArithmeticSlices {
 
     public int numberOfArithmeticSlices(int[] nums) {
-        if (nums.length <= 2) {
-            return 0;
-        }
-
         int N = nums.length;
-        int[] dp = new int[N];
-        for (int i = 2; i < N; i++) {
-            if (nums[i] - nums[i - 1] == nums[i - 1] - nums[i - 2]) {
-                dp[i] = dp[i - 1] + 1;
-            }
+        for (int i = N - 1; i >= 1; i--) {
+            nums[i] -= nums[i - 1];
         }
 
         int res = 0;
-        for (int count : dp) {
-            res += count;
+        int left = 1;
+        while (left < N) {
+            int right = left;
+            while (right < N && nums[left] == nums[right]) right++;
+            int k = right - left;
+            res += k * (k - 1) / 2;
+            left = right;
         }
         return res;
     }

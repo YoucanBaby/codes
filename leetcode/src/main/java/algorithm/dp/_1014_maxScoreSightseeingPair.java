@@ -10,15 +10,13 @@ package algorithm.dp;
 public class _1014_maxScoreSightseeingPair {
 
     public int maxScoreSightseeingPair(int[] values) {
-        int N = values.length;
-
-        int dp = values[0] + 0;
+        int pre = values[0] + 0;
         int res = values[0] + 0;
-        for (int j = 1; j < N; j++) {
-            res = Math.max(res, dp + values[j] - j);
-            dp = Math.max(dp, values[j] + j);
-        }
 
+        for (int j = 1; j < values.length; j++) {
+            res = Math.max(res, pre + values[j] - j);
+            pre = Math.max(pre, values[j] + j);
+        }
         return res;
     }
 }

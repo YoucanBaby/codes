@@ -23,16 +23,26 @@ public class _1024_videoStitching {
     }
 
     public int videoStitching(int[][] clips, int T) {
-        int[] dp = new int[T + 1];
-        Arrays.fill(dp, Integer.MAX_VALUE - 1);
-        dp[0] = 0;
-        for (int i = 1; i <= T; i++) {
-            for (int[] clip : clips) {
-                if (clip[0] < i && i <= clip[1]) {
-                    dp[i] = Math.min(dp[i], dp[clip[0]] + 1);
-                }
+        int[] right = new int[T];
+        for (int[] c : clips) {
+            if (c[0] < T) {
+                right[c[0]] = Math.max(right[c[0]], c[1]);
             }
         }
-        return dp[T] == Integer.MAX_VALUE - 1 ? -1 : dp[T];
+
+        int lastRight = 0;  // 左端点在上一个区间内能覆盖到的最远的右端点
+        int pre = 0;        // 上一个区间的结束位置
+        int res = 0;
+        for (int i = 0; i < right.length; i++) {
+            lastRight = Math.max(lastRight, right[i]);
+            if (i >= lastRight) {
+                return -1;
+            }
+            if (i == pre) {
+                res++;
+                pre = lastRight;
+            }
+        }
+        return res;
     }
 }

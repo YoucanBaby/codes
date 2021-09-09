@@ -10,24 +10,33 @@ package algorithm.dp;
 public class _0474_findMaxForm {
 
 
-    public int findMaxForm(String[] strs, int M, int N) {
-        int[][] dp = new int[M + 1][N + 1];
-        for (String str : strs) {
-            int zeroNum = 0;        // 0个数
-            int oneNum = 0;         // 1个数
-            for (char c : str.toCharArray()) {
+    public int findMaxForm(String[] strs, int V, int M) {
+        int N = strs.length;
+        int[] zero = new int[N];
+        int[] one = new int[N];
+        for (int i = 0; i < N; i++) {
+            int zeroCount = 0;
+            int oneCount = 0;
+            for (char c : strs[i].toCharArray()) {
                 if (c == '0') {
-                    zeroNum++;
-                } else {
-                    oneNum++;
+                    zeroCount++;
+                }
+                else if (c == '1') {
+                    oneCount++;
                 }
             }
-            for (int i = M; i >= zeroNum; i--) {
-                for (int j = N; j >= oneNum; j--) {
-                    dp[i][j] = Math.max(dp[i][j], dp[i - zeroNum][j - oneNum] + 1);
+            zero[i] = zeroCount;
+            one[i] = oneCount;
+        }
+
+        int[][] dp = new int[V + 1][M + 1];
+        for (int i = 0; i < N; i++) {
+            for (int j = V; j >= zero[i]; j--) {
+                for (int k = M; k >= one[i]; k--) {
+                    dp[j][k] = Math.max(dp[j][k], dp[j - zero[i]][k - one[i]] + 1);
                 }
             }
         }
-        return dp[M][N];
+        return dp[V][M];
     }
 }

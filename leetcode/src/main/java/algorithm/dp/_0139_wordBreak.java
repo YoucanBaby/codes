@@ -1,6 +1,8 @@
 package algorithm.dp;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @BelongsProject: codes
@@ -12,17 +14,19 @@ import java.util.List;
 public class _0139_wordBreak {
 
     public boolean wordBreak(String s, List<String> wordDict) {
-        int target = s.length();
-        boolean[] dp = new boolean[target + 1];
+        Set<String> set = new HashSet<>(wordDict);
+
+        int N = s.length();
+        boolean[] dp = new boolean[N + 1];
         dp[0] = true;
 
-        for (int i = 0; i <= target - 1; i++) {
-            for (int j = i + 1; j <= target; j++) {
-                if (dp[i] && wordDict.contains(s.substring(i, j))) {
+        for (int i = 0; i <= N - 1; i++) {
+            for (int j = i + 1; j <= N; j++) {
+                if (dp[i] && set.contains(s.substring(i, j))) {
                     dp[j] = true;
                 }
             }
         }
-        return dp[target];
+        return dp[N];
     }
 }
