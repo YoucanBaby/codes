@@ -30,17 +30,17 @@ public class _1024_videoStitching {
             }
         }
 
-        int lastRight = 0;  // 左端点在上一个区间内能覆盖到的最远的右端点
-        int pre = 0;        // 上一个区间的结束位置
+        int maxEnd = 0;     // 左端点在上一个区间内能覆盖到的最远的右端点
+        int end = 0;        // 上一个区间的结束位置
         int res = 0;
         for (int i = 0; i < right.length; i++) {
-            lastRight = Math.max(lastRight, right[i]);
-            if (i >= lastRight) {
+            maxEnd = Math.max(maxEnd, right[i]);
+            if (i >= maxEnd) {
                 return -1;
             }
-            if (i == pre) {
+            if (i == end) {
+                end = maxEnd;
                 res++;
-                pre = lastRight;
             }
         }
         return res;

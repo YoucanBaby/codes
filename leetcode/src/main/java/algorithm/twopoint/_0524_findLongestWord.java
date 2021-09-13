@@ -21,13 +21,13 @@ public class _0524_findLongestWord {
                 if (s.charAt(i) == d.charAt(j)) {
                     j++;
                 }
+                i++;
                 if (j == d.length()) {
-                    if (res.length() < d.length() ||
-                            (res.length() == d.length() && res.compareTo(d) > 0) ) {
+                    if (d.length() > res.length() ||
+                        d.length() == res.length() && d.compareTo(res) < 0) {
                         res = d;
                     }
                 }
-                i++;
             }
         }
         return res;

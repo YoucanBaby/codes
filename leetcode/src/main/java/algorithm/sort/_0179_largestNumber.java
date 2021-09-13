@@ -21,19 +21,19 @@ public class _0179_largestNumber {
 
 
     public String largestNumber(int[] nums) {
-        String[] strs = new String[nums.length];
+        String[] s = new String[nums.length];
         for (int i = 0; i < nums.length; i++) {
-            strs[i] = String.valueOf(nums[i]);
+            s[i] = String.valueOf(nums[i]);
         }
-        Arrays.sort(strs, (o1, o2) -> (o2 + o1).compareTo(o1 + o2));
+        Arrays.sort(s, (o1, o2) -> (o2 + o1).compareTo(o1 + o2));
 
         StringBuilder sb = new StringBuilder();
-        for (String str: strs) {
-            sb.append(str);
+        for (int i = 0; i < s.length; i++) {
+            sb.append(s[i]);
         }
-        // 去除前面的多零
+
         int i = 0;
-        while (i < sb.length() - 1 && sb.charAt(i) == '0') {
+        while (i < s.length - 1 && sb.charAt(i) == '0') {
             i++;
         }
         return sb.substring(i);

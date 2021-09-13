@@ -23,7 +23,7 @@ public class _0763_partitionLabels {
         List<Integer> res = new ArrayList<>();
         int left = 0;
         int right = 0;
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < s.length(); i++) {
             right = Math.max(right, lastIndex[s.charAt(i) - 'a']);
             if (i == right) {
                 res.add(right - left + 1);

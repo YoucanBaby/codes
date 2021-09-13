@@ -27,7 +27,25 @@ public class _0621_leastInterval {
                 maxCount++;
             }
         }
+        return Math.max(tasks.length, (maxTimes - 1) * (n + 1) + maxCount);
+    }
 
+    public int leastInterval1(char[] tasks, int n) {
+        int[] counts = new int[26];
+        for (char c : tasks) {
+            counts[c - 'A']++;
+        }
+
+        int maxTimes = 0;
+        for (int count : counts) {
+            maxTimes = Math.max(maxTimes, count);
+        }
+        int maxCount = 0;
+        for (int count : counts) {
+            if (count == maxTimes) {
+                maxCount++;
+            }
+        }
         return Math.max(tasks.length, (maxTimes - 1) * (n + 1) + maxCount);
     }
 }

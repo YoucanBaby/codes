@@ -17,24 +17,38 @@ public class _0738_monotoneIncreasingDigits {
     }
 
 
-    public int monotoneIncreasingDigits(int N) {
-        char[] arr = String.valueOf(N).toCharArray();
+    public int monotoneIncreasingDigits1(int n) {
+        char[] s = String.valueOf(n).toCharArray();
 
-        int start = arr.length;
-        for (int i = arr.length - 2; i >= 0; i--) {
-            if (arr[i] > arr[i + 1]) {
-                arr[i]--;
+        int start = s.length;
+        for (int i = s.length - 2; i >= 0; i--) {
+            if (s[i] > s[i + 1]) {
+                s[i]--;
                 start = i + 1;
             }
         }
-        for (int i = start; i < arr.length; i++) {
-            arr[i] = '9';
+        for (int i = start; i < s.length; i++) {
+            s[i] = '9';
         }
 
         StringBuilder sb = new StringBuilder();
-        for (char c : arr) {
+        for (char c : s) {
             sb.append(c);
         }
         return Integer.valueOf(sb.toString());
+    }
+
+
+
+    public int monotoneIncreasingDigits(int n) {
+        int ones = 111111111;
+        int res = 0;
+        for (int i = 0; i < 9; i++) {
+            while (res + ones > n) {
+                ones /= 10;
+            }
+            res += ones;
+        }
+        return res;
     }
 }

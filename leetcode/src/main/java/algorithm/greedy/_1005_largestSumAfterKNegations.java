@@ -19,11 +19,10 @@ public class _1005_largestSumAfterKNegations {
         for (int i = 0; i < N; i++) {
             nums[i] = A[i];     // 自动装箱
         }
-        // 逆序排序
-        Arrays.sort(nums, (o1, o2) -> Math.abs(o2) - Math.abs(o1));
+        Arrays.sort(nums, (o1, o2) -> Math.abs(o2) - Math.abs(o1)); // 逆序排序
 
         for (int i = 0; i < N; i++) {
-            if (k <= 0) {
+            if (k == 0) {
                 break;
             }
             if (nums[i] < 0) {
@@ -31,8 +30,7 @@ public class _1005_largestSumAfterKNegations {
                 k--;
             }
         }
-
-        if (k % 2 == 1) {
+        if ((k & 1) == 1) {
             nums[N - 1] = -nums[N - 1];
         }
 

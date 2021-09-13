@@ -11,9 +11,9 @@ public class _0324_wiggleSort {
 
 
     public void wiggleSort(int[] nums) {
-        int[] count = new int[5001];
+        int[] freq = new int[5001];
         for (int num : nums) {
-            count[num]++;
+            freq[num]++;
         }
 
         int N = nums.length;
@@ -30,18 +30,20 @@ public class _0324_wiggleSort {
         // 从后向前遍历桶，先放大数字，再放小数字
         int index = 5000;
         for (int i = 1; i <= big; i += 2) {
-            while (count[index] == 0) {
+            while (freq[index] == 0) {
                 index--;
             }
             nums[i] = index;
-            count[index]--;
+            freq[index]--;
         }
         for (int i = 0; i <= small; i += 2) {
-            while (count[index] == 0) {
+            while (freq[index] == 0) {
                 index--;
             }
             nums[i] = index;
-            count[index]--;
+            freq[index]--;
         }
     }
+
+
 }

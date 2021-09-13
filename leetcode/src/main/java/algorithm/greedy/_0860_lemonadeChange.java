@@ -10,26 +10,23 @@ package algorithm.greedy;
 public class _0860_lemonadeChange {
 
     public boolean lemonadeChange(int[] bills) {
-        int ten = 0;
         int five = 0;
-
+        int ten = 0;
         for (int bill : bills) {
             if (bill == 5) {
                 five++;
-            } else if (bill == 10) {
-                ten++;
+            }
+            else if (bill == 10) {
                 five--;
-            } else if (bill == 20){
-                if (ten >= 1 && five >= 1) {
+                ten++;
+            } else {
+                if (ten >= 1) {
                     ten--;
                     five--;
-                } else if (ten == 0 && five >= 3) {
-                    five -= 3;
                 } else {
-                    return false;
+                    five -= 3;
                 }
             }
-
             if (ten < 0 || five < 0) {
                 return false;
             }

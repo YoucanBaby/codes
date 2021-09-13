@@ -12,7 +12,7 @@ import java.util.TreeMap;
  */
 public class _0846_isNStraightHand {
 
-    public boolean isNStraightHand(int[] hand, int W) {
+    public boolean isNStraightHand1(int[] hand, int W) {
         TreeMap<Integer, Integer> map = new TreeMap<>();
         for (int card : hand) {
             if (!map.containsKey(card)) {
@@ -32,6 +32,27 @@ public class _0846_isNStraightHand {
                     map.remove(card);
                 } else {
                     map.replace(card, map.get(card) - 1);
+                }
+            }
+        }
+        return true;
+    }
+
+
+    public boolean isNStraightHand(int[] hand, int W) {
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        for (int card : hand) {
+            map.put(card, map.getOrDefault(card, 0) + 1);
+        }
+
+        while (!map.isEmpty()) {
+            int first = map.firstKey();
+            for (int card = first; card < first + W; card++) {
+                if (!map.containsKey(card)) return false;
+                if (map.get(card) == 1) {
+                    map.remove(card);
+                } else {
+                    map.put(card, map.get(card) - 1);
                 }
             }
         }

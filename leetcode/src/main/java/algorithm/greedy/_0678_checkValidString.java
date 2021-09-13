@@ -10,30 +10,13 @@ package algorithm.greedy;
 public class _0678_checkValidString {
 
     public boolean checkValidString(String s) {
-        int min = 0;
-        int max = 0;
-
-        for (char c : s.toCharArray()) {
-            if (c == '(') {
-                min++;
-                max++;
-            } else if (c == ')') {
-                if (min > 0) {
-                    min--;
-                }
-                max--;
-            } else if (c == '*') {
-                if (min > 0) {
-                    min--;
-                }
-                max++;
-            }
-
-            if (max < 0) {
-                return false;
-            }
+        int N = s.length();
+        int left = 0, right = 0;
+        for (int i = 0; i < N; i++) {
+            left += s.charAt(i) == ')' ? -1 : + 1;
+            right += s.charAt(N - 1 - i) == '(' ? -1 : + 1;
+            if (left < 0 || right < 0) return false;
         }
-
-        return min == 0;
+        return true;
     }
 }

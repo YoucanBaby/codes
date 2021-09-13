@@ -37,4 +37,24 @@ public class _0670_maximumSwap {
         arr[i] = arr[j];
         arr[j] = temp;
     }
+
+
+    public int maximumSwap1(int num) {
+        char[] arr = Integer.toString(num).toCharArray();
+        int[] lastIndex = new int[10];
+        for (int i = 0; i < arr.length; i++) {
+            lastIndex[arr[i] - '0'] = i;
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 9; j > arr[i] - '0'; j--) {
+                int index = lastIndex[j];
+                if (i < index) {
+                    swap(arr, i, index);
+                    return Integer.valueOf(new String(arr));
+                }
+            }
+        }
+        return num;
+    }
 }

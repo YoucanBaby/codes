@@ -27,23 +27,18 @@ public class _0871_minRefuelStops {
         int N = stations.length;
         PriorityQueue<Integer> pq = new PriorityQueue<>((o1, o2) -> o2 - o1);
 
-        int curReach = startFuel;   // 当前能够到达的位置
-        int reachStationIdx = 0;    // 当前到达加油站的下标
+        int reach = startFuel;      // 当前能够到达的位置
+        int i = 0;                  // 当前到达加油站的下标
         int res = 0;
-
-        while (curReach < target) {
-            while (reachStationIdx < N && stations[reachStationIdx][0] <= curReach) {
-                pq.add(stations[reachStationIdx][1]);
-                reachStationIdx++;
+        while (reach < target) {
+            while (i < N && stations[i][0] <= reach) {
+                pq.add(stations[i][1]);
+                i++;
             }
-            if (pq.isEmpty()) {
-                return -1;
-            } else {
-                curReach += pq.remove();
-                res++;
-            }
+            if (pq.isEmpty()) return -1;
+            reach += pq.remove();
+            res++;
         }
-
         return res;
     }
 }
