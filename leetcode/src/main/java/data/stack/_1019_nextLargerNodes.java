@@ -17,20 +17,17 @@ public class _1019_nextLargerNodes {
 
     public int[] nextLargerNodes(ListNode head) {
         List<Integer> list = new ArrayList<>();
-        ListNode cur = head;
-        while (cur != null) {
-            list.add(list.size(), cur.val);
-            cur = cur.next;
+        for (ListNode cur = head; cur != null; cur = cur.next) {
+            list.add(cur.val);
         }
 
-        Deque<Integer> stack = new ArrayDeque<>();
         int[] res = new int[list.size()];
+        Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < list.size(); i++) {
-            while (!stack.isEmpty() && list.get(i) > list.get(stack.getFirst())) {
-                int index = stack.removeFirst();
-                res[index] = list.get(i);
+            while (!stack.isEmpty() && list.get(i) > list.get(stack.peek())) {
+                res[stack.pop()] = list.get(i);
             }
-            stack.addFirst(i);
+            stack.push(i);
         }
         return res;
     }

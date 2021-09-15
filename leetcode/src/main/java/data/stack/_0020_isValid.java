@@ -19,29 +19,23 @@ public class _0020_isValid {
     }
 
     public boolean isValid(String s) {
-        HashMap<Character, Character> map = new HashMap<>();
+        Map<Character, Character> map = new HashMap<>();
         map.put(')', '(');
-        map.put('}', '{');
         map.put(']', '[');
+        map.put('}', '{');
 
         Deque<Character> stack = new ArrayDeque<>();
-
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
+        for (char c : s.toCharArray()) {
             if (map.containsKey(c)) {
-                if (stack.isEmpty() || stack.getFirst() != map.get(c)) {
+                if (!stack.isEmpty() && stack.getLast() == map.get(c)) {
+                    stack.removeLast();
+                } else {
                     return false;
                 }
-                stack.removeFirst();
             } else {
-                stack.addFirst(c);
+                stack.addLast(c);
             }
         }
-
-        if (stack.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return stack.isEmpty();
     }
 }

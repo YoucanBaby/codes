@@ -1,5 +1,6 @@
 package data.stack;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -22,17 +23,17 @@ public class _0503_nextGreaterElements {
     }
 
     public int[] nextGreaterElements(int[] nums) {
-        Deque<Integer> stack = new LinkedList<>();
         int N = nums.length;
-        int[] ret = new int[N];
-        Arrays.fill(ret, -1);
+        int[] res = new int[N];
+        Arrays.fill(res, -1);
 
-        for (int i = 0; i < 2 * N - 1; i++) {
-            while (!stack.isEmpty() && nums[i % N] > nums[stack.getFirst()]) {
-                ret[stack.removeFirst()] = nums[i % N];
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (int i = 0; i < 2 * N; i++) {
+            while (!stack.isEmpty() && nums[i % N] > nums[stack.peek()]) {
+                res[stack.pop()] = nums[i % N];
             }
-            stack.addFirst(i % N);
+            stack.push(i % N);
         }
-        return ret;
+        return res;
     }
 }

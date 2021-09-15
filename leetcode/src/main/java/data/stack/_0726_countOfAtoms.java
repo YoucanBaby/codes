@@ -20,7 +20,6 @@ public class _0726_countOfAtoms {
 
     int i = 0;
     String formula;
-
     Deque<HashMap<String, Integer>> stack = new ArrayDeque<>();
 
     public String countOfAtoms(String formula) {
@@ -31,7 +30,7 @@ public class _0726_countOfAtoms {
             char c = formula.charAt(i);
 
             if (c == '(') {
-                stack.addFirst(new HashMap<String, Integer>());
+                stack.addLast(new HashMap<String, Integer>());
                 i++;
             } else if (c >= 'A' && c <= 'Z') {
                 isAlpha();
@@ -48,21 +47,20 @@ public class _0726_countOfAtoms {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, Integer> entry: treeMap.entrySet()) {
             String key = entry.getKey();
-            Integer value = entry.getValue();
+            Integer val = entry.getValue();
 
             sb.append(key);
-            if (value > 1) {
-                sb.append(value);
+            if (val > 1) {
+                sb.append(val);
             }
         }
-
         return sb.toString();
     }
 
     // 如果是右括号
     public void isRightP() {
         // 取出栈顶的map
-        HashMap<String, Integer> popMap = stack.removeFirst();
+        HashMap<String, Integer> popMap = stack.removeLast();
 
         // 获得右括号后的数字
         i++;
@@ -84,9 +82,9 @@ public class _0726_countOfAtoms {
 
         // 把这个map加到栈顶的map上
         if (stack.isEmpty()) {
-            stack.addFirst(popMap);
+            stack.addLast(popMap);
         } else {
-            HashMap<String, Integer> topMap = stack.getFirst();
+            HashMap<String, Integer> topMap = stack.getLast();
             for (String key : popMap.keySet()) {
                 int value = popMap.get(key);
                 topMap.put(key, topMap.getOrDefault(key, 0) + value);
@@ -122,10 +120,10 @@ public class _0726_countOfAtoms {
         if (stack.isEmpty()) {
             map = new HashMap<>();
         } else {
-            map = stack.removeFirst();
+            map = stack.removeLast();
         }
         String key = sb.toString();
         map.put(key, map.getOrDefault(key, 0) + num);
-        stack.addFirst(map);
+        stack.addLast(map);
     }
 }

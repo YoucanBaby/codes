@@ -1,5 +1,6 @@
 package data.stack;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -13,14 +14,14 @@ import java.util.LinkedList;
 public class _0402_removeKdigits {
 
     public static void main(String[] args) {
-        String num = "1432219";
-        int k = 3;
+        String num = "10";
+        int k = 1;
         _0402_removeKdigits solution = new _0402_removeKdigits();
 
         System.out.println(solution.removeKdigits(num, k));
     }
 
-    public String removeKdigits(String num, int k) {
+    public String removeKdigits1(String num, int k) {
         // 新建栈，保留n-k个数
         // 从头开始循环
             // 如果当前的数>栈顶元素，则栈顶元素出栈
@@ -59,5 +60,23 @@ public class _0402_removeKdigits {
         } else {
             return sb.toString();
         }
+    }
+
+
+    public String removeKdigits(String num, int k) {
+        if (num.length() == k) return "0";
+
+        StringBuilder sb = new StringBuilder();
+        for (char c : num.toCharArray()) {
+            while (k > 0 && sb.length() != 0 && c < sb.charAt(sb.length() - 1)) {
+                sb.deleteCharAt(sb.length() - 1);
+                k--;
+            }
+            if (c == '0' && sb.length() == 0) continue;
+            sb.append(c);
+        }
+
+        String res = sb.substring(0, Math.max(sb.length() - k, 0));
+        return res.length() == 0 ? "0" : res;
     }
 }

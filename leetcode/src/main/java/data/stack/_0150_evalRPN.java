@@ -1,5 +1,6 @@
 package data.stack;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -13,37 +14,31 @@ import java.util.LinkedList;
 public class _0150_evalRPN {
 
     public static void main(String[] args) {
-        String[] tokens = {"10","6","9","3","+","-11","*","/","*","17","+","5","+"};
+        String[] tokens = {"4","13","5","/","+"};
         _0150_evalRPN solution = new _0150_evalRPN();
 
         System.out.println(solution.evalRPN(tokens));
     }
 
-    public int evalRPN(String[] tokens) {
-        Deque<Integer> stack = new LinkedList<>();
 
-        for (String token: tokens) {
-            if (isNumber(token)) {
-                int num = Integer.valueOf(token);
-                stack.addFirst(num);
+    public int evalRPN(String[] tokens) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (String s : tokens) {
+            if (isNumber(s)) {
+                stack.push(Integer.valueOf(s));
             } else {
-                int b = stack.removeFirst();
-                int a = stack.removeFirst();
-                if (token.equals("+")) {
-                    stack.addFirst(a + b);
-                } else if (token.equals("-")) {
-                    stack.addFirst(a - b);
-                } else if (token.equals("*")) {
-                    stack.addFirst(a * b);
-                } else if (token.equals("/")) {
-                    stack.addFirst(a / b);
-                }
+                int b = stack.pop();
+                int a = stack.pop();
+                if (s.equals("+")) stack.push(a + b);
+                if (s.equals("-")) stack.push(a - b);
+                if (s.equals("*")) stack.push(a * b);
+                if (s.equals("/")) stack.push(a / b);
             }
         }
-        return stack.getFirst();
+        return stack.pop();
     }
 
     private boolean isNumber(String token) {
-        return !(token.equals("+")|| token.equals("-")|| token.equals("*") || token.equals("/"));
+        return ! (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/"));
     }
 }

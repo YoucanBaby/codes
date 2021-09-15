@@ -21,18 +21,18 @@ public class _0456_find132pattern {
         System.out.println(solution.find132pattern(nums));
     }
 
-    public boolean find132pattern(int[] nums) {
-        Deque<Integer> stack = new LinkedList<>();
-        int maxJ = Integer.MIN_VALUE;
 
+    public boolean find132pattern(int[] nums) {
+        Deque<Integer> jStack = new ArrayDeque<>();
+        int maxK = Integer.MIN_VALUE;
         for (int i = nums.length - 1; i >= 0; i--) {
-            if (nums[i] < maxJ) {
+            if (nums[i] < maxK) {
                 return true;
             }
-            while (!stack.isEmpty() && nums[i] > stack.peek()) {
-                maxJ = stack.pop();
+            while (!jStack.isEmpty() && nums[i] > jStack.peek()) {
+                maxK = jStack.pop();
             }
-            stack.push(nums[i]);
+            jStack.push(nums[i]);
         }
         return false;
     }

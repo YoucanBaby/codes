@@ -1,6 +1,7 @@
 package data.stack;
 
 import javax.xml.transform.Result;
+import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -15,32 +16,28 @@ import java.util.LinkedList;
 public class _0071_simplifyPath {
 
     public static void main(String[] args) {
-        String path = "/a/./b/../../c/";
+        String path = "/home//foo/";
         _0071_simplifyPath solution = new _0071_simplifyPath();
 
         System.out.println(solution.simplifyPath(path));
     }
 
     public String simplifyPath(String path) {
-        Deque<String> stack = new LinkedList<>();
-
-        System.out.println(Arrays.toString(path.split("/")));
-
-        for (String s: path.split("/")) {
+        Deque<String> stack = new ArrayDeque<>();
+        for (String s : path.split("/")) {
             if (s.equals("..")) {
                 if (!stack.isEmpty()) {
-                    stack.removeFirst();
+                    stack.pop();
                 }
             } else if (!s.isEmpty() && !s.equals(".")) {
-                stack.addFirst(s);
+                stack.push(s);
             }
         }
 
-        String ret = "";
-        for (String d :stack) {
-            ret = "/" + d + ret;
+        String res = "";
+        while (!stack.isEmpty()) {
+            res = "/" + stack.pop() + res;
         }
-        if (!ret.isEmpty()) return ret;
-        else return "/";
+        return res.equals("") ? "/" : res;
     }
 }

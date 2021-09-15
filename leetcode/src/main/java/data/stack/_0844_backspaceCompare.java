@@ -20,51 +20,6 @@ public class    _0844_backspaceCompare {
         _0844_backspaceCompare solution = new _0844_backspaceCompare();
 
         System.out.println(solution.backspaceCompare(s, t));
-        System.out.println(solution.backspaceCompare2(s, t));
-    }
-
-    public boolean backspaceCompare2(String s, String t) {
-        int i = s.length() - 1;
-        int j = t.length() - 1;
-        int skipS = 0;              // s中需要跳过的字符个数
-        int skipT = 0;              // t中需要跳过的字符个数
-
-        while (i >= 0 || j >= 0) {
-            while (i >= 0) {
-                if (s.charAt(i) == '#') {
-                    skipS++;
-                    i--;
-                } else if (skipS > 0) {
-                    skipS--;
-                    i--;
-                } else {
-                    break;
-                }
-            }
-            while (j >= 0) {
-                if (t.charAt(j) == '#') {
-                    skipT++;
-                    j--;
-                } else if (skipT > 0) {
-                    skipT--;
-                    j--;
-                } else {
-                    break;
-                }
-            }
-            if (i >= 0 && j >= 0) {
-                if (s.charAt(i) != t.charAt(j)) {
-                    return false;
-                }
-            } else {
-                if (i >= 0 || j >= 0) {
-                    return false;
-                }
-            }
-            i--;
-            j--;
-        }
-        return true;
     }
 
 
@@ -74,15 +29,13 @@ public class    _0844_backspaceCompare {
 
     public String build(String str) {
         StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            if (c != '#') {
-                sb.append(c);
-            } else {
+        for (char c : str.toCharArray()) {
+            if (c == '#') {
                 if (sb.length() > 0) {
                     sb.deleteCharAt(sb.length() - 1);
                 }
+            } else {
+                sb.append(c);
             }
         }
         return sb.toString();

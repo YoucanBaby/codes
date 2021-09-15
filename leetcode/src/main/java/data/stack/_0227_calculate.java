@@ -21,7 +21,7 @@ public class _0227_calculate {
     }
 
 
-    public int calculate(String s) {
+    public int calculate(String ss) {
         HashMap<Character, Integer> map = new HashMap<>();
         map.put('+', 1);
         map.put('-', 1);
@@ -33,39 +33,30 @@ public class _0227_calculate {
         Deque<Integer> nums = new LinkedList<>();
         nums.push(0);
         Deque<Character> ops = new LinkedList<>();
-        s = s.replaceAll(" ", "");
 
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
+        ss = ss.replaceAll(" ", "");
+        char[] s = ss.toCharArray();
+        int N = s.length;
+
+        for (int i = 0; i < N; i++) {
+            char c = s[i];
             if (c == '(') {
                 ops.push(c);
             } else if (c == ')') {
-                while (!ops.isEmpty()) {
-                    if (ops.peek() != '(') {
-                        calc(nums, ops);
-                    } else {
-                        ops.pop();
-                        break;
-                    }
+                while (!ops.isEmpty() && ops.peek() != '(') {
+                    calc(nums, ops);
                 }
+                ops.pop();
             } else if (Character.isDigit(c)) {
                 int num = c - '0';
-                while (i + 1 < s.length() && Character.isDigit(s.charAt(i + 1))) {
-                    num = num * 10 + s.charAt(i + 1) - '0';
+                while (i + 1 < N && Character.isDigit(s[i + 1])) {
+                    num = num * 10 + ss.charAt(i + 1) - '0';
                     i++;
                 }
                 nums.push(num);
             } else {
-                while (!ops.isEmpty()) {
-                    if (ops.peek() == '(') {
-                        break;
-                    }
-                    char prevOps = ops.peek();
-                    if (map.get(prevOps) >= map.get(c)) {
-                        calc(nums, ops);
-                    } else {
-                        break;
-                    }
+                while (!ops.isEmpty() && ops.peek() != '(' && map.get(ops.peek()) >= map.get(c)) {
+                    calc(nums, ops);
                 }
                 ops.push(c);
             }
@@ -75,9 +66,6 @@ public class _0227_calculate {
     }
 
     private void calc(Deque<Integer> nums, Deque<Character> ops) {
-        if (nums.isEmpty() || nums.size() < 2) return;
-        if (ops.isEmpty()) return;
-
         int b = nums.pop();
         int a = nums.pop();
         char op = ops.pop();
@@ -89,7 +77,6 @@ public class _0227_calculate {
         else if (op == '/') res = a / b;
         else if (op == '%') res = a % b;
         else if (op == '^') res = (int) Math.pow(a, b);
-
         nums.push(res);
     }
 }

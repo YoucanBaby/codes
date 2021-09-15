@@ -21,7 +21,7 @@ public class _0316_removeDuplicateLetters {
         System.out.println(solution.removeDuplicateLetters(s));
     }
 
-    public String removeDuplicateLetters(String s) {
+    public String removeDuplicateLetters1(String s) {
         int N = s.length();
         char[] arr = s.toCharArray();
 
@@ -64,6 +64,32 @@ public class _0316_removeDuplicateLetters {
         StringBuilder sb = new StringBuilder();
         while (!stack.isEmpty()) {
             sb.append(stack.removeLast());
+        }
+        return sb.toString();
+    }
+
+
+    public String removeDuplicateLetters(String ss) {
+        int N = ss.length();
+        char[] s = ss.toCharArray();
+
+        boolean[] inStack = new boolean[26];    // 每个字符是否在栈中出现
+        int[] last = new int[26];               // 每个字符最后一次出现的下标
+        for (int i = 0; i < N; i++) {
+            last[s[i] - 'a'] = i;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < N; i++) {
+            if (inStack[s[i] - 'a']) continue;
+            while (sb.length() != 0
+                    && s[i] < sb.charAt(sb.length() - 1)
+                    && i < last[sb.charAt(sb.length() - 1) - 'a']) {
+                inStack[sb.charAt(sb.length() - 1) - 'a'] = false;
+                sb.deleteCharAt(sb.length() - 1);
+            }
+            sb.append(s[i]);
+            inStack[s[i] - 'a'] = true;
         }
         return sb.toString();
     }

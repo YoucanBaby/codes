@@ -1,5 +1,6 @@
 package data.stack;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -20,28 +21,19 @@ public class _1047_removeDuplicates {
     }
 
     public String removeDuplicates(String s) {
-        Deque<Character> stack = new LinkedList<>();
-
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (stack.isEmpty()) {
+        Deque<Character> stack = new ArrayDeque<>();
+        for (char c : s.toCharArray()) {
+            if (stack.isEmpty() || stack.peek() != c) {
                 stack.push(c);
-            } else if (c == stack.peek()) {
-                stack.pop();
             } else {
-                stack.push(c);
+                stack.pop();
             }
         }
 
-        if (stack.isEmpty()) {
-            return "";
-        } else {
-            StringBuilder sb = new StringBuilder();
-            while (!stack.isEmpty()) {
-                char c = stack.pollLast();
-                sb.append(c);
-            }
-            return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            sb.append(stack.removeLast());
         }
+        return sb.toString();
     }
 }

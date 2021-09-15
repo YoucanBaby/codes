@@ -14,49 +14,34 @@ import java.util.Deque;
 public class _1190_reverseParentheses {
     class Solution {
         public String reverseParentheses(String s) {
-            StringBuilder sb = new StringBuilder(s);
-            Deque<Integer> stack = new ArrayDeque<>();
-
-            for (int i = 0; i < s.length(); i++) {
-                if (sb.charAt(i) == '(') {
-                    stack.addFirst(i);
-                } else if (sb.charAt(i) == ')'){
-                    int left = stack.removeFirst();
-                    int right = i;
-
-                    String tempS = sb.substring(left, right);
-                    StringBuilder tempsb = new StringBuilder(tempS);
-                    tempsb.reverse();
-                    sb.replace(left, right, tempsb.toString());
-                }
-            }
-
-            StringBuilder res = new StringBuilder();
-            for (int i = 0; i < sb.length(); i++) {
-                if (sb.charAt(i) == '(' || sb.charAt(i) == ')') {
-                    continue;
+            StringBuilder sb = new StringBuilder();
+            Deque<StringBuilder> stack = new ArrayDeque<>();
+            for (char c : s.toCharArray()) {
+                if (c == '(') {
+                    stack.push(sb);
+                    sb = new StringBuilder();
+                } else if (c == ')') {
+                    sb.reverse();
+                    sb.insert(0, stack.pop());
                 } else {
-                    res.append(sb.charAt(i));
+                    sb.append(c);
                 }
             }
-
-            return res.toString();
+            return sb.toString();
         }
     }
 
     class Solution2 {
         public String reverseParentheses(String s) {
-
             Deque<Integer> stack = new ArrayDeque<>();
             int N = s.length();
             int[] pair = new int[N];
-
             for (int i = 0; i < N; i++) {
                 char c = s.charAt(i);
                 if (c == '(') {
-                    stack.addFirst(i);
+                    stack.push(i);
                 } else if (c == ')') {
-                    int j = stack.removeFirst();
+                    int j = stack.pop();
                     pair[i] = j;
                     pair[j] = i;
                 }
@@ -64,18 +49,17 @@ public class _1190_reverseParentheses {
 
             StringBuilder sb = new StringBuilder();
             int index = 0;
-            int step = 1;
+            int step = 1;               // 遍历的方向，1是左，-1是右
             while (index < N) {
                 char c = s.charAt(index);
                 if (c == '(' || c == ')') {
                     index = pair[index];
-                    step = -step;
+                    step = -step;       // 更改遍历方向
                 } else {
                     sb.append(c);
                 }
                 index += step;
             }
-
             return sb.toString();
         }
     }

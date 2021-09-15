@@ -1,5 +1,6 @@
 package data.stack;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -20,29 +21,26 @@ public class _1249_minRemoveToMakeValid {
     }
 
     public String minRemoveToMakeValid(String s) {
-        Deque<Integer> stack = new LinkedList<>();
-
+        Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (c == '(') {
-                stack.addFirst(i);
-            } else if (c == ')') {
-                if (stack.isEmpty()) {
-                    stack.addFirst(i);
-                } else {
-                    if (s.charAt(stack.getFirst()) == '(') {
-                        stack.removeFirst();
-                    } else if (s.charAt(stack.getFirst()) == ')') {
-                        stack.addFirst(i);
-                    }
+                stack.addLast(i);
+            }
+            else if (c == ')') {
+                if (!stack.isEmpty() && s.charAt(stack.getLast()) == '(') {
+                    stack.removeLast();
+                }
+                else  {
+                    stack.addLast(i);
                 }
             }
         }
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
-            if (!stack.isEmpty() && i == stack.getLast()) {
-                stack.removeLast();
+            if (!stack.isEmpty() && stack.getFirst() == i) {
+                stack.removeFirst();
             } else {
                 sb.append(s.charAt(i));
             }
