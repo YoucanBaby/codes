@@ -26,7 +26,7 @@ public class _0341_NestedIterator {
         private void dfs(List<NestedInteger> nestedList) {
             for (NestedInteger item : nestedList) {
                 if (item.isInteger()) {
-                    deque.addLast(item.getInteger());
+                    deque.push(item.getInteger());
                 } else {
                     dfs(item.getList());
                 }
@@ -35,7 +35,7 @@ public class _0341_NestedIterator {
 
         @Override
         public Integer next() {
-            return deque.removeFirst();
+            return deque.poll();
         }
 
         @Override

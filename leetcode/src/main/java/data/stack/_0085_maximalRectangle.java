@@ -16,93 +16,57 @@ import java.util.Deque;
 public class _0085_maximalRectangle {
 
     public static void main(String[] args) {
-//        char[][] matrix = {
-//                {'1','0','1','0','0'},
-//                {'1','0','1','1','1'},
-//                {'1','1','1','1','1'},
-//                {'1','0','0','1','0'}
-//        };
-        char[][] matrix = {{'1'}};
+        char[][] mat = {
+                {'1','0','1','0','0'},
+                {'1','0','1','1','1'},
+                {'1','1','1','1','1'},
+                {'1','0','0','1','0'}
+        };
+//        char[][] mat = {{'1'}};
         _0085_maximalRectangle solution = new _0085_maximalRectangle();
 
-        System.out.println(solution.maximalRectangle(matrix));
-        System.out.println(solution.maximalRectangle1(matrix));
+        System.out.println(solution.maximalRectangle(mat));
         }
 
-    public int maximalRectangle1(char[][] matrix) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length ==0)
+
+    public int maximalRectangle(char[][] m) {
+        if (m.length == 0 || m[0].length == 0) {
             return 0;
+        }
 
-        int M = matrix.length;
-        int N = matrix[0].length;
-
-        int[][] nums = new int[M][N + 2];
+        int M = m.length;
+        int N = m[0].length;
+        int[][] mat = new int[M][N + 2];
         for (int j = 0; j < N; j++) {
             int count = 0;
             for (int i = 0; i < M; i++) {
-                if (matrix[i][j] == '0') {
-                    nums[i][j + 1] = 0;
+                if (m[i][j] == '0') {
+                    mat[i][j + 1] = 0;
                     count = 0;
-                } else if (matrix[i][j] == '1') {
+                } else if (m[i][j] == '1') {
                     count++;
-                    nums[i][j + 1] = count;
+                    mat[i][j + 1] = count;
                 }
             }
         }
-
         N += 2;
-        int area = 0;
+
+        for (int i = 0; i < mat.length; i++) {
+            System.out.println(Arrays.toString(mat[i]));
+        }
+
+        int res = 0;
         for (int i = 0; i < M; i++) {
             Deque<Integer> stack = new ArrayDeque<>();
-            stack.addFirst(0);
-            for (int j = 1; j < N; j++) {
-                while (nums[i][j] < nums[i][stack.getFirst()]) {
-                    int height = nums[i][stack.removeFirst()];
-                    int width = j - stack.getFirst() - 1;
-                    area = Math.max(area, height * width);
-                }
-                stack.addFirst(j);
-            }
-        }
-        return area;
-    }
-
-    public int maximalRectangle(char[][] matrix) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length ==0)
-            return 0;
-        int M = matrix.length;
-        int N = matrix[0].length;
-        int[][] left = new int[M][N];
-
-        for (int i = 0; i < M; i++) {
-            int count = 0;        // 统计左边为0个数
             for (int j = 0; j < N; j++) {
-                if (matrix[i][j] == '1') {
-                    left[i][j] = count + 1;
-                    count++;
-                } else if (matrix[i][j] == '0') {
-                    left[i][j] = 0;
-                    count = 0;
+                while (!stack.isEmpty() && mat[i][j] < mat[i][stack.peek()]) {
+                    int h = mat[i][stack.pop()];
+                    int w = j - stack.peek() - 1;
+                    res = Math.max(res, h * w);
                 }
+                stack.push(j);
             }
         }
-
-        int ret = 0;
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-                if (left[i][j] == 0) {
-                    continue;
-                } else {
-                    int width = left[i][j];
-                    int area = width;
-                    for (int k = i - 1; k >= 0; k--) {
-                        width = Math.min(width, left[k][j]);
-                        area = Math.max(area, width * (i - k + 1));
-                    }
-                    ret = Math.max(ret, area);
-                }
-            }
-        }
-        return ret;
+        return res;
     }
 }

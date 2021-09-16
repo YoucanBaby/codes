@@ -14,36 +14,34 @@ import java.util.Deque;
 public class _0682_calPoints {
 
     public static void main(String[] args) {
-        String[] ops = {"5","-2","4","C","D","9","+","+"};
+        String[] ops = {"5","2","C","D","+"};
         _0682_calPoints solution = new _0682_calPoints();
 
         System.out.println(solution.calPoints(ops));
     }
 
-    public int calPoints(String[] ops) {
-        Deque<Integer> deque = new ArrayDeque<>();
 
-        for (int i = 0; i < ops.length; i++) {
-            String s = ops[i];
-            if (s.equals("C")) {
-                deque.removeLast();
-            } else if (s.equals("D")) {
-                int num = 2 * deque.getLast();
-                deque.addLast(num);
-            } else if (s.equals("+")) {
-                int b = deque.removeLast();
-                int a = deque.getLast();
-                deque.addLast(b);
-                deque.addLast(a + b);
+    public int calPoints(String[] ops) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (String op : ops) {
+            if (op.equals("+")) {
+                int b = stack.pop();
+                int a = stack.peek();
+                stack.push(b);
+                stack.push(a + b);
+            } else if (op.equals("D")) {
+                stack.push(stack.peek() * 2);
+            } else if (op.equals("C")) {
+                stack.pop();
             } else {
-                deque.addLast(Integer.valueOf(s));
+                stack.push(Integer.valueOf(op));
             }
         }
 
-        int ret = 0;
-        while (!deque.isEmpty()) {
-            ret += deque.removeLast();
+        int res = 0;
+        for (int num : stack) {
+            res += num;
         }
-        return ret;
+        return res;
     }
 }
