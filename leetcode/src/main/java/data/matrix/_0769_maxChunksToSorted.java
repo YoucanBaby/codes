@@ -18,16 +18,13 @@ public class _0769_maxChunksToSorted {
         System.out.println(solution.maxChunksToSorted(arr2));
     }
 
-    public int maxChunksToSorted(int[] arr) {
-        int ret = 0;
+    public int maxChunksToSorted(int[] nums) {
+        int res = 0;
         int max = 0;
-
-        for (int i = 0; i < arr.length; i++) {
-            max = Math.max(max, arr[i]);
-            if (max == i) {
-                ret++;
-            }
+        for (int i = 0; i < nums.length; i++) {
+            max = Math.max(max, nums[i]);
+            if (i >= max) res++;
         }
-        return ret;
+        return res;
     }
 }

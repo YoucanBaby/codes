@@ -46,11 +46,9 @@ public class _1539_findKthPositive {
     }
 
 
-    public int findKthPositive2(int[] arr, int k) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] <= k) {
-                k++;
-            }
+    public int findKthPositive2(int[] nums, int k) {
+        for (int num : nums) {
+            if (num <= k) k++;
         }
         return k;
     }

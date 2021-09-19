@@ -42,8 +42,8 @@ public class _1893_isCovered {
 
     public boolean isCovered1(int[][] ranges, int left, int right) {
         boolean[] flags = new boolean[51];
-        for (int[] range : ranges) {
-            Arrays.fill(flags, range[0], range[1] + 1, true);
+        for (int[] r : ranges) {
+            Arrays.fill(flags, r[0], r[1] + 1, true);
         }
         for (int i = left; i <= right; i++) {
             if (flags[i] == false) {

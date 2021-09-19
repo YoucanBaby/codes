@@ -26,17 +26,16 @@ public class _0566_matrixReshape {
     public int[][] matrixReshape(int[][] mat, int r, int c) {
         int m = mat.length;
         int n = mat[0].length;
-        if (m * n != r * c)
-            return mat;
+        if (m * n != r * c) return mat;
 
-        int[][] reshapeMat = new int[r][c];
+        int[][] res = new int[r][c];
         int index = 0;
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
-                reshapeMat[i][j] = mat[index / n][index % n];
+                res[i][j] = mat[index / n][index % n];
                 index++;
             }
         }
-        return reshapeMat;
+        return res;
     }
 }

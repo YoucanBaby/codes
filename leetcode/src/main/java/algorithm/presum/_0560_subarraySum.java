@@ -12,18 +12,21 @@ import java.util.Map;
  */
 public class _0560_subarraySum {
 
-    public int subarraySum(int[] nums, int goal) {
-        Map<Integer, Integer> preSum = new HashMap<>();
-        preSum.put(0, 1);
-        int sum = 0;
-        int res = 0;
-
-        for (int num : nums) {
-            sum += num;
-            res += preSum.getOrDefault(sum - goal, 0);
-            preSum.put(sum, preSum.getOrDefault(sum, 0) +  1);
+    public int subarraySum(int[] nums, int target) {
+        int N = nums.length;
+        int[] preSum = new int[N + 1];
+        for (int i = 0; i < N; i++) {
+            preSum[i + 1] = preSum[i] + nums[i];
         }
 
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        int res = 0;
+        for (int i = 1; i <= N; i++) {
+            int right = preSum[i];
+            res += map.getOrDefault(right - target, 0);
+            map.put(right, map.getOrDefault(right, 0) + 1);
+        }
         return res;
     }
 }

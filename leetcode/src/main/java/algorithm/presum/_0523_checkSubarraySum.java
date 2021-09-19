@@ -1,7 +1,9 @@
 package algorithm.presum;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @BelongsProject: codes
@@ -14,25 +16,15 @@ public class _0523_checkSubarraySum {
 
     public boolean checkSubarraySum(int[] nums, int k) {
         int N = nums.length;
-        if (N <= 1) {
-            return false;
+        int[] preSum = new int[N + 1];
+        for (int i = 0; i < N; i++) {
+            preSum[i + 1] = preSum[i] + nums[i];
         }
 
-        Map<Integer, Integer> map = new HashMap<>();
-        map.put(0, -1);		// 初始值
-        int preSum = 0;
-
-        for (int i = 0; i < N; i++) {
-            preSum += nums[i];
-            preSum %= k;
-
-            if (map.containsKey(preSum)) {
-                if (i - map.get(preSum) >= 2) {
-                    return true;
-                }
-            } else {
-                map.put(preSum, i);
-            }
+        Set<Integer> set = new HashSet<>();
+        for (int i = 2; i < preSum.length; i++) {
+            set.add(preSum[i - 2] % k);
+            if (set.contains(preSum[i] % k)) return true;
         }
         return false;
     }

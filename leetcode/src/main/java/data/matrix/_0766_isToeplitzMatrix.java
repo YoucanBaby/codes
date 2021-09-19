@@ -20,10 +20,10 @@ public class _0766_isToeplitzMatrix {
         System.out.println(solution.isToeplitzMatrix(matrix));
     }
 
-    public boolean isToeplitzMatrix(int[][] matrix) {
-        for (int i = 0; i < matrix.length - 1; i++) {
-            for (int j = 0; j < matrix[0].length - 1; j++) {
-                if (matrix[i][j] != matrix[i + 1][j + 1]) {
+    public boolean isToeplitzMatrix(int[][] mat) {
+        for (int i = 0; i < mat.length - 1; i++) {
+            for (int j = 0; j < mat[0].length - 1; j++) {
+                if (mat[i][j] != mat[i + 1][j + 1]) {
                     return false;
                 }
             }

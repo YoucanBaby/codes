@@ -42,5 +42,16 @@ public class _0528_Solution {
             }
             return left;
         }
+
+        public int pickIndex1() {
+            Random random = new Random();
+            int randomNum = random.nextInt(preSum.get(preSum.size() - 1)) + 1;
+            for (int i = 0; i < preSum.size(); i++) {
+                if (randomNum <= preSum.get(i)) {
+                    return i;
+                }
+            }
+            return 0;
+        }
     }
 }

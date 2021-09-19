@@ -21,25 +21,19 @@ public class _0049_groupAnagrams {
 
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List> map = new HashMap<>();
-        int[] count = new int[26];
-
-        for (String str: strs) {
-            Arrays.fill(count, 0);
-            for (char c: str.toCharArray()) {
+        for (String s : strs) {
+            int[] count = new int[26];
+            for (char c : s.toCharArray()) {
                 count[c - 'a']++;
             }
-
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < count.length; i++) {
-                sb.append("#");
-                sb.append(count[i]);
+            for (int cnt : count) {
+                sb.append('#');
+                sb.append(cnt);
             }
-
             String key = sb.toString();
-            if (!map.containsKey(key)) {
-                map.put(key, new ArrayList());
-            }
-            map.get(key).add(str);
+            if (!map.containsKey(key)) map.put(key, new ArrayList<>());
+            map.get(key).add(s);
         }
         return new ArrayList(map.values());
     }

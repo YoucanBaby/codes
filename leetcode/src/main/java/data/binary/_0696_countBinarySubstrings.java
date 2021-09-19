@@ -9,44 +9,29 @@ package data.binary;
  */
 public class _0696_countBinarySubstrings {
 
+    public static void main(String[] args) {
+        _0696_countBinarySubstrings solution = new _0696_countBinarySubstrings();
 
-    public int countBinarySubstrings(String s) {
-        int N = s.length();
+        String s = "00110011";
+        System.out.println(solution.countBinarySubstrings(s));
+    }
+
+    public int countBinarySubstrings(String ss) {
+        char[] s = ss.toCharArray();
         int res = 0;
-        int last = 0;               // 上一组连续0或者连续1的个数
-
-        int index = 0;
-        while (index < N) {
-            char c = s.charAt(index);
-            int count = 0;
-            while (index < N && s.charAt(index) == c) {     // 统计连续0或者连续1的个数
-                index++;
-                count++;
+        int pre = 0;
+        int cur = 1;
+        for (int i = 1; i < s.length; i++) {
+            if (s[i] == s[i - 1]) {
+                cur++;
             }
-            res += Math.min(count, last);
-            last = count;
+            else {
+                pre = cur;
+                cur = 1;
+            }
+            if (pre >= cur) res++;
         }
         return res;
     }
 
-
-    public int countBinarySubstrings1(String s) {
-        int N = s.length();
-        int res = 0;
-        int last = 0;
-
-        int index = 0;
-        while (index < N) {
-            char c = s.charAt(index);
-            int count = 1;
-            index++;
-            while (index < N && s.charAt(index) == c) {
-                index++;
-                count++;
-            }
-            res += Math.min(count, last);
-            last = count;
-        }
-        return res;
-    }
 }

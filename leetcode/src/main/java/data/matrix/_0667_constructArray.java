@@ -21,29 +21,24 @@ public class _0667_constructArray {
     }
 
     public int[] constructArray(int n, int k) {
-
-        int[] ret = new int[n];
-
-        // 1.构建等差数列
+        int[] res = new int[n];
         for (int i = 0; i < n - k - 1; i++) {
-            ret[i] = i + 1;
+            res[i] = i + 1;
         }
 
-        // 2.构建交错数列
-        int flag = 0;       // 控制交错的变量
+        int flag = 0;
         int left = n - k;
         int right = n;
-
         for (int i = n - k - 1; i < n; i++) {
-            if (flag % 2 == 0) {
-                ret[i] = left;
+            if ((flag & 1) == 0) {
+                res[i] = left;
                 left++;
             } else {
-                ret[i] = right;
+                res[i] = right;
                 right--;
             }
             flag++;
         }
-        return ret;
+        return res;
     }
 }

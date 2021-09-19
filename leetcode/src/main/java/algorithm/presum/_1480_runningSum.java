@@ -13,12 +13,10 @@ public class _1480_runningSum {
 
     public int[] runningSum(int[] nums) {
         int N = nums.length;
-        int[] preSum = new int [N + 1];
-
-        for (int i = 0; i < N; i++) {
+        int[] preSum = new int[N + 1];
+        for (int i = 0; i < nums.length; i++) {
             preSum[i + 1] = preSum[i] + nums[i];
         }
-
         return Arrays.copyOfRange(preSum, 1, N + 1);
     }
 

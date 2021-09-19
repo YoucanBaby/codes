@@ -8,6 +8,7 @@ package algorithm.presum;
  * @Description:
  */
 public class _0303_NumArray {
+
     class NumArray {
         int[] preSum;
 

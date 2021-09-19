@@ -13,15 +13,14 @@ public class _1109_corpFlightBookings {
 
     public int[] corpFlightBookings(int[][] bs, int N) {
         int[] diff = new int[N];
-
         for (int[] b : bs) {
             int start = b[0] - 1;
             int end = b[1] - 1;
-            int num = b[2];
+            int val = b[2];
 
-            diff[start] += num;
+            diff[start] += val;
             if (end + 1 < N) {
-                diff[end + 1] -= num;
+                diff[end + 1] -= val;
             }
         }
 

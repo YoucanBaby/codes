@@ -23,26 +23,22 @@ public class _0862_shortestSubarray {
         System.out.println(solution.shortestSubarray(nums, k));
     }
 
+
     public int shortestSubarray(int[] nums, int k) {
         int N = nums.length;
-        int[] preSum = new int[N + 1];          // 前缀和数组
+        int[] preSum = new int[N + 1];
         for (int i = 0; i < N; i++) {
             preSum[i + 1] = preSum[i] + nums[i];
         }
 
-        Deque<Integer> deque = new ArrayDeque<>();      // 左小右大，左边是队尾，右边是队首
-        deque.addLast(0);
+        Deque<Integer> deque = new ArrayDeque<>();
         int res = Integer.MAX_VALUE;
-
-        for (int i = 1; i < N + 1; i++) {
-            // 保证左小右大
-            while (!deque.isEmpty() && preSum[deque.getLast()]>= preSum[i]) {
+        for (int i = 0; i < N + 1; i++) {
+            while (!deque.isEmpty() && preSum[i] <= preSum[deque.getLast()]) {
                 deque.removeLast();
             }
-            // 当前元素和队尾的差值 >= k 时，记录最小长度，删除队尾
             while (!deque.isEmpty() && preSum[i] - preSum[deque.getFirst()] >= k) {
-                res = Math.min(res, i - deque.getFirst());
-                deque.removeFirst();
+                res = Math.min(res, i - deque.removeFirst());
             }
             deque.addLast(i);
         }

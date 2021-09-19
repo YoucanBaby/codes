@@ -15,14 +15,14 @@ public class _0950_deckRevealedIncreasing {
         Arrays.sort(nums);
         Deque<Integer> deque = new ArrayDeque<>();
         for (int i = nums.length - 1; i >= 0; i--) {
-            deque.addLast(nums[i]);
+            deque.offer(nums[i]);
             if (i != 0) {
-                deque.addLast(deque.removeFirst());
+                deque.offer(deque.poll());
             }
         }
 
         int[] res = new int[nums.length];
-        for (int i = 0; i < res.length; i++) {
+        for (int i = 0; i < nums.length; i++) {
             res[i] = deque.removeLast();
         }
         return res;

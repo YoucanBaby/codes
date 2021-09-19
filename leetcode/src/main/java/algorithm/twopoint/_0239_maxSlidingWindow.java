@@ -40,4 +40,28 @@ public class _0239_maxSlidingWindow {
         }
         return res;
     }
+
+    public int[] maxSlidingWindow1(int[] nums, int k) {
+        if (nums.length <= 1) {
+            return nums;
+        }
+        int N = nums.length;
+        int[] res = new int[N - k + 1];
+
+        Deque<Integer> deque = new ArrayDeque<>();
+        for (int right = 0; right < N; right++) {
+            int left = right - k + 1;
+            if (!deque.isEmpty() && deque.getFirst() < left) {
+                deque.removeFirst();
+            }
+            while (!deque.isEmpty() && nums[right] > nums[deque.getLast()]) {
+                deque.removeLast();
+            }
+            deque.addLast(right);
+            if (left >= 0) {
+                res[left] = nums[deque.getFirst()];
+            }
+        }
+        return res;
+    }
 }

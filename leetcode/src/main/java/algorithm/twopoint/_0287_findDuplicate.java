@@ -33,6 +33,6 @@ public class _0287_findDuplicate {
             slow = nums[slow];
             fast = nums[fast];
         }
-        return fast;
+        return slow;
     }
 }

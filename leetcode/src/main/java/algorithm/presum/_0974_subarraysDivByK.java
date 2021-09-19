@@ -21,21 +21,20 @@ public class _0974_subarraysDivByK {
     }
 
     public int subarraysDivByK(int[] nums, int k) {
+        int N = nums.length;
+        int[] preSum = new int[N + 1];
+        for (int i = 0; i < N; i++) {
+            preSum[i + 1] = preSum[i] + nums[i];
+        }
+
         Map<Integer, Integer> map = new HashMap<>();
         map.put(0, 1);
-
-        int preSum = 0;
         int res = 0;
-
-        for (int num : nums) {
-            preSum += num;
-            preSum %= k;
-            int key = (preSum + k) % k;
-
+        for (int i = 1; i <= N; i++) {
+            int key = (preSum[i] % k + k) % k;
             res += map.getOrDefault(key, 0);
             map.put(key, map.getOrDefault(key, 0) + 1);
         }
-
         return res;
     }
 }

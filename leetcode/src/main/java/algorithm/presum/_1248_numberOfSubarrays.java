@@ -12,21 +12,26 @@ import java.util.Map;
  */
 public class _1248_numberOfSubarrays {
 
+    public static void main(String[] args) {
+        _1248_numberOfSubarrays solution = new _1248_numberOfSubarrays();
+
+        int[] nums = {1,1,2,1,1};
+        int k = 3;
+        System.out.println(solution.numberOfSubarrays(nums, k));
+    }
+
+
     public int numberOfSubarrays(int[] nums, int k) {
         Map<Integer, Integer> map = new HashMap<>();
         map.put(0, 1);		// 初始值
 
-        int preSum = 0;
+        int oddCount = 0;
         int res = 0;
-        int N = nums.length;
-        for (int i = 0; i < N; i++) {
-            if (nums[i] % 2 == 1) {
-                preSum++;
-            }
-            res += map.getOrDefault(preSum - k, 0);
-            map.put(preSum, map.getOrDefault(preSum, 0) + 1);
+        for (int num : nums) {
+            oddCount += num & 1;
+            res += map.getOrDefault(oddCount - k, 0);
+            map.put(oddCount, map.getOrDefault(oddCount, 0) + 1);
         }
-
         return res;
     }
 }

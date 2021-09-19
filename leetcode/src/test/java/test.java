@@ -17,6 +17,23 @@ public class test {
 
     }
 
+    public int[] addVal(int[] nums, int left, int right, int val) {
+        int N = nums.length;
+        int[] diff = new int[N];
+        for (int i = 1; i < N; i++) {
+            diff[i] = nums[i] - nums[i - 1];
+        }
+
+        diff[left] += val;
+        diff[right + 1] -= val;
+
+        for (int i = 1; i < N; i++) {
+            nums[i] = nums[i - 1] + diff[i];
+        }
+        return nums;
+    }
+
+
     public TreeNode getLastNode(TreeNode root) {
         if (root == null) {
             return null;

@@ -13,24 +13,24 @@ public class _0845_longestMountain {
     public int longestMountain(int[] nums) {
         int N = nums.length;
         int res = 0;
-        int index = 1;
-        while (index < N) {
-            int increasing = 0;
-            int decreasing = 0;
-            while (index < N && nums[index - 1] < nums[index]) {
-                increasing++;
-                index++;
+        int i = 1;
+        while (i < N) {
+            int inc = 0;
+            int dec = 0;
+            while (i < N && nums[i] > nums[i - 1]) {
+                inc++;
+                i++;
             }
-            while (index < N && nums[index - 1] > nums[index]) {
-                decreasing++;
-                index++;
+            while (i < N && nums[i] < nums[i - 1]) {
+                dec++;
+                i++;
             }
-            if (increasing > 0 && decreasing > 0) {
-                res = Math.max(res, increasing + decreasing + 1);
+            if (inc > 0 && dec > 0) {
+                res = Math.max(res, inc + dec + 1);
             }
 
-            while (index < N && nums[index - 1] == nums[index]) {       // 跳过所有平地
-                index++;
+            while (i < N && nums[i] == nums[i - 1]) {
+                i++;
             }
         }
         return res;

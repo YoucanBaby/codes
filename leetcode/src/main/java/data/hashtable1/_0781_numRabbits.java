@@ -18,23 +18,17 @@ public class _0781_numRabbits {
         System.out.println(solution.numRabbits(answers));
     }
 
-    public int numRabbits(int[] answers) {
+    public int numRabbits(int[] nums) {
         Map<Integer, Integer> map = new HashMap<>();
-
-        for (int i = 0; i < answers.length; i++) {
-            if (!map.containsKey(answers[i])) {
-                map.put(answers[i], 1);
-            } else {
-                map.put(answers[i], map.get(answers[i]) + 1);
-            }
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
-
-        int ret = 0;
+        int res = 0;
         for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
             int y = entry.getKey();
             int x = entry.getValue();
-            ret += (x + y) / (y + 1) * (y + 1);
+            res += (x + y) / (y + 1) * (y + 1);         // (x + y)就是向上取整
         }
-        return ret;
+        return res;
     }
 }

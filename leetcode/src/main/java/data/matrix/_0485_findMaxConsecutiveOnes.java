@@ -17,17 +17,15 @@ public class _0485_findMaxConsecutiveOnes {
     }
 
     public int findMaxConsecutiveOnes(int[] nums) {
-        int N = nums.length;
-        int i = 0;
-        int ret = 0;
-
-        for (int j = 0; j < N; j++) {
-            if(nums[j] == 1) {
-                ret = Math.max(ret, (j - i + 1));
+        int res = 0;
+        int left = 0;
+        for (int right = 0; right < nums.length; right++) {
+            if (nums[right] == 1) {
+                res = Math.max(res, right - left + 1);
             } else {
-                i = j + 1;
+                left = right + 1;
             }
         }
-        return ret;
+        return res;
     }
 }

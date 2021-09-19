@@ -10,15 +10,13 @@ package algorithm.presum;
 public class _0724_pivotIndex {
 
     public int pivotIndex(int[] nums) {
-        int N = nums.length;
-
         int sum = 0;
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
         }
 
         int leftSum = 0;
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < nums.length; i++) {
             if (sum - nums[i] - leftSum == leftSum) {
                 return i;
             }

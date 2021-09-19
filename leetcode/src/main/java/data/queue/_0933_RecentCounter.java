@@ -1,5 +1,8 @@
 package data.queue;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * @BelongsProject: ForOffer
  * @BelongsPackage: data.stack
@@ -8,4 +11,20 @@ package data.queue;
  * @Description:
  */
 public class _0933_RecentCounter {
+
+    class RecentCounter {
+        Deque<Integer> deque;
+
+        public RecentCounter() {
+            deque = new ArrayDeque<>();
+        }
+
+        public int ping(int t) {
+            deque.offer(t);
+            while (t - deque.peek() > 3000) {
+                deque.poll();
+            }
+            return deque.size();
+        }
+    }
 }
