@@ -30,16 +30,15 @@ public class _0126_findLadders {
 
     public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
         Set<String> wordSet= new HashSet<>(wordList);
-        if (!wordSet.contains(endWord)) {
-            return new ArrayList<>();
-        }
+        if (!wordSet.contains(endWord)) return new ArrayList<>();
 
         List<List<String>> res = new ArrayList<>();
-        Deque<List<String>> deque = new ArrayDeque<>();
         List<String> path = new ArrayList<>();
+        Deque<List<String>> deque = new ArrayDeque<>();
+        Set<String> visited = new HashSet<>();
+
         path.add(beginWord);
         deque.add(path);
-        Set<String> visited = new HashSet<>();
         visited.add(beginWord);
 
         boolean isFound = false;
@@ -53,10 +52,7 @@ public class _0126_findLadders {
                 List<String> nextList = getNext(wordSet, cur);
 
                 for (String next : nextList) {
-                    if (visited.contains(next)) {
-                        continue;
-                    }
-
+                    if (visited.contains(next)) continue;
                     path.add(next);
                     levelVisited.add(next);
                     deque.addLast(new ArrayList<>(path));
@@ -68,9 +64,7 @@ public class _0126_findLadders {
                 }
             }
             visited.addAll(levelVisited);
-            if (isFound) {
-                return res;
-            }
+            if (isFound) return res;
         }
         return res;
     }
@@ -78,10 +72,8 @@ public class _0126_findLadders {
     private List<String> getNext(Set<String> wordSet, String cur) {
         List<String> nextList = new ArrayList<>();
         char[] arr = cur.toCharArray();
-
         for (int i = 0; i < arr.length; i++) {
             char originChar = arr[i];
-
             for (char c = 'a'; c <= 'z'; c++) {
                 arr[i] = c;
                 String next = new String(arr);

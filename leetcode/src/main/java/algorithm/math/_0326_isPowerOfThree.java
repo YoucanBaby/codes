@@ -9,19 +9,22 @@ package algorithm.math;
  */
 public class _0326_isPowerOfThree {
 
-    public boolean isPowerOfThree(int n) {
-        if (n < 1) {
-            return false;
-        }
 
-        while (n % 3 == 0) {
-            n /= 3;
-        }
-
-        return n == 1;
+    public static void main(String[] args) {
+        _0326_isPowerOfThree solution = new _0326_isPowerOfThree();
+        System.out.println(solution.get3Max());
     }
 
-    public boolean isPowerOfThree1(int n) {
+
+    public boolean isPowerOfThree(int n) {
         return (n > 0) && (1162261467 % n == 0);
+    }
+
+    public int get3Max() {
+        int n = 1;
+        while (n < Integer.MAX_VALUE / 3) {
+            n *= 3;
+        }
+        return n;
     }
 }

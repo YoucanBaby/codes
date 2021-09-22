@@ -17,6 +17,11 @@ public class test {
         int[] nums = {2,3,6,1,2,2,4,2};
         int k = 2;
         System.out.println(Arrays.toString(test.change(nums, k)));
+
+        System.out.println(test.isPrime(2));
+        System.out.println(test.isPrime(3));
+        System.out.println(test.isPrime(4));
+        System.out.println(test.isPrime(5));
     }
 
     public int[] change(int[] nums, int k) {
@@ -45,5 +50,14 @@ public class test {
 
     public int gcd(int a, int b) {
         return b == 0 ? a : gcd(b, a % b);
+    }
+
+
+    public boolean isPrime(int n) {
+        if (n < 2) return false;
+        for (int i = 2; i <= n / i; i++) {
+            if (n % i == 0) return true;
+        }
+        return false;
     }
 }
