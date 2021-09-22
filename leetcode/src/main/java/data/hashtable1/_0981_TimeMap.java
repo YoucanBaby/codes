@@ -15,33 +15,23 @@ import java.util.TreeMap;
 public class _0981_TimeMap {
 
     class TimeMap {
-        Map<String, TreeMap<Integer, String>> map;
+        Map<String, TreeMap<Integer, String>> map = new HashMap<>();
 
         public TimeMap() {
-            map = new HashMap<>();
+
         }
 
-        public void set(String key, String value, int timestamp) {
-            TreeMap<Integer, String> treeMap;
-            if (map.get(key) == null) {
-                treeMap = new TreeMap<>(new Comparator<Integer>() {
-                    @Override
-                    public int compare(Integer o1, Integer o2) {
-                        return o2 - o1;
-                    }
-                });
-            } else {
-                treeMap = map.get(key);
+        public void set(String key, String val, int timestamp) {
+            if (!map.containsKey(key)) {
+                map.put(key, new TreeMap<>((o1, o2) -> o2 - o1));
             }
-            treeMap.put(timestamp, value);
-            map.put(key, treeMap);
+            map.get(key).put(timestamp, val);
         }
 
         public String get(String key, int timestamp) {
-
-            if (map.get(key) != null) {
+            if (map.containsKey(key)) {
                 TreeMap<Integer, String> treeMap = map.get(key);
-                for (Integer time : treeMap.keySet()) {
+                for (int time : treeMap.keySet()) {
                     if (time <= timestamp) {
                         return treeMap.get(time);
                     }

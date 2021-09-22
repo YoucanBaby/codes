@@ -15,12 +15,12 @@ public class _0706_MyHashMap {
 
 }
 
-class MyHashMap {
+class MyHashMap2 {
 
     static final int INF = Integer.MAX_VALUE;
     int[] map;
 
-    public MyHashMap() {
+    public MyHashMap2() {
         map = new int[1000001];     // 最大数据只有10^6
         Arrays.fill(map, INF);
     }

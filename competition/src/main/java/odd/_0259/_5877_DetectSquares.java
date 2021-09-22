@@ -11,13 +11,39 @@ import java.util.*;
  */
 public class _5877_DetectSquares {
 
+    public static void main(String[] args) {
+        DetectSquares solution = new DetectSquares();
+        System.out.println(solution.test(1,2));
+    }
+
     // 思路：枚举所有的点，找是否存在对角线，有对角线存在就把三个点的值乘起来
-    class DetectSquares {
+    static class DetectSquares {
 
         Map<Integer, Integer> map = new HashMap<>();
+        int[] p = new int[] {1,1};;
+        int[] p0 = new int[] {1,1};
+        int[] p1 = new int[] {1,1};;
+        int[] p2 = new int[] {1,1};;
+        int[] p3 = new int[] {1,1};;
+        int x = 1;
+        int y = 10;
+
+        @Override
+        public boolean equals(Object obj) {
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return x * 10000 + y;
+        }
 
         public DetectSquares() {
 
+        }
+
+        public boolean test(int x, int y) {
+            return p0.equals(p1);
         }
 
         public void add(int[] p) {

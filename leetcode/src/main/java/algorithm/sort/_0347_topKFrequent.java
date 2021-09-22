@@ -21,7 +21,7 @@ public class _0347_topKFrequent {
     }
 
 
-    public int[] topKFrequent(int[] nums, int k) {
+    public int[] topKFrequent1(int[] nums, int k) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int num : nums) {
             if (!map.containsKey(num)) {
@@ -46,6 +46,32 @@ public class _0347_topKFrequent {
             if (list[i] == null) {
                 continue;
             }
+            res.addAll(list[i]);
+        }
+
+        int[] ret = new int[res.size()];
+        for (int i = 0; i < res.size(); i++) {
+            ret[i] = res.get(i);
+        }
+        return ret;
+    }
+
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int num : nums) {
+            freq.put(num, freq.getOrDefault(num, 0) + 1);
+        }
+
+        List[] list = new ArrayList[nums.length + 1];
+        for (int key : freq.keySet()) {
+            int val = freq.get(key);
+            if (list[val] == null) list[val] = new ArrayList();
+            list[val].add(key);
+        }
+
+        List<Integer> res = new ArrayList<>();
+        for (int i = list.length - 1; i >= 0 && res.size() < k; i--) {
+            if (list[i] == null) continue;
             res.addAll(list[i]);
         }
 

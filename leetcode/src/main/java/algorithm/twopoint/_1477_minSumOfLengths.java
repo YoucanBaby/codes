@@ -1,5 +1,7 @@
 package algorithm.twopoint;
 
+import java.util.*;
+
 /**
  * @BelongsProject: codes
  * @BelongsPackage: algorithm.twopoint
@@ -9,34 +11,39 @@ package algorithm.twopoint;
  */
 public class _1477_minSumOfLengths {
 
+    public static void main(String[] args) {
+        _1477_minSumOfLengths solution = new _1477_minSumOfLengths();
+
+        int[] nums = {1,1,1,2,2,2,4,4};
+        int target = 6;
+        System.out.println(solution.minSumOfLengths(nums, target));
+    }
 
     public int minSumOfLengths(int[] nums, int target) {
-        int minLength = Integer.MAX_VALUE;      // 最短长度
-        int minLength2 = Integer.MAX_VALUE;     // 第二短长度
-
-        int sum = 0;        // 滑动窗口值的总和
-        int left = 0;
-        for (int right = 0; right < nums.length; right++) {
-            sum += nums[right];
+        List<int[]> list = new ArrayList<>();   // [左边界,右边界]
+        int sum = 0;                    // 滑动窗口值的总和
+        for (int l = 0, r = 0; r < nums.length; r++) {
+            sum += nums[r];
             while (sum > target) {
-                sum -= nums[left];
-                left++;
+                sum -= nums[l];
+                l++;
             }
             if (sum == target) {
-                if (right - left + 1 <= minLength) {
-                    minLength2 = minLength;
-                    minLength = right - left + 1;
-                } else {
-                   if (right - left + 1 <= minLength2) {
-                       minLength2 = right - left + 1;
-                   }
+                list.add(new int[] {l, r, r - l + 1});
+            }
+        }
+        Collections.sort(list, (o1, o2) -> o1[2] - o2[2]);
+
+        int res = Integer.MAX_VALUE;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i)[2] * 2 >= res) break;
+            for (int j = i + 1; j < list.size(); j++) {
+                if (list.get(i)[0] < list.get(j)[0] && list.get(i)[1] < list.get(j)[0] ||
+                        list.get(j)[0] < list.get(i)[0] && list.get(j)[1] < list.get(i)[0] ) {
+                    res = Math.min(res, list.get(i)[2] + list.get(j)[2]);
                 }
             }
         }
-        if (minLength == Integer.MAX_VALUE || minLength2 == Integer.MAX_VALUE) {
-            return -1;
-        } else {
-            return minLength + minLength2;
-        }
+        return res == Integer.MAX_VALUE ? -1 : res;
     }
 }

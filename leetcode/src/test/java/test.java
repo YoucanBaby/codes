@@ -11,53 +11,39 @@ import java.util.*;
  */
 
 public class test {
+
     public static void main(String[] args) {
         test test = new test();
-
-
+        int[] nums = {2,3,6,1,2,2,4,2};
+        int k = 2;
+        System.out.println(Arrays.toString(test.change(nums, k)));
     }
 
-    public int[] addVal(int[] nums, int left, int right, int val) {
+    public int[] change(int[] nums, int k) {
         int N = nums.length;
-        int[] diff = new int[N];
-        for (int i = 1; i < N; i++) {
-            diff[i] = nums[i] - nums[i - 1];
-        }
-
-        diff[left] += val;
-        diff[right + 1] -= val;
-
-        for (int i = 1; i < N; i++) {
-            nums[i] = nums[i - 1] + diff[i];
+        int l = 0, r = 0;
+        while (r < N) {
+            while (l < N && nums[l] == k) {
+                l++;
+            }
+            while (l >= r || (r < N && nums[r] != k)) {
+                r++;
+            }
+            if (l < N && r < N) {
+                swap(nums, l, r);
+            }
         }
         return nums;
     }
 
-
-    public TreeNode getLastNode(TreeNode root) {
-        if (root == null) {
-            return null;
-        }
-        if (root.left == null && root.right == null) {
-            return root;
-        }
-
-        int leftDepth = getDepth(root.left);
-        int rightDepth = getDepth(root.right);
-
-        if (leftDepth > rightDepth) {
-            return getLastNode(root.left);
-        } else {
-            return getLastNode(root.right);
-        }
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 
-    private int getDepth(TreeNode root) {
-        int depth = 0;
-        while (root != null) {
-            depth++;
-            root = root.left;
-        }
-        return depth;
+
+    public int gcd(int a, int b) {
+        return b == 0 ? a : gcd(b, a % b);
     }
 }

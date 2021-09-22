@@ -1,5 +1,7 @@
 package data.matrix;
 
+import java.util.Arrays;
+
 /**
  * @BelongsProject: ForOffer
  * @BelongsPackage: com.yifang
@@ -27,15 +29,22 @@ public class _0003_findRepeatNumber {
         return -1;
     }
 
-    protected void swap(int[] arr, int i, int j) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
+
+    public int findRepeatNumber1(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            while (nums[i] != nums[nums[i]]) {
+                swap(nums, i, nums[i]);
+            }
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != i) return nums[i];
+        }
+        return -1;
     }
 
-    protected void swap(int a, int b) {
-        int temp = a;
-        a = b;
-        b = temp;
+    private void swap(int[] nums, int i, int j) {
+        nums[i] = nums[i] ^ nums[j];
+        nums[j] = nums[i] ^ nums[j];
+        nums[i] = nums[i] ^ nums[j];
     }
 }

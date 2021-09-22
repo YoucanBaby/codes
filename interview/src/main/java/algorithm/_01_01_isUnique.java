@@ -13,15 +13,12 @@ public class _01_01_isUnique {
 
     }
 
-    public boolean isUnique(String strs) {
+    public boolean isUnique(String s) {
         int mark = 0;
-        for (char c: strs.toCharArray()) {
-            int bitIndex = 1 << (c - 'a');
-            if ((mark & bitIndex) != 0) {
-                return false;
-            } else {
-                mark |= bitIndex;
-            }
+        for (char c : s.toCharArray()) {
+            int bit = 1 << (c - 'a');
+            if ((mark & bit) != 0) return false;
+            else mark |= bit;
         }
         return true;
     }
