@@ -1,4 +1,4 @@
-package algorithm.presum;
+package algorithm.math;
 
 /**
  * @BelongsProject: codes
