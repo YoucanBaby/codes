@@ -9,16 +9,12 @@ package data.string1;
  */
 public class _0383_canConstruct {
 
-    public boolean canConstruct(String ransomNote, String magazine) {
-        int[] record = new int[26];
-        for (char c : magazine.toCharArray()) {
-            record[c - 'a']++;
-        }
-        for (char c : ransomNote.toCharArray()) {
-            record[c - 'a']--;
-            if (record[c - 'a'] < 0) {
-                return false;
-            }
+    public boolean canConstruct(String r, String m) {
+        int[] freq = new int[128];
+        for (char c : m.toCharArray()) freq[c]++;
+        for (char c : r.toCharArray()) {
+            freq[c]--;
+            if (freq[c] < 0) return false;
         }
         return true;
     }

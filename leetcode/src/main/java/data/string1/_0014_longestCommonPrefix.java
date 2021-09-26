@@ -8,24 +8,15 @@ package data.string1;
  * @Description:
  */
 public class _0014_longestCommonPrefix {
-    public String longestCommonPrefix(String[] strs) {
-        // 排除特殊值
-        if (strs == null || strs.length == 0) {
-            return "";
-        }
 
-        // 纵向扫描
+
+    public String longestCommonPrefix(String[] strs) {
         for (int i = 0; i < strs[0].length(); i++) {
-            for (int j = 1; j < strs.length; j++) {
-                if (i >= strs[j].length()) {
+            for (int k = 1; k < strs.length; k++) {
+                if (strs[k].length() <= i || strs[0].charAt(i) != strs[k].charAt(i))
                     return strs[0].substring(0, i);
-                }
-                if (strs[0].charAt(i) != strs[j].charAt(i)) {
-                    return strs[0].substring(0, i);
-                }
             }
         }
-
         return strs[0];
     }
 }

@@ -14,31 +14,53 @@ public class test {
 
     public static void main(String[] args) {
         test test = new test();
-        int[] nums = {2,3,6,1,2,2,4,2};
-        int k = 2;
-        System.out.println(Arrays.toString(test.change(nums, k)));
 
-        System.out.println(test.isPrime(2));
-        System.out.println(test.isPrime(3));
-        System.out.println(test.isPrime(4));
-        System.out.println(test.isPrime(5));
+        int[] nums = {2,4,9,0,1,3,5,7,6,8};
+        Arrays.sort(nums);
+        System.out.println(Arrays.toString(nums) + "  api");
+        Shuffle s = new Shuffle(nums);
+        s.shuffle();
+
+        test.bubbleSort(nums);
+        System.out.println(Arrays.toString(nums) + "  bubble");
+        s.shuffle();
+
+        test.selectionSort(nums);
+        System.out.println(Arrays.toString(nums) + "  selection");
+        s.shuffle();
+
+        test.insertionSort(nums);
+        System.out.println(Arrays.toString(nums) + "  insertion");
+        s.shuffle();
     }
 
-    public int[] change(int[] nums, int k) {
-        int N = nums.length;
-        int l = 0, r = 0;
-        while (r < N) {
-            while (l < N && nums[l] == k) {
-                l++;
-            }
-            while (l >= r || (r < N && nums[r] != k)) {
-                r++;
-            }
-            if (l < N && r < N) {
-                swap(nums, l, r);
+    public void insertionSort(int[] nums) {
+        for (int j = 1; j < nums.length; j++) {
+            for (int i = j; i >= 1; i--) {
+                if (nums[i - 1] < nums[i]) {
+                    break;
+                }
+                swap(nums, i - 1, i);
             }
         }
-        return nums;
+    }
+
+    public void selectionSort(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            int min = i;
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] < nums[min]) min = j;
+            }
+            swap(nums, i, min);
+        }
+    }
+
+    public void bubbleSort(int[] nums) {
+        for (int i = 0; i < nums.length - 1; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] < nums[i]) swap(nums, i, j);
+            }
+        }
     }
 
     private void swap(int[] nums, int i, int j) {
@@ -47,17 +69,4 @@ public class test {
         nums[j] = temp;
     }
 
-
-    public int gcd(int a, int b) {
-        return b == 0 ? a : gcd(b, a % b);
-    }
-
-
-    public boolean isPrime(int n) {
-        if (n < 2) return false;
-        for (int i = 2; i <= n / i; i++) {
-            if (n % i == 0) return true;
-        }
-        return false;
-    }
 }

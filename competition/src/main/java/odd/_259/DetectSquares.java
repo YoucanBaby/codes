@@ -1,4 +1,4 @@
-package odd._0259;
+package odd._259;
 
 import java.util.*;
 
