@@ -13,17 +13,17 @@ import java.util.Comparator;
 public class _0435_eraseOverlapIntervals {
 
     public int eraseOverlapIntervals(int[][] intervals) {
-        Arrays.sort(intervals, (o1, o2) -> o1[1] - o2[1]);
-
-        int res = 0;
-        int right = intervals[0][1];    // 右边界
-        for (int i = 1; i < intervals.length; i++) {
-            if (right <= intervals[i][0]) {
-                right = intervals[i][1];
+        int N = intervals.length;
+        Arrays.sort(intervals, (o1, o2) -> o1[0] - o2[0]);
+        int count = 0;
+        int left = intervals[N - 1][0];         // 左边界
+        for (int i = N - 2; i >= 0; i--) {
+            if (intervals[i][1] <= left) {
+                left = intervals[i][0];
             } else {
-                res++;
+                count++;
             }
         }
-        return res;
+        return count;
     }
 }

@@ -1,5 +1,7 @@
 package algorithm.find;
 
+import java.util.Arrays;
+
 /**
  * @BelongsProject: codes
  * @BelongsPackage: algorithm.find
@@ -10,13 +12,13 @@ package algorithm.find;
 public class _1011_shipWithinDays {
 
 
-    public int shipWithinDays(int[] weights, int limitDay) {
-        int left = 1;
-        int right = Integer.MAX_VALUE;
+    public int shipWithinDays(int[] nums, int d) {
+        int left = Arrays.stream(nums).max().getAsInt();
+        int right = Arrays.stream(nums).sum();
 
         while (left <= right) {
             int mid = (left + right) / 2;
-            if (possible(weights, limitDay, mid)) {
+            if (getCount(nums, mid) <= d) {
                 right = mid - 1;
             } else {
                 left = mid + 1;
@@ -25,20 +27,18 @@ public class _1011_shipWithinDays {
         return left;
     }
 
-    // 能否在limitDay天内运完所有的货物
-    private boolean possible(int[] weights, int limitDay, int limitWeight) {
-        int day = 1;                // 当前天数，不能超过limitDay
-        int sum = 0;                // 当前负重，不能超过limitWeight
-        for (int weight : weights) {
-            if (weight > limitWeight) {
-                return false;
+    private int getCount(int[] nums, int mid) {
+        int count = 1;
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+            if (sum > mid) {
+                sum = num;
+                count++;
             }
-            if (sum + weight > limitWeight) {
-                day++;
-                sum = 0;
-            }
-            sum += weight;
         }
-        return day <= limitDay;
+        return count;
     }
+
+
 }

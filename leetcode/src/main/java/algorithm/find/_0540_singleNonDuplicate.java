@@ -16,9 +16,7 @@ public class _0540_singleNonDuplicate {
 
         while (left < right) {
             int mid = (left + right) / 2;
-            if ((mid & 1) == 1) {
-                mid--;
-            }
+            if ((mid & 1) == 1) mid--;
             if (nums[mid] == nums[mid + 1]) {
                 left = mid + 2;
             } else {

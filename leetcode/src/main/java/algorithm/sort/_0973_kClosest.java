@@ -47,12 +47,8 @@ public class _0973_kClosest {
         int p2 = right;
         int pivot = distance(mat[right]);
         while (p1 < p2) {
-            while (p1 < p2 && distance(mat[p1]) <= pivot) {
-                p1++;
-            }
-            while (p1 < p2 && distance(mat[p2]) >= pivot) {
-                p2--;
-            }
+            while (p1 < p2 && distance(mat[p1]) <= pivot) p1++;
+            while (p1 < p2 && distance(mat[p2]) >= pivot) p2--;
             swap(mat, p1, p2);
         }
         swap(mat, p1, right);

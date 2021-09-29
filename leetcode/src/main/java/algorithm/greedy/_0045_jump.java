@@ -10,19 +10,16 @@ package algorithm.greedy;
 public class _0045_jump {
 
     public int jump(int[] nums) {
+        int count = 0;
         int end = 0;
-        int res = 0;
         int maxEnd = 0;
-
         for (int i = 0; i < nums.length - 1; i++) {
-            // 找跳得最远的位置
-            maxEnd = Math.max(maxEnd, nums[i] + i);
-            // 遇到边界，更新边界，并且结果+1
+            maxEnd = Math.max(maxEnd, i + nums[i]);
             if (i == end) {
+                count++;
                 end = maxEnd;
-                res++;
             }
         }
-        return res;
+        return count;
     }
 }

@@ -24,7 +24,6 @@ public class _0692_topKFrequent {
                 return b.getValue().compareTo(a.getValue());
             }
         });
-
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             pq.add(entry);
         }

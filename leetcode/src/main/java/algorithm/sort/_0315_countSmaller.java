@@ -20,29 +20,26 @@ public class _0315_countSmaller {
         System.out.println(solution.countSmaller(nums));
     }
 
-    int[] temp;         // temp用于归并排序内部交换nums
-    int[] index;        // index是索引数组
-    int[] tempIndex;    // tempIndex用于归并排序内部交换index
-    int[] res;          // res保存右边大的个数
+
+    int[] count;
+    int[] index;
+
+    int[] temp;
+    int[] tempIndex;
 
     public List<Integer> countSmaller(int[] nums) {
         int N = nums.length;
-        temp = new int[N];
+        count = new int[N];
         index = new int[N];
+        for (int i = 0; i < N; i++) index[i] = i;
+        temp = new int[N];
         tempIndex = new int[N];
-        res = new int[N];
 
-        // 初始化索引数组 [0,1,2,3...]
-        for (int i = 0; i < N; ++i) {
-            index[i] = i;
-        }
         mergeSort(nums, 0, N - 1);
 
-        List<Integer> list = new ArrayList<Integer>();
-        for (int num : res) {
-            list.add(num);
-        }
-        return list;
+        List<Integer> res = new ArrayList<>();
+        for (int c : count) res.add(c);
+        return res;
     }
 
     public void mergeSort(int[] nums, int left, int right) {
@@ -55,99 +52,32 @@ public class _0315_countSmaller {
         merge(nums, left, right, mid);
     }
 
-    public void merge(int[] nums, int left,int right, int mid) {
+    public void merge(int[] nums, int left, int right, int mid) {
         int p1 = left;
         int p2 = mid + 1;
         int i = left;
-
         while (p1 <= mid && p2 <= right) {
             if (nums[p1] <= nums[p2]) {
-                tempIndex[i] = index[p1];
-                res[index[p1]] += (p2 - mid - 1);
-                temp[i++] = nums[p1++];
+                count[index[p1]] += p2 - mid - 1;
+                temp[i] = nums[p1];
+                tempIndex[i++] = index[p1++];
             } else {
-                tempIndex[i] = index[p2];
-                temp[i++] = nums[p2++];
+                temp[i] = nums[p2];
+                tempIndex[i++] = index[p2++];
             }
         }
-        while (p1 <= mid)  {
-            tempIndex[i] = index[p1];
-            res[index[p1]] += (p2 - mid - 1);
-            temp[i++] = nums[p1++];
+        while (p1 <= mid) {
+            count[index[p1]] += p2 - mid - 1;
+            temp[i] = nums[p1];
+            tempIndex[i++] = index[p1++];
         }
         while (p2 <= right) {
-            tempIndex[i] = index[p2];
-            temp[i++] = nums[p2++];
+            temp[i] = nums[p2];
+            tempIndex[i++] = index[p2++];
         }
-        // 更新下标数组和原数组
         for (int j = left; j <= right; j++) {
-            index[j] = tempIndex[j];
             nums[j] = temp[j];
-        }
-    }
-
-    class Solution {
-        int[] temp;
-        int[] tempIndex;
-        int[] index;
-        int[] res;
-
-        public List<Integer> countSmaller(int[] nums) {
-            int N = nums.length;
-            temp = new int[N];
-            tempIndex = new int[N];
-            index = new int[N];
-            res = new int[N];
-            for (int i = 0; i < N; i++) {
-                index[i] = i;
-            }
-            
-            mergeSort(nums, 0, N - 1);
-            List<Integer> list = new ArrayList<Integer>();
-            for (int num : res) {
-                list.add(num);
-            }
-            return list;
-        }
-
-        public void mergeSort(int[] nums, int left, int right) {
-            if (left >= right) {
-                return;
-            }
-            int mid = (left + right) / 2;
-            mergeSort(nums, left, mid);
-            mergeSort(nums, mid + 1, right);
-            merge(nums, left, right, mid);
-        }
-
-        public void merge(int[] nums, int left, int right, int mid) {
-            int p1 = left;
-            int p2 = mid + 1;
-            int i = left;
-
-            while (p1 <= mid && p2 <= right) {
-                if (nums[p1] <= nums[p2]) {
-                    tempIndex[i] = index[p1];
-                    res[index[p1]] += p2 - mid - 1;
-                    temp[i++] = nums[p1++];
-                } else {
-                    tempIndex[i] = index[p2];
-                    temp[i++] = nums[p2++];
-                }
-            }
-            while (p1 <= mid) {
-                tempIndex[i] = index[p1];
-                res[index[p1]] += p2 - mid - 1;
-                temp[i++] = nums[p1++];
-            }
-            while (p2 <= right) {
-                tempIndex[i] = index[p2];
-                temp[i++] = nums[p2++];
-            }
-            for (int j = left; j <= right; j++) {
-                index[j] = tempIndex[j];
-                nums[j] = temp[j];
-            }
+            index[j] = tempIndex[j];
         }
     }
 }

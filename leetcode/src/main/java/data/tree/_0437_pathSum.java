@@ -12,28 +12,24 @@ import java.util.Map;
  */
 public class _0437_pathSum {
 
-    Map<Integer, Integer> preSumCount =  new HashMap<Integer, Integer>();   // <前缀和，前缀和出现的次数>
+    int res = 0;
+    Map<Integer, Integer> freq =  new HashMap<>();       // <前缀和，前缀和出现的次数>
 
     public int pathSum(TreeNode root, int target) {
-        preSumCount.put(0, 1);
-        return dfs(root, target, 0);
+        freq.put(0, 1);
+        dfs(root, target, 0);
+        return res;
     }
 
-    // 根节点root，目标值target，当前路径上的和sum
-    private int dfs(TreeNode root, int target, int sum) {
-        if (root == null) {
-            return 0;
-        }
+    private void dfs(TreeNode root, int target, int sum) {
+        if (root == null) return;
 
-        int res = 0;
         sum += root.val;
-        res += preSumCount.getOrDefault(sum - target, 0);
-        preSumCount.put(sum, preSumCount.getOrDefault(sum, 0) + 1);
+        res += freq.getOrDefault(sum - target, 0);
+        freq.put(sum, freq.getOrDefault(sum, 0) + 1);
 
-        res += dfs(root.left, target, sum);
-        res += dfs(root.right, target, sum);
-
-        preSumCount.put(sum, preSumCount.getOrDefault(sum, 0) - 1);
-        return res;
+        dfs(root.left, target, sum);
+        dfs(root.right, target, sum);
+        freq.put(sum, freq.getOrDefault(sum, 0) - 1);
     }
 }

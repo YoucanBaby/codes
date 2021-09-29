@@ -40,24 +40,22 @@ public class _0493_reversePairs {
     }
 
     private void merge(int[] nums, int left, int right, int mid) {
-        // 加入的代码
-        int L = left;
-        int R = mid + 1;
-        while (L <= mid && R <= right) {
-            if ((long) nums[L] > 2 * (long) nums[R]) {
-                res += mid + 1 - L;
-                R++;
+        int l = left;
+        int r = mid + 1;
+        while (l <= mid && r <= right) {
+            if ((long) nums[l] > (long) nums[r] * 2) {
+                res += mid - l + 1;
+                r++;
             } else {
-                L++;
+                l++;
             }
         }
 
         int p1 = left;
         int p2 = mid + 1;
         int i = left;
-
         while (p1 <= mid && p2 <= right) {
-            if (nums[p1] < nums[p2]) {
+            if (nums[p1] <= nums[p2]) {
                 temp[i++] = nums[p1++];
             } else {
                 temp[i++] = nums[p2++];

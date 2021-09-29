@@ -1,5 +1,7 @@
 package algorithm.find;
 
+import java.util.Arrays;
+
 /**
  * @BelongsProject: codes
  * @BelongsPackage: algorithm.find
@@ -10,32 +12,36 @@ package algorithm.find;
 public class _1300_findBestValue {
 
 
-    public int findBestValue(int[] nums, int target) {
-        int max = 0;
-        for (int num : nums) {
-            max = Math.max(max, num);
-        }
-        int left = 0;
-        int right = max;
+    public static void main(String[] args) {
+        _1300_findBestValue solution = new _1300_findBestValue();
 
-        while (left < right) {
+        int[] nums = {2,3,5};
+        int target = 10;
+        System.out.println(solution.findBestValue(nums, target));
+    }
+
+    public int findBestValue(int[] nums, int target) {
+        int left = 0;
+        int right = Arrays.stream(nums).max().getAsInt();
+
+        while (left <= right) {
             int mid = (left + right) / 2;
             if (getSum(nums, mid) >= target) {
-                right = mid;
+                right = mid - 1;
             } else {
                 left = mid + 1;
             }
         }
 
-        int sum1 = getSum(nums, left - 1);
-        int sum2 = getSum(nums, left);
-        return target - sum1 <= sum2 - target ? left - 1 : left;
+        int diff1 = Math.abs(target - getSum(nums, right));
+        int diff2 = Math.abs(target - getSum(nums, left));
+        return diff1 <= diff2 ? right : left;
     }
 
-    private int getSum(int[] nums, int threshold) {
+    private int getSum(int[] nums, int mid) {
         int sum = 0;
         for (int num : nums) {
-            sum += Math.min(num, threshold);
+            sum += Math.min(num, mid);
         }
         return sum;
     }

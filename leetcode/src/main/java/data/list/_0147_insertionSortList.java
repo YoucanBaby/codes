@@ -31,9 +31,7 @@ public class _0147_insertionSortList {
 
 
     public ListNode insertionSortList(ListNode head) {
-        if(head == null || head.next == null) {
-            return head;
-        }
+        if (head == null || head.next == null) return head;
 
         ListNode newHead = new ListNode(0, head);
         ListNode node2 = head.next;
@@ -41,7 +39,7 @@ public class _0147_insertionSortList {
 
         while (node2 != null) {
             ListNode node1 = newHead;
-            while (node1.next != null && node1.next.val < node2.val) {
+            while (node1.next != null && node1.next.val <= node2.val) {
                 node1 = node1.next;
             }
             ListNode temp = node2.next;

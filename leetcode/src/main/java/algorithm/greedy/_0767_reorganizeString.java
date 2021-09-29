@@ -20,41 +20,37 @@ public class _0767_reorganizeString {
         System.out.println(solution.reorganizeString(s));
     }
 
-    public String reorganizeString(String s) {
-        char[] arr = s.toCharArray();
-        int[] freq = new int[26];
-        for (char c : arr) {
-            freq[c - 'a']++;
+
+    public String reorganizeString(String ss) {
+        char[] s = ss.toCharArray();
+        int[] count = new int[26];
+        for (char c : s) {
+            count[c - 'a']++;
         }
-        // 找出出现频率最大的字符，如果超过临界值，就返回“空字符串”
-        int maxFreq = 0;
+
+        int maxCount = 0;
         int maxAlpha = 0;
-        for (int i = 0; i < freq.length; i++) {
-            if (freq[i] > maxFreq) {
-                maxFreq = freq[i];
+        for (int i = 0; i < count.length; i++) {
+            if (count[i] > maxCount) {
+                maxCount = count[i];
                 maxAlpha = i;
-                if (maxFreq > (arr.length + 1) / 2) {
-                    return "";
-                }
             }
         }
-        // 把出现次数最多的字符存储在数组下标为偶数的位置上
-        char[] res = new char[arr.length];
+        if (maxCount > (s.length + 1) / 2) return "";
+
+        char[] res = new char[s.length];
         int index = 0;
-        while (freq[maxAlpha] > 0) {
+        while (count[maxAlpha]-- > 0) {
             res[index] = (char) (maxAlpha + 'a');
-            freq[maxAlpha]--;
             index += 2;
         }
-        // 再把剩下的字符存储在其他位置上
-        for (int i = 0; i < freq.length; i++) {
-            while (freq[i] > 0) {
-                if (index >= res.length) {
-                    index = 1;
-                }
+
+        for (int i = 0; i < count.length; i++) {
+            while (count[i] > 0) {
+                if (index >= res.length) index = 1;
                 res[index] = (char) (i + 'a');
-                freq[i]--;
                 index += 2;
+                count[i]--;
             }
         }
         return new String(res);

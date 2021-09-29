@@ -22,27 +22,25 @@ public class _1024_videoStitching {
         System.out.println(solution.videoStitching(clips, T));
     }
 
-    public int videoStitching(int[][] clips, int T) {
-        int[] right = new int[T];
+    public int videoStitching(int[][] clips, int N) {
+        int[] nums = new int[N];
         for (int[] c : clips) {
-            if (c[0] < T) {
-                right[c[0]] = Math.max(right[c[0]], c[1]);
+            if (c[0] < N) {
+                nums[c[0]] = Math.max(nums[c[0]], c[1]);
             }
         }
 
-        int maxEnd = 0;     // 左端点在上一个区间内能覆盖到的最远的右端点
-        int end = 0;        // 上一个区间的结束位置
-        int res = 0;
-        for (int i = 0; i < right.length; i++) {
-            maxEnd = Math.max(maxEnd, right[i]);
-            if (i >= maxEnd) {
-                return -1;
-            }
+        int count = 0;
+        int end = 0;
+        int maxEnd = 0;
+        for (int i = 0; i < nums.length; i++) {
+            maxEnd = Math.max(maxEnd, nums[i]);
+            if (i == maxEnd) return -1;
             if (i == end) {
+                count++;
                 end = maxEnd;
-                res++;
             }
         }
-        return res;
+        return count;
     }
 }

@@ -12,8 +12,8 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
 public class _0918_maxSubarraySumCircular {
 
     public int maxSubarraySumCircular(int[] nums) {
-        int pre = 0;
-        int max = Integer.MIN_VALUE;
+        int pre = (int) -1e9;
+        int max = (int) -1e9;
         int sum = 0;
 
         for (int num : nums) {
@@ -25,7 +25,7 @@ public class _0918_maxSubarraySumCircular {
         int min = 0;
         pre = 0;
 
-        for (int i = 1; i < nums.length; i++) {
+        for (int i = 1; i < nums.length - 1; i++) {
             pre = Math.min(pre + nums[i], nums[i]);
             min = Math.min(pre, min);
         }

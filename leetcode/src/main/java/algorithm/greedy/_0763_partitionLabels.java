@@ -13,21 +13,18 @@ import java.util.List;
 public class _0763_partitionLabels {
 
     public List<Integer> partitionLabels(String s) {
-        int[] lastIndex = new int[26];
-        int N = s.length();
-        for (int i = 0; i < N; i++) {
-            char c = s.charAt(i);
-            lastIndex[c - 'a'] = i;
+        int[] last = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            last[s.charAt(i) - 'a'] = i;
         }
 
         List<Integer> res = new ArrayList<>();
-        int left = 0;
-        int right = 0;
+        int l = 0, r = 0;
         for (int i = 0; i < s.length(); i++) {
-            right = Math.max(right, lastIndex[s.charAt(i) - 'a']);
-            if (i == right) {
-                res.add(right - left + 1);
-                left = i + 1;
+            r = Math.max(r, last[s.charAt(i) - 'a']);
+            if (i == r) {
+                res.add(r - l + 1);
+                l = r + 1;
             }
         }
         return res;

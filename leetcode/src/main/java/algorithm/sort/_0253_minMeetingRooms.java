@@ -34,16 +34,15 @@ public class _0253_minMeetingRooms {
             }
         });
         for (int[] interval : intervals) {
-            pq.add(new int[] {interval[0], 1});
-            pq.add(new int[] {interval[1], -1});
+            pq.add(new int[]{interval[0], 1});
+            pq.add(new int[]{interval[1], -1});
         }
-
         int count = 0;
-        int res = 0;
+        int max = 0;
         while (!pq.isEmpty()) {
             count += pq.remove()[1];
-            res = Math.max(res, count);
+            max = Math.max(max, count);
         }
-        return res;
+        return max;
     }
 }

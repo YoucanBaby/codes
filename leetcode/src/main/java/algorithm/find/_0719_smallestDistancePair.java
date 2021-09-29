@@ -19,14 +19,15 @@ public class _0719_smallestDistancePair {
         System.out.println(solution.smallestDistancePair(nums, k));
     }
 
-    public int smallestDistancePair(int[] nums, int K) {
+    public int smallestDistancePair(int[] nums, int k) {
         Arrays.sort(nums);
+
         int left = 0;
-        int right = nums[nums.length - 1] - nums[0];
+        int right = (int) 1e7;
 
         while (left <= right) {
             int mid = (left + right) / 2;
-            if (possible(nums, K, mid)) {
+            if (getCount(nums, mid) >= k) {
                 right = mid - 1;
             } else {
                 left = mid + 1;
@@ -35,17 +36,14 @@ public class _0719_smallestDistancePair {
         return left;
     }
 
-    // 小于等于mid的数对个数是否有K个（超过K也算）
-    private boolean possible(int[] nums, int K, int mid) {
+    private int getCount(int[] nums, int mid) {
         int count = 0;
-        int N = nums.length;
-        int i = 0;
-        for (int j = 0; j < N; j++) {
-            while (nums[j] - nums[i] > mid) {
-                i++;
-            }
+        for (int i = 0, j = 0; j < nums.length; j++) {
+            while (nums[j] - nums[i] > mid) i++;
             count += j - i;
         }
-        return count >= K;
+        return count;
     }
+
+
 }

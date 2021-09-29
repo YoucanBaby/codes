@@ -12,7 +12,8 @@ import java.util.Arrays;
 public class _0164_maximumGap {
 
     public static void main(String[] args) {
-        int[] nums = {1, 10000000};
+//        int[] nums = {1, 10000000};
+        int[] nums = {1, 3, 100};
         _0164_maximumGap solution = new _0164_maximumGap();
 
         System.out.println(solution.maximumGap(nums));
@@ -22,7 +23,7 @@ public class _0164_maximumGap {
 
 
     // 暴力
-    public int maximumGap(int[] nums) {
+    public int maximumGap2(int[] nums) {
         if (nums.length == 1) {
             return 0;
         }
@@ -84,46 +85,39 @@ public class _0164_maximumGap {
 
 
     // 桶排序
-    public int maximumGap2(int[] nums) {
-        if (nums.length <= 1) {
-            return 0;
-        }
+    public int maximumGap(int[] nums) {
         int N = nums.length;
-        int min = nums[0];
-        int max = nums[0];
-        for (int num : nums) {          // 找出最值
-            min = Math.min(min, num);
-            max = Math.max(max, num);
-        }
+        if (N < 2) return 0;
+
+        int max = Arrays.stream(nums).max().getAsInt();
+        int min = Arrays.stream(nums).min().getAsInt();
         if (max - min == 0) {
             return 0;
         }
 
-        int interval = (int) Math.ceil((double) (max - min) / (N - 1));
-        int[] bucketMin = new int[N - 1];
-        int[] bucketMax = new int[N - 1];
-        Arrays.fill(bucketMin, Integer.MAX_VALUE);
-        Arrays.fill(bucketMax, Integer.MIN_VALUE);
+        int d = (int) Math.ceil((double) (max - min) / (N - 1));
+        int[][] bucket = new int[N][2];
+        for (int i = 0; i < N; i++) {
+            Arrays.fill(bucket[i], -1);
+        }
 
         for (int num : nums) {
-            int index = (num - min) / interval;
-            if (num == min || num == max) {
-                continue;
+            int index = (num - min) / d;
+            if (bucket[index][0] == -1) {
+                bucket[index][0] = bucket[index][1] = num;
+            } else {
+                bucket[index][0] = Math.min(bucket[index][0], num);
+                bucket[index][1] = Math.max(bucket[index][1], num);
             }
-            bucketMin[index] = Math.min(bucketMin[index], num);
-            bucketMax[index] = Math.max(bucketMax[index], num);
         }
 
         int maxGap = 0;
-        int preMax = min;
-        for (int i = 0; i < N - 1; i++) {
-            if (bucketMax[i] == Integer.MIN_VALUE) {
-                continue;
-            }
-            maxGap = Math.max(maxGap, bucketMin[i] - preMax);
-            preMax = bucketMax[i];
+        int preMax = bucket[0][1];       // 上一个非空桶的最大值
+        for (int i = 1; i < N; i++) {
+            if (bucket[i][0] == -1) continue;    // 跳过空桶
+            maxGap = Math.max(maxGap, bucket[i][0] - preMax);
+            preMax = bucket[i][1];
         }
-        maxGap = Math.max(maxGap, max - preMax);
         return maxGap;
     }
 }

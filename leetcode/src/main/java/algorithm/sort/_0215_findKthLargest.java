@@ -14,9 +14,9 @@ public class _0215_findKthLargest {
     }
 
     public int quickSort(int[] nums, int k, int left, int right) {
-        int mid = partition(nums, left, right);
+        int mid = patition(nums, k, left, right);
         if (mid == k) {
-            return nums[k];
+            return nums[mid];
         } else if (mid < k) {
             return quickSort(nums, k, mid + 1, right);
         } else {
@@ -24,17 +24,13 @@ public class _0215_findKthLargest {
         }
     }
 
-    private int partition(int[] nums, int left, int right) {
+    private int patition(int[] nums, int k, int left, int right) {
         int p1 = left;
         int p2 = right;
         int pivot = nums[right];
         while (p1 < p2) {
-            while (p1 < p2 && nums[p1] <= pivot) {
-                p1++;
-            }
-            while (p1 < p2 && nums[p2] >= pivot) {
-                p2--;
-            }
+            while (p1 < p2 && nums[p1] <= pivot) p1++;
+            while (p1 < p2 && nums[p2] >= pivot) p2--;
             swap(nums, p1, p2);
         }
         swap(nums, p1, right);

@@ -19,52 +19,55 @@ public class _1095_findInMountainArray {
         }
     }
 
-    public int findInMountainArray(int target, MountainArray mountainArr) {
+
+
+    public int findInMountainArray(int target, MountainArray nums) {
         int left = 0;
-        int right = mountainArr.length() - 1;
+        int right = nums.length() - 1;
 
         while (left < right) {
             int mid = (left + right) / 2;
-            if (mountainArr.get(mid) > mountainArr.get(mid + 1)) {
-                right = mid;
-            } else {
+            if (nums.get(mid) < nums.get(mid + 1)) {
                 left = mid + 1;
+            } else if (nums.get(mid) > nums.get(mid + 1)) {
+                right = mid;
             }
         }
+        int peak = left;
 
-        int peakIndex = left;
-        int index = binarySearch(mountainArr, target, 0, peakIndex, true);
-        if (index != -1) {
-            return index;
-        }
-        return binarySearch(mountainArr, target, peakIndex + 1, mountainArr.length() - 1, false);
+        // 先搜索左边数组，再搜索右边数组
+        int index = binarySearch1(nums, target, 0, peak);
+        if (index != -1) return index;
+        return binarySearch2(nums, target, peak + 1, nums.length() - 1);
     }
 
-    // 山脉数组，要找的目标值，左边界，右边界，是否正向搜索
-    private int binarySearch(MountainArray mountainArr, int target, int left, int right, boolean flag) {
-        if (flag) {
-            while (left <= right) {
-                int mid = (left + right) / 2;
-                if (mountainArr.get(mid) == target) {
-                    return mid;
-                } else if (mountainArr.get(mid) > target) {
-                    right = mid - 1;
-                } else {
-                    left = mid + 1;
-                }
-            }
-        } else {
-            while (left <= right) {
-                int mid = (left + right) / 2;
-                if (mountainArr.get(mid) == target) {
-                    return mid;
-                } else if (mountainArr.get(mid) < target) {
-                    right = mid - 1;
-                } else {
-                    left = mid + 1;
-                }
+    private int binarySearch1(MountainArray nums, int target, int left, int right) {
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums.get(mid) == target) {
+                return mid;
+            } else if (nums.get(mid) < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
             }
         }
         return -1;
     }
+
+    private int binarySearch2(MountainArray nums, int target, int left, int right) {
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums.get(mid) == target) {
+                return mid;
+            } else if (nums.get(mid) > target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+            System.out.println("???");
+        }
+        return -1;
+    }
+
 }

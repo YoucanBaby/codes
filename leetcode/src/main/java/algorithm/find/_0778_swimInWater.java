@@ -1,5 +1,7 @@
 package algorithm.find;
 
+import java.util.Arrays;
+
 /**
  * @BelongsProject: codes
  * @BelongsPackage: algorithm.find.base
@@ -9,24 +11,22 @@ package algorithm.find;
  */
 public class _0778_swimInWater {
 
+    int[][] dirs = {
+            {-1,0}, {1,0},
+            {0,-1}, {0,1}
+    };
     boolean[][] visited;
 
     public int swimInWater(int[][] mat) {
         int N = mat.length;
         visited = new boolean[N][N];
 
-        int max = 0;
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                max = Math.max(max, mat[i][j]);
-            }
-        }
-
         int left = 0;
-        int right = max;
+        int right = (int) 1e6;
+
         while (left <= right) {
             int mid = (left + right) / 2;
-            if (possible(mat, mid, 0, 0)) {
+            if (possible(mat, mid, 0, 0)) {     // 能到达右下角
                 right = mid - 1;
             } else {
                 left = mid + 1;
@@ -37,22 +37,22 @@ public class _0778_swimInWater {
     }
 
     private boolean possible(int[][] mat, int mid, int x, int y) {
-        if (x < 0 || x >= mat.length || y < 0 || y >= mat.length) {       // 越界
-            return false;
-        }
-        if (mat[x][y] > mid) {
-            return false;
-        }
+        if (!inArea(mat, x, y)) return false;
+        if (mat[x][y] > mid) return false;
+        if (visited[x][y]) return false;
+
         if (x == mat.length - 1 && y == mat.length - 1) {
             return true;
         }
-        if (visited[x][y]) {
-            return false;
-        }
         visited[x][y] = true;
-        return  possible(mat, mid, x - 1, y) ||
-                possible(mat, mid, x + 1, y) ||
-                possible(mat, mid, x, y - 1) ||
-                possible(mat, mid, x, y + 1);
+        boolean res = false;
+        for (int[] dir : dirs) {
+            res |= possible(mat, mid, x + dir[0], y + dir[1]);
+        }
+        return res;
+    }
+
+    private boolean inArea(int[][] mat, int x, int y) {
+        return x >= 0 && x < mat.length && y >= 0 && y < mat[0].length;
     }
 }

@@ -1,5 +1,8 @@
 package algorithm.sort;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 /**
  * @BelongsProject: codes
  * @BelongsPackage: algorithm.sort
@@ -11,16 +14,12 @@ public class _0023_mergeKLists {
 
 
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists.length == 0) {
-            return null;
-        }
+        if (lists.length == 0) return null;
         return mergeSort(lists, 0, lists.length - 1);
     }
 
     public ListNode mergeSort(ListNode[] lists, int left, int right) {
-        if (left >= right) {
-            return lists[left];
-        }
+        if (left >= right) return lists[left];
         int mid = (left + right) / 2;
         ListNode leftHead = mergeSort(lists, left, mid);
         ListNode rightHead = mergeSort(lists, mid + 1, right);
@@ -30,23 +29,34 @@ public class _0023_mergeKLists {
     private ListNode merge(ListNode node1, ListNode node2) {
         ListNode newHead = new ListNode(0);
         ListNode cur = newHead;
-
         while (node1 != null && node2 != null) {
             if (node1.val < node2.val) {
                 cur.next = node1;
+                cur = cur.next;
                 node1 = node1.next;
             } else {
                 cur.next = node2;
+                cur = cur.next;
                 node2 = node2.next;
             }
-            cur = cur.next;
         }
-        if (node1 != null) {
-            cur.next = node1;
+        if (node1 != null) cur.next = node1;
+        if (node2 != null) cur.next = node2;
+        return newHead.next;
+    }
 
+    // 优先队列
+    public ListNode mergeKLists1(ListNode[] lists) {
+        PriorityQueue<ListNode> pq = new PriorityQueue<>((o1, o2) -> o1.val - o2.val);
+        for (ListNode head : lists) {
+            if (head != null) pq.add(head);
         }
-        if (node2 != null) {
-            cur.next = node2;
+        ListNode newHead = new ListNode(0);
+        ListNode cur = newHead;
+        while (!pq.isEmpty()) {
+            cur.next = pq.remove();
+            cur = cur.next;
+            if (cur.next != null) pq.add(cur.next);
         }
         return newHead.next;
     }

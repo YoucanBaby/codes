@@ -14,21 +14,15 @@ public class _0274_hIndex {
 
     public int hIndex(int[] citations) {
         int N = citations.length;
-        int[] count = new int[N + 1];
-
-        for (int citation : citations) {
-            if (citation >= N) {
-                count[N]++;
-            } else {
-                count[citation]++;
-            }
+        int[] freq = new int[N + 1];
+        for (int c : citations) {
+            if (c >= N) freq[N]++;
+            else freq[c]++;
         }
         int sum = 0;
         for (int h = N; h >= 0; h--) {
-            sum += count[h];
-            if (sum >= h) {
-                return h;
-            }
+            sum += freq[h];
+            if (sum >= h) return h;
         }
         return 0;
     }

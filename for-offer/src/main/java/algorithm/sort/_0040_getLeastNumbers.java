@@ -14,9 +14,7 @@ public class _0040_getLeastNumbers {
 
 
     public int[] getLeastNumbers(int[] nums, int k) {
-        if (k == 0) {
-            return new int[0];
-        }
+        if (k == 0) return new int[0];
         return quickSort(nums, k - 1, 0, nums.length - 1);
     }
 
@@ -36,12 +34,8 @@ public class _0040_getLeastNumbers {
         int p2 = right;
         int pivot = nums[right];
         while (p1 < p2) {
-            while (p1 < p2 && nums[p1] <= pivot) {
-                p1++;
-            }
-            while (p1 < p2 && nums[p2] >= pivot) {
-                p2--;
-            }
+            while (p1 < p2 && nums[p1] <= pivot) p1++;
+            while (p1 < p2 && nums[p2] >= pivot) p2--;
             swap(nums, p1, p2);
         }
         swap(nums, p1, right);

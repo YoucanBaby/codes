@@ -16,7 +16,7 @@ public class _1283_smallestDivisor {
 
         while (left <= right) {
             int mid = (left + right) / 2;
-            if (possible(nums, threshold, mid)) {
+            if (sum(nums, mid) <= threshold) {
                 right = mid - 1;
             } else {
                 left = mid + 1;
@@ -25,11 +25,11 @@ public class _1283_smallestDivisor {
         return left;
     }
 
-    private boolean possible(int[] nums, int threshold, int mid) {
+    private int sum(int[] nums, int mid) {
         int sum = 0;
         for (int num : nums) {
             sum += Math.ceil((double) num / mid);
         }
-        return sum <= threshold;
+        return sum;
     }
 }

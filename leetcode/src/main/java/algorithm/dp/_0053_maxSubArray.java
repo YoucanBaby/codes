@@ -10,15 +10,10 @@ package algorithm.dp;
 public class _0053_maxSubArray {
 
     public int maxSubArray(int[] nums) {
-        int max = nums[0];
-        int pre = Integer.MIN_VALUE;
-
+        int pre = (int) -1e9;
+        int max = (int) -1e9;
         for (int num : nums) {
-            if (pre <= 0) {
-                pre = num;
-            } else {
-                pre += num;
-            }
+            pre = Math.max(pre + num, num);
             max = Math.max(max, pre);
         }
         return max;

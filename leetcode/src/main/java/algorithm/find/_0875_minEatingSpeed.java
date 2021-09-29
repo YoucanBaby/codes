@@ -17,18 +17,13 @@ public class _0875_minEatingSpeed {
         System.out.println(solution.minEatingSpeed(piles, H));
     }
 
+
     public int minEatingSpeed(int[] piles, int H) {
-        int max = 0;
-        for (int pile : piles) {
-            max = Math.max(max, pile);
-        }
-
-        int left = 1;
-        int right = max;
-
+        int left = 0;
+        int right = (int) 1e9;
         while (left <= right) {
             int mid = (left + right) / 2;
-            if (possible(piles, H, mid)) {
+            if (getTime(piles, mid) <= H) {
                 right = mid - 1;
             } else {
                 left = mid + 1;
@@ -37,12 +32,11 @@ public class _0875_minEatingSpeed {
         return left;
     }
 
-    // 珂珂能否在H小时内以速度K吃完所有的香蕉
-    private boolean possible(int[] piles, int H, int K) {
+    private int getTime(int[] piles, int mid) {
         int time = 0;
         for (int pile : piles) {
-            time += Math.ceil((double) pile / K);
+            time += Math.ceil((double) pile / mid);
         }
-        return time <= H;
+        return time;
     }
 }

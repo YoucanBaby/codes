@@ -18,8 +18,8 @@ public class _0409_longestPalindrome {
 
         int res = 0;
         for (int f : freq) {
-            if ((f & 1) == 1) res += f - 1;
-            else res += f;
+            if ((f & 1) == 0) res += f;
+            else res += f - 1;
         }
         return res < s.length() ? res + 1 : res;
     }

@@ -10,10 +10,10 @@ package algorithm.sort;
 public class _0462_minMoves2 {
 
     public int minMoves2(int[] nums) {
-        int median = quickSort(nums, nums.length / 2, 0, nums.length - 1);
+        int medNum = quickSort(nums, nums.length / 2, 0, nums.length - 1);
         int res = 0;
         for (int num : nums) {
-            res += Math.abs(num - median);
+            res += Math.abs(num - medNum);
         }
         return res;
     }
@@ -34,12 +34,8 @@ public class _0462_minMoves2 {
         int p2 = right;
         int pivot = nums[right];
         while (p1 < p2) {
-            while (p1 < p2 && nums[p1] <= pivot) {
-                p1++;
-            }
-            while (p1 < p2 && nums[p2] >= pivot) {
-                p2--;
-            }
+            while (p1 < p2 && nums[p1] <= pivot) p1++;
+            while (p1 < p2 && nums[p2] >= pivot) p2--;
             swap(nums, p1, p2);
         }
         swap(nums, p1, right);

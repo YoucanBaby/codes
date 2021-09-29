@@ -14,49 +14,19 @@ import java.util.TreeSet;
  */
 public class _0220_containsNearbyAlmostDuplicate {
 
-    long size = 0;
-
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
-        int N = nums.length;
-        HashMap<Long, Long> map = new HashMap<>();
-        size = t + 1L;
-
-        for (int i = 0; i < N; i++) {
-            long u = nums[i] * 1L;
-            long index = getIdx(u);
-
-            // 目标桶是否存在
-            if (map.containsKey(index)) {
-                return true;
-            }
-
-            // 检查相邻的桶
-            long left = index - 1;
-            long right = index + 1;
-            if (map.containsKey(left) && u - t <= map.get(left)) {
-                return true;
-            }
-            if (map.containsKey(right) && map.get(right) <= u + t) {
-                return true;
-            }
-
-            map.put(index, u);
-            // 移除下标范围不在 [max(0, i - k), i) 内的桶
-            if (i >= k) {
-                map.remove(getIdx(nums[i - k]) * 1L);
-            }
+        TreeSet<Integer> ts = new TreeSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            Integer l = ts.floor(nums[i]);
+            if (l != null && nums[i] - l <= t) return true;
+            Integer r = ts.ceiling(nums[i]);
+            if (r != null && r - nums[i] <= t) return true;
+            ts.add(nums[i]);
+            if (ts.size() > k) ts.remove(nums[i - k]);
         }
-
         return false;
     }
 
-    private long getIdx(long u) {
-        if (u >= 0) {
-            return u / size;
-        } else {
-            return (u + 1) / size - 1;
-        }
-    }
 
     class Solution {
         long size = 0;      // 桶的大小

@@ -24,16 +24,17 @@ public class _1833_maxIceCream {
         for (int cost: costs) {
             freq[cost]++;
         }
-        int res = 0;
+
+        int count = 0;
         for (int cost = 1; cost < freq.length; cost++) {
-            if (coins < cost) {
-                break;
+            if (cost <= coins) {
+                int n = Math.min(freq[cost], coins / cost);
+                count += n;
+                coins -= cost * n;
             } else {
-                int minCount = Math.min(freq[cost], coins / cost);      // 最多可以买多少根
-                coins -= cost * minCount;
-                res += minCount;
+                break;
             }
         }
-        return res;
+        return count;
     }
 }

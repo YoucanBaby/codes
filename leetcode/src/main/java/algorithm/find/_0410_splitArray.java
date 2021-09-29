@@ -1,5 +1,7 @@
 package algorithm.find;
 
+import java.util.Arrays;
+
 /**
  * @BelongsProject: codes
  * @BelongsPackage: algorithm.find
@@ -11,23 +13,14 @@ public class _0410_splitArray {
 
 
     public int splitArray(int[] nums, int m) {
-        int max = nums[0];
-        int sum = 0;
-        for (int num : nums) {
-            max = Math.max(max, num);
-            sum += num;
-        }
-
-        int left = max;
-        int right = sum;
+        int left = Arrays.stream(nums).max().getAsInt();
+        int right = Arrays.stream(nums).sum();
 
         while (left <= right) {
             int mid = (left + right) / 2;
-            if (getCount(nums, mid) == m) {
+            if (getCount(nums, mid) <= m) {
                 right = mid - 1;
-            } else if (getCount(nums, mid) < m) {      // 向左分数组增加，向右分组数减少
-                right = mid - 1;
-            } else if (getCount(nums, mid) > m){
+            } else {
                 left = mid + 1;
             }
         }
@@ -35,15 +28,15 @@ public class _0410_splitArray {
     }
 
     public int getCount(int[] nums, int mid) {
-        int count = 1;      // 默认分一组
-        int sum = 0;        // 每组的总和
+        int count = 0;
+        int sum = 0;
         for (int num : nums) {
             sum += num;
-            if (sum > mid) {       // 重新累加新的一组
+            if (sum > mid) {
                 sum = num;
                 count++;
             }
         }
-        return count;      // 如果分组数超过m，那这个数是不可行的
+        return count;
     }
 }

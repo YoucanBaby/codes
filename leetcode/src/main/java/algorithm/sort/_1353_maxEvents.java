@@ -27,24 +27,22 @@ public class _1353_maxEvents {
 
 
     public int maxEvents(int[][] events) {
-        Arrays.sort(events, (o1, o2) -> o1[0] - o2[0]);
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-
-        int res = 0;
-        int index = 0;              // 遍历数组
         int N = events.length;
-        for (int day = 1; day <= 1e5; day++) {
-            while (index < N && events[index][0] == day) {
-                pq.add(events[index++][1]);
-            }
-            while (!pq.isEmpty() && pq.peek() < day) {
+        Arrays.sort(events, (o1, o2) -> o1[0] - o2[0]);
+        PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]);
+        int count = 0;
+        for (int i = 0, day = 1; day <= 1e5; day++) {
+            while (!pq.isEmpty() && pq.peek()[1] < day) {
                 pq.remove();
+            }
+            while (i < N && events[i][0] == day) {
+                pq.add(events[i++]);
             }
             if (!pq.isEmpty()) {
                 pq.remove();
-                res++;
+                count++;
             }
         }
-        return res;
+        return count;
     }
 }
