@@ -1,3 +1,5 @@
+package example;
+
 /**
  * @BelongsProject: codes
  * @BelongsPackage: PACKAGE_NAME
@@ -5,7 +7,11 @@
  * @CreateTime: 2021-09-19 14:28
  * @Description:
  */
-class EqualExample {
+public class EqualExample {
+
+    protected class test {
+
+    }
 
     private int x;
     private int y;
@@ -17,11 +23,13 @@ class EqualExample {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) 		// 是否为同一个对象的引用
+        // 两个对象的地址是否相同
+        if (this == obj)
             return true;
-        if (obj == null || getClass() != obj.getClass()) 	// 是否是同一个类型
+        // 两个对象是否是同一个类
+        if (obj == null || getClass() != obj.getClass())
             return false;
-
+        // 两个对象内部的值是否相同
         EqualExample e = (EqualExample) obj;
         return e.x == x && e.y == y;
     }

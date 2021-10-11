@@ -18,31 +18,32 @@ public class _0166_fractionToDecimal {
         System.out.println(solution.fractionToDecimal(7, 43));
     }
 
-    // n/d, n是分子, d是分母; a/b, a是分子, b是分母
+    // n/d, n是分子, d是分母; a/b, a是分子, b是分母，c是余数
     public String fractionToDecimal(int n, int d) {
         if (n == 0) return "0";
-        StringBuilder sb = new StringBuilder();
 
+        StringBuilder sb = new StringBuilder();
         if (n > 0 ^ d > 0) sb.append("-");
+
         long a = Math.abs(Long.valueOf(n));
         long b = Math.abs(Long.valueOf(d));
         sb.append(a / b);
 
-        long r = a % b;
-        if (r == 0) return sb.toString();
+        long c = a % b;
+        if (c == 0) return sb.toString();
         sb.append(".");
 
         Map<Long, Integer> map = new HashMap<>();
-        while (r != 0) {
-            if (map.containsKey(r)) {
-                sb.insert(map.get(r), "(");
+        while (c != 0) {
+            if (map.containsKey(c)) {
+                sb.insert(map.get(c), "(");
                 sb.append(")");
                 break;
             }
-            map.put(r, sb.length());
-            r *= 10;
-            sb.append(r / b);
-            r %= b;
+            map.put(c, sb.length());
+            c *= 10;
+            sb.append(c / b);
+            c %= b;
         }
         return sb.toString();
     }
