@@ -26,14 +26,15 @@ public class _1382_balanceBST {
         solution.balanceBST(root);
     }
 
-    ArrayList<Integer> list = new ArrayList<>();
+
 
     public TreeNode balanceBST(TreeNode root) {
-        bst2List(root);                               // 二叉搜索树转为动态数组
-        return dfs(0, list.size() - 1);     // 通过动态数组构造平衡的二叉搜索树
+        List<Integer> list = new ArrayList<>();
+        bst2List(list, root);
+        return dfs(list, 0, list.size() - 1);
     }
 
-    public TreeNode dfs(int left, int right) {
+    public TreeNode dfs(List<Integer> list, int left, int right) {
         if (left > right) {
             return null;
         }
@@ -41,19 +42,19 @@ public class _1382_balanceBST {
         int mid = (left + right) / 2;
         TreeNode root = new TreeNode(list.get(mid));
 
-        root.left = dfs(left, mid - 1);
-        root.right = dfs(mid + 1, right);
+        root.left = dfs(list, left, mid - 1);
+        root.right = dfs(list, mid + 1, right);
 
         return root;
     }
 
-    public void bst2List(TreeNode root) {
+    public void bst2List(List<Integer> list, TreeNode root) {
         if (root == null) {
             return;
         }
-        bst2List(root.left);
+        bst2List(list, root.left);
         list.add(root.val);         // 中序遍历
-        bst2List(root.right);
+        bst2List(list, root.right);
     }
 
 

@@ -14,9 +14,7 @@ import java.util.*;
 public class _0103_zigzagLevelOrder {
 
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        if (root == null) {
-            return new ArrayList<>();
-        }
+        if (root == null) return new ArrayList<>();
 
         List<List<Integer>> res = new ArrayList<>();
         Deque<TreeNode> deque = new ArrayDeque<>();
@@ -24,23 +22,15 @@ public class _0103_zigzagLevelOrder {
         boolean flag = true;        // flag为true从左向右，flag为false从右向左
 
         while (!deque.isEmpty()) {
-            int N = deque.size();
+            int size = deque.size();
             List<Integer> level = new ArrayList<>();
 
-            for (int i = 0; i < N; i++) {
+            for (int i = 0; i < size; i++) {
                 TreeNode node = deque.removeFirst();
-                if (flag) {
-                    level.add(node.val);
-                } else {
-                    level.add(0, node.val);
-                }
-
-                if (node.left != null) {
-                    deque.add(node.left);
-                }
-                if (node.right != null) {
-                    deque.add(node.right);
-                }
+                if (flag) level.add(node.val);
+                else level.add(0, node.val);
+                if (node.left != null) deque.addLast(node.left);
+                if (node.right != null) deque.addLast(node.right);
             }
             res.add(level);
             flag = !flag;

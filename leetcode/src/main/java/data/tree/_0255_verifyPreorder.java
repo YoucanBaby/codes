@@ -19,7 +19,7 @@ public class _0255_verifyPreorder {
             if (preorder[i] < minValue) {
                 return false;
             }
-            while (!stack.isEmpty() && stack.getLast() < preorder[i]) {
+            while (!stack.isEmpty() && preorder[i] > stack.getLast()) {
                 minValue = stack.removeLast();
             }
             stack.addLast(preorder[i]);

@@ -16,23 +16,19 @@ import java.util.*;
 public class _0429_levelOrder {
 
     public List<List<Integer>> levelOrder(Node root) {
-        if (root == null) {
-            return new ArrayList<>();
-        }
+        if (root == null) return new ArrayList<>();
 
         List<List<Integer>> res = new ArrayList<>();
-        Deque<Node> deque = new LinkedList<>();
+        Deque<Node> deque = new ArrayDeque<>();
         deque.addLast(root);
 
         while (!deque.isEmpty()) {
-            List<Integer> level = new ArrayList<>();
             int size = deque.size();
+            List<Integer> level = new ArrayList<>();
 
             for (int i = 0; i < size; i++) {
                 Node node = deque.removeFirst();
-                if (node != null) {
-                    level.add(node.val);
-                }
+                level.add(node.val);
                 deque.addAll(node.children);
             }
             res.add(level);

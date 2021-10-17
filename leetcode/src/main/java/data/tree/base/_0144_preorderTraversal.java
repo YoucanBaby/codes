@@ -41,25 +41,41 @@ public class _0144_preorderTraversal {
     }
 
     // 思路1：递归
-    public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        preorder(root, res);
-        return res;
-    }
 
-    public void preorder(TreeNode root, List<Integer> res) {
-        if (root == null) {
-            return;
-        }
+    List<Integer> res = new ArrayList<>();
+
+    public List<Integer> preorderTraversal(TreeNode root) {
+        if (root == null) return res;
         res.add(root.val);
-        preorder(root.left, res);
-        preorder(root.right, res);
+        preorderTraversal(root.left);
+        preorderTraversal(root.right);
+        return res;
     }
 
     // 练习迭代
     class Solution {
+        // 栈非空，就取出栈顶节点
+        // 如果栈顶节点非空，则加入右左 根(当前节点)，根后面加null；
+        // 如果栈顶节点为空，则弹出现在的栈顶节点，把它加入到结果中
         public List<Integer> preorderTraversal(TreeNode root) {
-            return null;
+            if (root == null) return new ArrayList<>();
+
+            List<Integer> res = new ArrayList<>();
+            Deque<TreeNode> stack = new LinkedList<>();
+            stack.push(root);
+
+            while (!stack.isEmpty()) {
+                TreeNode node = stack.pop();
+                if (node != null) {
+                    if (node.right != null) stack.push(node.right);
+                    if (node.left != null) stack.push(node.left);
+                    stack.push(node);
+                    stack.push(null);
+                } else {
+                    res.add(stack.pop().val);
+                }
+            }
+            return res;
         }
     }
 }

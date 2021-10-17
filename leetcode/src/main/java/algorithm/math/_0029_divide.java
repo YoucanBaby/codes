@@ -36,9 +36,8 @@ public class _0029_divide {
         if (isMinus) res = -res;
 
         if (res > Integer.MAX_VALUE || res < Integer.MIN_VALUE) {
-            return Integer.MAX_VALUE;
-        } else {
-            return (int) res;
+            res = Integer.MAX_VALUE;
         }
+        return (int) res;
     }
 }

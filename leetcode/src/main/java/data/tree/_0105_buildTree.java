@@ -12,6 +12,8 @@ import java.util.Map;
  */
 public class _0105_buildTree {
 
+
+
     int[] preorder;
     Map<Integer, Integer> map;
 
@@ -46,6 +48,9 @@ public class _0105_buildTree {
     }
 
 
+    // 用哈希映射记录中序遍历数组的值和下标，前序遍历构造数组
+    // 在前序遍历数组获得根节点，然后获得中序遍历数组中的下标，新建节点。递归左右节点。
+    // 返回的是当前节点
 
     // 练习
     class Solution {
@@ -58,9 +63,8 @@ public class _0105_buildTree {
             for (int i = 0; i < inorder.length; i++) {
                 map.put(inorder[i], i);
             }
-
             return buildTree(0, preorder.length - 1,
-                             0, inorder.length - 1);
+                            0, inorder.length - 1);
         }
 
         // 前序遍历数组的左/右边界，中序遍历数组的左/右边界
@@ -71,13 +75,13 @@ public class _0105_buildTree {
             }
 
             int rootValue = preorder[preLeft];
-            TreeNode root = new TreeNode(rootValue);
             int pIndex = map.get(rootValue);
+            TreeNode root = new TreeNode(rootValue);
 
             root.left = buildTree(preLeft + 1, preLeft + pIndex - inLeft,
-                                  inLeft, pIndex - 1);
+                                    inLeft, pIndex - 1);
             root.right = buildTree(preLeft + pIndex - inLeft + 1, preRight,
-                                   pIndex + 1, inRight);
+                                    pIndex + 1, inRight);
 
             return root;
         }

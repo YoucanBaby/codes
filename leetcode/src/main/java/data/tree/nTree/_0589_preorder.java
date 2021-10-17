@@ -1,6 +1,10 @@
 package data.tree.nTree;
 
+import com.sun.jmx.remote.internal.ArrayQueue;
+
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -12,25 +16,16 @@ import java.util.List;
  */
 public class _0589_preorder {
 
+    List<Integer> res = new ArrayList<>();
+
     public List<Integer> preorder(Node root) {
-        if (root == null) {
-            return new ArrayList<>();
+        if (root == null) return res;
+
+        res.add(root.val);
+        for (Node children : root.children) {
+            preorder(children);
         }
-
-        List<Integer> res = new ArrayList<>();
-        preorder(root, res);
-
         return res;
     }
 
-    public void preorder(Node root, List<Integer> res) {
-        if (root == null) {
-            return;
-        }
-
-        res.add(root.val);
-        for (int i = 0; i < root.children.size(); i++) {
-            preorder(root.children.get(i), res);
-        }
-    }
 }

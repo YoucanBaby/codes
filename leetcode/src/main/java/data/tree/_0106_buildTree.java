@@ -21,7 +21,6 @@ public class _0106_buildTree {
         for (int i = 0; i < inorder.length; i++) {
             map.put(inorder[i], i);
         }
-
         return buildTree(0, inorder.length - 1,
                 0, postorder.length - 1);
     }
@@ -45,6 +44,34 @@ public class _0106_buildTree {
 
 
     class Solution {
+        int[] postorder;
+        Map<Integer, Integer> map;
 
+        public TreeNode buildTree(int[] inorder, int[] postorder) {
+            this.postorder = postorder;
+            map = new HashMap<>();
+            for (int i = 0; i < inorder.length; i++) {
+                map.put(inorder[i], i);
+            }
+            return buildTree(0, inorder.length - 1,
+                    0, postorder.length - 1);
+        }
+
+        private TreeNode buildTree(int inLeft, int inRight, int postLeft, int postRight) {
+            if (inLeft > inRight || postLeft > postRight) {
+                return null;
+            }
+
+            int rootValue = postorder[postRight];
+            int pIndex = map.get(rootValue);
+            TreeNode root = new TreeNode(rootValue);
+
+            root.left = buildTree(inLeft, pIndex - 1,
+                    postLeft,  postRight - (inRight - pIndex + 1));
+            root.right = buildTree(pIndex + 1, inRight,
+                    postRight - (inRight - pIndex), postRight - 1);
+
+            return root;
+        }
     }
 }

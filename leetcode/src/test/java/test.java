@@ -3,6 +3,8 @@ import org.junit.Test;
 
 import java.beans.Transient;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @BelongsProject: interview
@@ -13,16 +15,15 @@ import java.util.*;
  */
 
 
-public class test {
+public class test <K, V> {
 
     public static void main(String[] args) {
-        System.out.println(Integer.toBinaryString(-10));
-        System.out.println(Integer.toBinaryString(-10 << 1));
-        System.out.println(Integer.toBinaryString(-10 << 2));
-        System.out.println();
+        HashSet<Integer> set = new HashSet<Integer>(){
+            public void test() {
+                System.out.println("匿名内部类");
+            }
+        };
 
-        System.out.println(Integer.toBinaryString(-10));
-        System.out.println(Integer.toBinaryString(-10 >> 1));
-        System.out.println(Integer.toBinaryString(-10 >> 2));
+        System.out.println();
     }
 }

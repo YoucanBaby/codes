@@ -18,10 +18,10 @@ public class _0173_BSTIterator {
         Deque<TreeNode> stack = new ArrayDeque<>();         // 右边是栈顶
 
         public BSTIterator(TreeNode root) {
-            dfsLeft(root);
+            stackAddLeft(root);
         }
 
-        private void dfsLeft(TreeNode root) {
+        private void stackAddLeft(TreeNode root) {
             while (root != null) {
                 stack.addLast(root);
                 root = root.left;
@@ -30,9 +30,8 @@ public class _0173_BSTIterator {
 
         public int next() {
             TreeNode root = stack.removeLast();
-            int res = root.val;
-            dfsLeft(root.right);
-            return res;
+            stackAddLeft(root.right);
+            return root.val;
         }
 
         public boolean hasNext() {

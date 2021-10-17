@@ -12,25 +12,14 @@ import java.util.List;
  */
 public class _0590_postorder {
 
+    List<Integer> res = new ArrayList<>();
+
     public List<Integer> postorder(Node root) {
-        if (root == null) {
-            return new ArrayList<>();
-        }
-
-        List<Integer> res = new ArrayList<>();
-        postorder(root, res);
-
-        return res;
-    }
-
-    public void postorder(Node root, List<Integer> res) {
-        if (root == null) {
-            return;
-        }
-
-        for (int i = 0; i < root.children.size(); i++) {
-            postorder(root.children.get(i), res);
+        if (root == null) return res;
+        for (Node children : root.children) {
+            postorder(children);
         }
         res.add(root.val);
+        return res;
     }
 }

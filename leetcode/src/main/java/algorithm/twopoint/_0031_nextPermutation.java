@@ -34,6 +34,7 @@ public class _0031_nextPermutation {
             }
             swap(nums, left, right);
         }
+
         reverse(nums, left + 1, N - 1);
     }
 

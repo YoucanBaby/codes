@@ -12,17 +12,15 @@ import java.util.List;
  */
 public class _0099_recoverTree {
 
-    TreeNode x = null;
-    TreeNode y = null;
-    TreeNode pre = null;
+    TreeNode first = null;
+    TreeNode second = null;
+    TreeNode pre = new TreeNode(Integer.MIN_VALUE);
 
     public void recoverTree(TreeNode root) {
         dfs(root);
-        if (x != null && y != null) {       // x和y都不为空，说明出现了错误节点，交换它们
-            int temp = x.val;
-            x.val = y.val;
-            y.val = temp;
-        }
+        int temp = first.val;
+        first.val = second.val;
+        second.val = temp;
     }
 
     private void dfs(TreeNode root) {
@@ -30,17 +28,9 @@ public class _0099_recoverTree {
             return;
         }
         dfs(root.left);
-        if (pre == null) {
-            pre = root;
-        } else {
-            if (pre.val > root.val) {           // x在前，y在后
-                y = root;
-                if (x == null) {
-                    x = pre;
-                }
-            }
-            pre = root;
-        }
+        if (first == null && pre.val > root.val) first = pre;
+        if (first != null && pre.val > root.val) second = root;
+        pre = root;
         dfs(root.right);
     }
 }

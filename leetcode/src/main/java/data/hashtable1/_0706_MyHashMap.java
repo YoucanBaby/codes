@@ -1,7 +1,6 @@
 package data.hashtable1;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -12,7 +11,62 @@ import java.util.LinkedList;
  * @Description:
  */
 public class _0706_MyHashMap {
+    class MyHashMap {
 
+        class Pair {
+            int key;
+            int val;
+
+            Pair(int key, int val) {
+                this.key = key;
+                this.val = val;
+            }
+        }
+
+        static final int SIZE = 769;
+        LinkedList<Pair>[] list = new LinkedList[SIZE];
+
+        public MyHashMap() {
+            for (int i = 0; i < SIZE; ++i) {
+                list[i] = new LinkedList();
+            }
+        }
+
+        private int getHash(int key) {
+//            int hash = Objects.hashCode(key) ^ (Objects.hashCode(key) >>> 16);
+//            return hash & (SIZE - 1);
+            return key % SIZE;
+        }
+
+        public void put(int key, int val) {
+            int hash = getHash(key);
+            for (Pair pair : list[hash]) {
+                if (pair.key == key)  {
+                    pair.val = val;
+                    return;
+                }
+            }
+            list[hash].add(new Pair(key, val));
+        }
+
+        public int get(int key) {
+            int hash = getHash(key);
+            for (Pair pair : list[hash]) {
+                if (pair.key == key) return pair.val;
+            }
+            return -1;
+        }
+
+        public void remove(int key) {
+            int hash = getHash(key);
+            for (int i = 0; i < list[hash].size(); i++) {
+                if (list[hash].get(i).key == key) {
+                    list[hash].remove(i);
+                    return;
+                }
+            }
+        }
+    }
 }
 
 class MyHashMap2 {
@@ -41,84 +95,3 @@ class MyHashMap2 {
     }
 }
 
-class MyHashMap1 {
-
-    // 键值对pair
-    private class Pair {
-        private int key;
-        private int value;
-
-        public Pair(int key, int value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        public int getKey() {
-            return key;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public void setValue(int value) {
-            this.value = value;
-        }
-    }
-
-
-    private static final int BASE = 769;
-    private LinkedList[] data;
-
-    public MyHashMap1() {
-        data = new LinkedList[BASE];
-        for (int i = 0; i < BASE; ++i) {
-            data[i] = new LinkedList<Pair>();
-        }
-    }
-
-    /** value will always be non-negative. */
-    public void put(int key, int value) {
-        int h = hash(key);
-        Iterator<Pair> iterator = data[h].iterator();
-        while (iterator.hasNext()) {
-            Pair pair = iterator.next();
-            if (pair.getKey() == key) {
-                pair.setValue(value);
-                return;
-            }
-        }
-        data[h].addLast(new Pair(key, value));
-    }
-
-    /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
-    public int get(int key) {
-        int h = hash(key);
-        Iterator<Pair> iterator = data[h].iterator();
-        while (iterator.hasNext()) {
-            Pair pair = iterator.next();
-            if (pair.getKey() == key) {
-                return pair.value;
-            }
-        }
-        return -1;
-    }
-
-    /** Removes the mapping of the specified value key if this map contains a mapping for the key */
-    public void remove(int key) {
-        int h = hash(key);
-        Iterator<Pair> iterator = data[h].iterator();
-        while (iterator.hasNext()) {
-            Pair pair = iterator.next();
-            if (pair.getKey() == key) {
-                data[h].remove(pair);
-                return;
-            }
-        }
-    }
-
-    // 哈希函数
-    private static int hash(int key) {
-        return key % BASE;
-    }
-}

@@ -17,46 +17,35 @@ public class _0145_postorderTraversal {
     }
 
     // 迭代
-    public List<Integer> inorderTraversal1(TreeNode root) {
-        if (root == null) {
-            return new ArrayList<>();
-        }
+    public List<Integer> postorderTraversal1(TreeNode root) {
+        if (root == null) return new ArrayList<>();
 
         List<Integer> res = new ArrayList<>();
         Deque<TreeNode> stack = new LinkedList<>();
-        stack.addFirst(root);
+        stack.push(root);
 
         while (!stack.isEmpty()) {
-            TreeNode node = stack.removeFirst();
+            TreeNode node = stack.pop();
             if (node != null) {
-                stack.addFirst(node);               // 中
-                stack.addFirst(null);
-                if (node.right != null) {
-                    stack.addFirst(node.right);     // 右
-                }
-                if (node.left != null) {
-                    stack.addFirst(node.left);      // 左
-                }
+                stack.push(node);
+                stack.push(null);
+                if (node.right != null) stack.push(node.right);
+                if (node.left != null) stack.push(node.left);
             } else {
-                res.add(stack.removeFirst().val);
+                res.add(stack.pop().val);
             }
         }
         return res;
     }
 
 
-    public List<Integer> postorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        postorder(root, res);
-        return res;
-    }
+    List<Integer> res = new ArrayList<>();
 
-    public void postorder(TreeNode root, List<Integer> res) {
-        if (root == null) {
-            return;
-        }
-        postorder(root.left, res);
-        postorder(root.right, res);
+    public List<Integer> postorderTraversal(TreeNode root) {
+        if (root == null) return res;
+        postorderTraversal(root.left);
+        postorderTraversal(root.right);
         res.add(root.val);
+        return res;
     }
 }

@@ -15,44 +15,46 @@ public class _0705_MyHashSet {
 
 class MyHashSet {
 
-    static int BASE = 769;
-    LinkedList[] data = new LinkedList[BASE];;
+    // 使用链表数组实现，链表长度超过8，链表转为红黑树
+    // 默认负载因子为0.75，数组长度为769，超过0.75就扩容，扩容后的大小为原大小的两倍
+    // 哈希函数是 x % 769
+
+    final int SIZE = 769;
+    LinkedList<Integer>[] list = new LinkedList[SIZE];
 
     public MyHashSet() {
-        for (int i = 0; i < data.length; i++) {
-            data[i] = new LinkedList<Integer>();
+        for (int i = 0; i < list.length; i++) {
+            list[i] = new LinkedList();
         }
+    }
+
+    private int getHash(int key) {
+        return key % SIZE;
     }
 
     public void add(int key) {
-        int h = hash(key);
-        for (int num : (LinkedList<Integer>) data[h]) {
+        int hash = getHash(key);
+        for (int num : list[hash]) {
             if (num == key) return;
         }
-        data[h].addLast(key);
+        list[hash].add(key);
     }
 
     public void remove(int key) {
-        int h = hash(key);
-        int index = 0;
-        for (int num : (LinkedList<Integer>) data[h]) {
-            if (num == key) {
-                data[h].remove(index);
+        int hash = getHash(key);
+        for (int i = 0; i < list[hash].size(); i++) {
+            if (list[hash].get(i) == key) {
+                list[hash].remove(i);
                 return;
             }
-            index++;
         }
     }
 
     public boolean contains(int key) {
-        int h = hash(key);
-        for (int num : (LinkedList<Integer>) data[h]) {
+        int hash = getHash(key);
+        for (int num : list[hash]) {
             if (num == key) return true;
         }
         return false;
-    }
-
-    private static int hash(int key) {
-        return key % BASE;
     }
 }

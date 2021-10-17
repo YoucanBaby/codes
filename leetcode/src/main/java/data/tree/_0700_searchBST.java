@@ -31,7 +31,7 @@ public class _0700_searchBST {
     // 迭代
     public TreeNode searchBST1(TreeNode root, int val) {
         while (root != null) {
-            if (val == root.val) {
+            if (root.val == val) {
                 return root;
             } else if (val < root.val) {
                 root = root.left;

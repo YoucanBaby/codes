@@ -46,9 +46,7 @@ public class _0230_kthSmallest {
             }
             root = stack.removeLast();
             k--;
-            if (k == 0) {
-                return root.val;
-            }
+            if (k == 0) return root.val;
             root = root.right;
         }
     }

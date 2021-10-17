@@ -14,7 +14,7 @@ public class _0038_countAndSay {
         if (n == 1) return "1";
         String pre = countAndSay(n - 1);
         StringBuilder res = new StringBuilder();
-        int count = 1;                      // 有相同字母的字符串长度
+        int count = 1;
         for (int i = 0; i < pre.length(); i++) {
             if (i + 1 < pre.length() && pre.charAt(i) == pre.charAt(i + 1)) {
                 count++;

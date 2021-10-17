@@ -30,8 +30,8 @@ public class _0530_getMinimumDifference {
     // 练习
     class Solution {
 
-        int res = Integer.MAX_VALUE;
         TreeNode pre = null;
+        int min = Integer.MAX_VALUE;
 
         public int getMinimumDifference(TreeNode root) {
             if (root == null) {
@@ -40,12 +40,12 @@ public class _0530_getMinimumDifference {
 
             getMinimumDifference(root.left);
             if (pre != null) {
-                res = Math.min(res, Math.abs(pre.val - root.val));
+                min = Math.min(min, Math.abs(pre.val - root.val));
             }
             pre = root;
             getMinimumDifference(root.right);
 
-            return res;
+            return min;
         }
     }
 }

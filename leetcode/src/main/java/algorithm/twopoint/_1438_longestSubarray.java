@@ -16,8 +16,8 @@ public class _1438_longestSubarray {
 
     public int longestSubarray(int[] nums, int limit) {
         int res = 0;
-        Deque<Integer> minDeque = new ArrayDeque<>();
         Deque<Integer> maxDeque = new ArrayDeque<>();
+        Deque<Integer> minDeque = new ArrayDeque<>();
 
         int left = 0;
         for (int right = 0; right < nums.length; right++) {
@@ -33,14 +33,15 @@ public class _1438_longestSubarray {
 
             while (!maxDeque.isEmpty() && !minDeque.isEmpty() &&
                     maxDeque.getFirst() - minDeque.getFirst() > limit) {
-                if (nums[left] == maxDeque.getFirst()) {
+                if (maxDeque.getFirst() == nums[left]) {
                     maxDeque.removeFirst();
                 }
-                if (nums[left] == minDeque.getFirst()) {
+                if (minDeque.getFirst() == nums[left]) {
                     minDeque.removeFirst();
                 }
                 left++;
             }
+
             res = Math.max(res, right - left + 1);
         }
         return res;

@@ -13,7 +13,6 @@ public class _0559_maxDepth {
         if (root == null) {
             return 0;
         }
-
         int max = 0;
         for (Node node : root.children) {
             max = Math.max(max, maxDepth(node));

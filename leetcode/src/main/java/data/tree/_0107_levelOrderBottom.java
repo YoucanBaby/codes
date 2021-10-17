@@ -16,9 +16,7 @@ public class _0107_levelOrderBottom {
 
 
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        if (root == null) {
-            return new ArrayList<>();
-        }
+        if (root == null) return new ArrayList<>();
 
         List<List<Integer>> res = new ArrayList<>();
         Deque<TreeNode> deque = new ArrayDeque<>();
@@ -29,14 +27,10 @@ public class _0107_levelOrderBottom {
             List<Integer> level = new ArrayList<>();
 
             for (int i = 0; i < size; i++) {
-                root = deque.removeFirst();
-                level.add(root.val);
-                if (root.left != null) {
-                    deque.addLast(root.left);
-                }
-                if (root.right != null) {
-                    deque.addLast(root.right);
-                }
+                TreeNode node = deque.removeFirst();
+                level.add(node.val);
+                if (node.left != null) deque.addLast(node.left);
+                if (node.right != null) deque.addLast(node.right);
             }
             res.add(0, level);
         }
