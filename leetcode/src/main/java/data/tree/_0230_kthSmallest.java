@@ -16,10 +16,10 @@ public class _0230_kthSmallest {
         Deque<TreeNode> stack = new ArrayDeque<>();
         while (true) {
             while (root != null) {
-                stack.addLast(root);
+                stack.push(root);
                 root = root.left;
             }
-            root = stack.removeLast();
+            root = stack.pop();
             k--;
             if (k == 0) return root.val;
             root = root.right;
