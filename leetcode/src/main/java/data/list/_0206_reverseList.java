@@ -20,7 +20,6 @@ public class _0206_reverseList {
             pre = cur;
             cur = next;
         }
-
         return pre;
     }
 

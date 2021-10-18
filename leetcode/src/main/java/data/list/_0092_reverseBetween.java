@@ -31,6 +31,22 @@ public class _0092_reverseBetween {
         return last;
     }
 
+    public ListNode reverseN1(ListNode head, int n) {
+        if (n == 0) {
+            return head;
+        }
+        ListNode newHead = new ListNode(0, head);
+        ListNode rightNode = newHead;
+        for (int i = 0; i < n; i++) {
+            rightNode = rightNode.next;
+        }
+        ListNode rightNodeNext = rightNode.next;
+        ListNode[] res = reverseList(newHead.next, rightNode);
+        newHead.next = res[0];
+        res[1] = rightNodeNext;
+        return newHead.next;
+    }
+
 
     public static void main(String[] args) {
         ListNode head = new ListNode(1);
@@ -63,38 +79,36 @@ public class _0092_reverseBetween {
         }
 
         ListNode newHead = new ListNode(0, head);
-        ListNode leftNode = newHead;        // 到左边界的前一个节点
+        ListNode pre = newHead;
         for (int i = 0; i < left - 1; i++) {
-            leftNode = leftNode.next;
+            pre = pre.next;
         }
-        ListNode rightNode = newHead;       // 到右边界的后一个节点
-        for (int i = 0; i < right + 1; i++) {
+        ListNode rightNode = newHead;
+        for (int i = 0; i < right; i++) {
             rightNode = rightNode.next;
         }
+        ListNode next = rightNode.next;
 
-        // 反转链表
-        ListNode[] temp = reverseList(leftNode, rightNode);
-        leftNode.next = temp[0];
-        temp[1].next = rightNode;
+        ListNode[] res = reverseList(pre.next, rightNode);
+        pre.next = res[0];
+        res[1].next = next;
 
         return newHead.next;
     }
 
-    // 返回反转之后链表的起始节点
+    // 返回反转之后链表的起始节点和末尾节点
     public ListNode[] reverseList(ListNode leftNode, ListNode rightNode) {
         ListNode pre = null;
-        ListNode cur = leftNode.next;
-        ListNode endNode = leftNode.next;
+        ListNode cur = leftNode;
+        ListNode rightNodeNext = rightNode.next;
 
-        while (cur != rightNode) {
+        while (cur != rightNodeNext) {
             ListNode next = cur.next;
             cur.next = pre;
 
             pre = cur;
             cur = next;
         }
-        ListNode startNode = pre;
-
-        return new ListNode[] {startNode, endNode};
+        return new ListNode[] {rightNode, leftNode};
     }
 }

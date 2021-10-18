@@ -1,5 +1,7 @@
 package data.list;
 
+import java.util.List;
+
 /**
  * @BelongsProject: codes
  * @BelongsPackage: data.list
@@ -27,9 +29,11 @@ public class _0025_reverseKGroup {
         ListNode res = solution.reverseKGroup(head, 2);
 
         while (res != null) {
-            System.out.println(res.val);
+            System.out.print(res.val + "->");
             res = res.next;
         }
+        System.out.print("null");
+        System.out.println();
     }
 
     public ListNode reverseKGroup (ListNode head, int k) {
@@ -38,30 +42,32 @@ public class _0025_reverseKGroup {
         }
 
         ListNode newHead = new ListNode(0, head);
-        ListNode leftNode = newHead;
+        ListNode leftNodePre = newHead;
         ListNode rightNode = newHead;
-        for (int i = 0; i <= k; i++) {
+        for (int i = 0; i < k; i++) {
+            rightNode = rightNode.next;
             if (rightNode == null) {
                 return newHead.next;
             }
-            rightNode = rightNode.next;
         }
-        ListNode[] temp = reverseList(leftNode, rightNode);
-        leftNode.next = temp[0];
-        temp[1].next = rightNode;
-
+        ListNode rightNodeNext = rightNode.next;
+        ListNode[] res = reverseList(leftNodePre.next, rightNode);
+        leftNodePre.next = res[0];
+        res[1].next = rightNodeNext;
 
         while (rightNode != null) {
+            leftNodePre = res[1];
+            rightNode = res[1];
             for (int i = 0; i < k; i++) {
+                rightNode = rightNode.next;
                 if (rightNode == null) {
                     return newHead.next;
                 }
-                leftNode = leftNode.next;
-                rightNode = rightNode.next;
             }
-            temp = reverseList(leftNode, rightNode);
-            leftNode.next = temp[0];
-            temp[1].next = rightNode;
+            rightNodeNext = rightNode.next;
+            res = reverseList(leftNodePre.next, rightNode);
+            leftNodePre.next = res[0];
+            res[1].next = rightNodeNext;
         }
 
         return newHead.next;
@@ -70,19 +76,17 @@ public class _0025_reverseKGroup {
     // 返回反转之后链表的起始节点
     public ListNode[] reverseList(ListNode leftNode, ListNode rightNode) {
         ListNode pre = null;
-        ListNode cur = leftNode.next;
-        ListNode endNode = leftNode.next;
+        ListNode cur = leftNode;
+        ListNode rightNodeNext = rightNode.next;
 
-        while (cur != rightNode) {
+        while (cur != rightNodeNext) {
             ListNode next = cur.next;
             cur.next = pre;
 
             pre = cur;
             cur = next;
         }
-        ListNode startNode = pre;
-
-        return new ListNode[] {startNode, endNode};
+        return new ListNode[] {rightNode, leftNode};
     }
 
 
