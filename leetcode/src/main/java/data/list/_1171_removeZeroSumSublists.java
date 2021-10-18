@@ -49,9 +49,10 @@ public class _1171_removeZeroSumSublists {
         sum = 0;
         for (ListNode cur = newHead; cur != null; cur = cur.next) {
             sum += cur.val;
-            cur.next = map.get(sum).next;
+            if (map.containsKey(sum)) {
+                cur.next = map.get(sum).next;
+            }
         }
-
         return newHead.next;
     }
 }

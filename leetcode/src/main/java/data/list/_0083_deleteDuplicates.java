@@ -15,15 +15,13 @@ public class _0083_deleteDuplicates {
         if (head == null) {
             return null;
         }
-
         ListNode cur = head;
-
-        while (cur != null && cur.next != null) {
+        while (cur.next != null) {
             if (cur.val == cur.next.val) {
                 cur.next = cur.next.next;
-            } else {
-                cur = cur.next;
+                continue;
             }
+            cur = cur.next;
         }
         return head;
     }

@@ -1,5 +1,7 @@
 package data.list;
 
+import java.util.List;
+
 /**
  * @BelongsProject: interview
  * @BelongsPackage: data.list
@@ -39,13 +41,13 @@ public class _0082_deleteDuplicates {
 
     public ListNode deleteDuplicates1(ListNode head) {
         if (head == null) {
-            return head;
+            return null;
         }
 
         ListNode newHead = new ListNode(0, head);
-        ListNode left = newHead;        // 保证left.next是相同节点的下一个节点
+        ListNode left = newHead;
 
-        while (left.next != null && left.next.next != null) {
+        while (left.next != null) {
             ListNode right = left.next;
             while (right.next != null && right.val == right.next.val) {
                 right = right.next;

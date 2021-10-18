@@ -12,7 +12,7 @@ import java.util.List;
 public class _0019_removeNthFromEnd {
 
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        if (head == null || head.next == null) {
+        if (head == null) {
             return null;
         }
 
@@ -35,24 +35,23 @@ public class _0019_removeNthFromEnd {
         return newHead.next;
     }
 
+    // 练习
     public ListNode removeNthFromEnd1(ListNode head, int n) {
-        if (head == null || head.next == null) {
+        if (head == null) {
             return null;
         }
 
         ListNode newHead = new ListNode(0, head);
         ListNode slow = newHead;
-        ListNode fast = newHead;
-
+        ListNode fast = head;
         for (int i = 0; i < n; i++) {
             fast = fast.next;
         }
-        while (fast.next != null) {
-            fast = fast.next;
+        while (fast != null) {
             slow = slow.next;
+            fast = fast.next;
         }
         slow.next = slow.next.next;
-
         return newHead.next;
     }
 

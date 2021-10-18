@@ -30,15 +30,9 @@ public class _0142_detectCycle {
         System.out.println(cur.val);
     }
 
-
     public ListNode detectCycle(ListNode head) {
-        if (head == null || head.next == null) {
-            return null;
-        }
-
         ListNode slow = head;
         ListNode fast = head;
-
         while (true) {
             if (fast == null || fast.next == null) {
                 return null;
@@ -51,10 +45,10 @@ public class _0142_detectCycle {
         }
 
         fast = head;
-        while (fast != slow) {
+        while (slow != fast) {
             slow = slow.next;
             fast = fast.next;
         }
-        return fast;
+        return slow;
     }
 }
