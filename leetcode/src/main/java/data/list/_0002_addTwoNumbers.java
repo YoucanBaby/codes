@@ -9,35 +9,30 @@ package data.list;
  */
 public class _0002_addTwoNumbers {
 
+
+
     public ListNode addTwoNumbers(ListNode node1, ListNode node2) {
-        ListNode head = new ListNode(0);
-        ListNode cur = head;
+        ListNode cur1 = node1;
+        ListNode cur2 = node2;
+        ListNode newHead = new ListNode(0);
+        ListNode cur = newHead;
         int carry = 0;
 
-        while (node1 != null || node2 != null) {
-            int n1 = node1 == null ? 0 : node1.val;
-            int n2 = node2 == null ? 0 : node2.val;
+        while (cur1 != null || cur2 != null) {
+            int num1 = cur1 == null ? 0 : cur1.val;
+            int num2 = cur2 == null ? 0 : cur2.val;
 
-            int sum = n1 + n2 + carry;
-            if (sum >= 10) {
-                sum %= 10;
-                carry = 1;
-            } else {
-                carry = 0;
-            }
-            cur.next = new ListNode(sum);
+            int sum = num1 + num2 + carry;
+            cur.next = new ListNode(sum % 10);
+            carry = sum / 10;
+
+            if (cur1 != null) cur1 = cur1.next;
+            if (cur2 != null) cur2 = cur2.next;
             cur = cur.next;
-
-            if (node1 != null) {
-                node1 = node1.next;
-            }
-            if (node2 != null) {
-                node2 = node2.next;
-            }
         }
         if (carry == 1) {
             cur.next = new ListNode(1);
         }
-        return head.next;
+        return newHead.next;
     }
 }

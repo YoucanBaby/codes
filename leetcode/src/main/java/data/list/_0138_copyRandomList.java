@@ -11,15 +11,12 @@ public class _0138_copyRandomList {
 
     class Node {
         int val;
-        Node next;
-        Node random;
+        Node next = null;
+        Node random = null;
 
         public Node(int val) {
             this.val = val;
-            this.next = null;
-            this.random = null;
         }
-
     }
 
     public Node copyRandomList(Node head) {
@@ -73,7 +70,6 @@ public class _0138_copyRandomList {
             cur.next = temp;
             cur = cur.next.next;
         }
-
         // 构建random
         cur = head;
         while (cur != null) {
@@ -82,20 +78,17 @@ public class _0138_copyRandomList {
             }
             cur = cur.next.next;
         }
-
         // 拆分链表
-        Node newHead = new Node(0);
-        newHead.next = head.next;
-        Node node1 = head;
-        Node node2 = head.next;
-        while (node2.next != null) {
-            node1.next = node2.next;
-            node2.next = node2.next.next;
-            node1 = node1.next;
-            node2 = node2.next;
+        cur = head;
+        Node newHead = head.next;
+        while (cur != null) {
+            Node next = cur.next;
+            cur.next = cur.next.next;
+            cur = cur.next;
+            if (cur != null) {
+                next.next = cur.next;
+            }
         }
-        node1.next = null;
-
-        return newHead.next;
+        return newHead;
     }
 }

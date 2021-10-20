@@ -14,46 +14,37 @@ import java.util.Deque;
  */
 public class _0445_addTwoNumbers {
 
-
+    // 用双端队列存放数字，左高右低
     public ListNode addTwoNumbers(ListNode node1, ListNode node2) {
-        // 左低右高
         Deque<Integer> deque1 = new ArrayDeque<>();
-        ListNode cur1 = node1;
-        while (cur1 != null) {
-            deque1.addFirst(cur1.val);
-            cur1 = cur1.next;
+        while (node1 != null) {
+            deque1.addLast(node1.val);
+            node1 = node1.next;
         }
         Deque<Integer> deque2 = new ArrayDeque<>();
-        ListNode cur2 = node2;
-        while (cur2 != null) {
-            deque2.addFirst(cur2.val);
-            cur2 = cur2.next;
+        while (node2 != null) {
+            deque2.addLast(node2.val);
+            node2 = node2.next;
         }
 
-        ListNode cur = new ListNode();
+        ListNode newHead = new ListNode(0);
         int carry = 0;
         while (!deque1.isEmpty() || !deque2.isEmpty()) {
-            int n1 = deque1.isEmpty() ? 0 : deque1.removeFirst();
-            int n2 = deque2.isEmpty() ? 0 : deque2.removeFirst();
+            int num1 = deque1.isEmpty() ? 0 : deque1.removeLast();
+            int num2 = deque2.isEmpty() ? 0 : deque2.removeLast();
 
-            int sum = n1 + n2 + carry;
-            if (sum >= 10) {
-                sum %= 10;
-                carry = 1;
-            } else {
-                carry = 0;
-            }
+            int sum = num1 + num2 + carry;
+            ListNode cur = new ListNode(sum % 10);
+            cur.next = newHead.next;
+            newHead.next = cur;
 
-            cur.val = sum;
-            ListNode pre = new ListNode(0, cur);
-            cur = pre;
+            carry = sum / 10;
         }
         if (carry == 1) {
-            cur.val = 1;
-            ListNode pre = new ListNode(0, cur);
-            cur = pre;
+            ListNode cur = new ListNode(1);
+            cur.next = newHead.next;
+            newHead.next = cur;
         }
-
-        return cur.next;
+        return newHead.next;
     }
 }

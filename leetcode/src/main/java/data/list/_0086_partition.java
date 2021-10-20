@@ -10,26 +10,27 @@ package data.list;
 public class _0086_partition {
 
     public ListNode partition(ListNode head, int x) {
-        ListNode samllHead = new ListNode(0);
-        ListNode small = samllHead;
+        ListNode smallHead = new ListNode(0);
+        ListNode smallNode = smallHead;
 
-        ListNode largeHead = new ListNode(0);
-        ListNode large = largeHead;
+        ListNode bigHead = new ListNode(0);
+        ListNode bigNode = bigHead;
 
         ListNode cur = head;
         while (cur != null) {
             if (cur.val < x) {
-                small.next = cur;
-                small = small.next;
+                smallNode.next = cur;
+                cur = cur.next;
+                smallNode = smallNode.next;
             } else {
-                large.next = cur;
-                large = large.next;
+                bigNode.next = cur;
+                cur = cur.next;
+                bigNode = bigNode.next;
             }
-            cur = cur.next;
         }
-        small.next = largeHead.next;
-        large.next = null;
+        smallNode.next = bigHead.next;
+        bigNode.next = null;
 
-        return samllHead.next;
+        return smallHead.next;
     }
 }

@@ -10,26 +10,25 @@ package data.list;
 public class _1669_mergeInBetween {
 
 
-    public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
-        ListNode newHead = new ListNode(0, list1);
-
-        ListNode left = newHead;
+    public ListNode mergeInBetween(ListNode node1, int a, int b, ListNode node2) {
+        ListNode newHead = new ListNode(0, node1);
+        ListNode leftNodePre = newHead;
         for (int i = 0; i < a; i++) {
-            left = left.next;
+            leftNodePre = leftNodePre.next;
         }
 
-        ListNode right = newHead;
+        ListNode rightNode = newHead;
         for (int i = 0; i <= b; i++) {
-            right = right.next;
+            rightNode = rightNode.next;
         }
+        ListNode rightNodeNext = rightNode.next;
 
-        ListNode last = list2;
-        while (last.next != null) {
-            last = last.next;
+        leftNodePre.next = node2;
+        ListNode cur = node2;
+        while (cur.next != null) {
+            cur = cur.next;
         }
-
-        left.next = list2;
-        last.next = right.next;
+        cur.next = rightNodeNext;
 
         return newHead.next;
     }

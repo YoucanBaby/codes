@@ -43,15 +43,13 @@ public class _0328_oddEvenList {
         ListNode oddNode = head;
         ListNode evenNode = head.next;
 
-        while (oddNode.next != null && oddNode.next.next != null) {
+        while (evenNode != null && evenNode.next != null) {
             oddNode.next = evenNode.next;
             oddNode = oddNode.next;
-
             evenNode.next = oddNode.next;
             evenNode = evenNode.next;
         }
         oddNode.next = evenHead;
-
         return head;
     }
 }

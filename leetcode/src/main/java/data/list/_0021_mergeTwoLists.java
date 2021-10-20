@@ -19,12 +19,13 @@ public class _0021_mergeTwoLists {
         while (cur1 != null && cur2 != null) {
             if (cur1.val < cur2.val) {
                 cur.next = cur1;
+                cur = cur.next;
                 cur1 = cur1.next;
             } else {
                 cur.next = cur2;
+                cur = cur.next;
                 cur2 = cur2.next;
             }
-            cur = cur.next;
         }
         if (cur1 != null) {
             cur.next = cur1;
@@ -32,7 +33,6 @@ public class _0021_mergeTwoLists {
         if (cur2 != null) {
             cur.next = cur2;
         }
-
         return head.next;
     }
 }

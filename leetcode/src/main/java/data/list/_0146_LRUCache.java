@@ -90,4 +90,63 @@ public class _0146_LRUCache {
             return map.get(key).val;
         }
     }
+
+
+    // 练习
+    // 由哈希表+双向链表完成
+    // 节点：key, val, pre, next
+    // 双向链表(左边最新，右边最久)：head, tail
+        // 头部添加
+        // int 删除
+        // int 尾部删除
+    // LRU：哈希表，双向链表，双向链表的最大容量
+        // put : 如果双向链表里有这个节点，则删除这个节点，在开头添加这个节点，更新哈希表
+        //       如果没有这个节点，如果容量满了，就删除尾巴的节点，更新哈希表；最后在开头添加这个节点，更新哈希表
+        // get : 如果没有这个key，返回-1；有的话，就put一个新的。
+
+    class Solution {
+
+        class LRUCache {
+
+            public LRUCache (int capacity) {
+
+            }
+
+            public void put(int key, int val) {
+
+            }
+
+            public int get(int key) {
+                return 0;
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -25,7 +25,6 @@ public class _0234_isPalindrome {
     }
 
 
-
     public boolean isPalindrome(ListNode head) {
         if (head == null || head.next == null) {
             return true;
@@ -59,6 +58,40 @@ public class _0234_isPalindrome {
             }
             leftHead = leftHead.next;
             rightHead = rightHead.next;
+        }
+        return true;
+    }
+
+    public boolean isPalindrome1(ListNode head) {
+        if (head == null || head.next == null) {
+            return true;
+        }
+
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode pre = null;
+        ListNode cur = slow.next;
+        slow.next = null;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+
+        ListNode left = head;
+        ListNode right = pre;
+        while (right != null) {
+            if (left.val != right.val) {
+                return false;
+            }
+            left = left.next;
+            right = right.next;
         }
         return true;
     }

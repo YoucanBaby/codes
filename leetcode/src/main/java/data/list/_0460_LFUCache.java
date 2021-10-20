@@ -1,6 +1,7 @@
 package data.list;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @BelongsProject: codes
@@ -11,16 +12,65 @@ import java.util.HashMap;
  */
 public class _0460_LFUCache {
 
+
+    class Node {
+        int key, val, freq;
+        Node pre, next;
+
+        public Node(int key, int val) {
+            this.key = key;
+            this.val = val;
+            this.freq = 1;
+        }
+    }
+
+    class DoubleList {
+        Node head;
+        Node tail;
+
+        public DoubleList() {
+            head = new Node(0,0);
+            tail = new Node(0,0);
+            head.next = tail;
+            tail.pre = head;
+        }
+
+        public void addFirst(Node node) {
+            node.next = head.next;
+            node.pre = head;
+
+            head.next.pre = node;
+            head.next = node;
+        }
+
+        public int delete(Node node) {
+            node.pre.next = node.next;
+            node.next.pre = node.pre;
+            return node.key;
+        }
+
+        public int deleteLast() {
+            if (head.next == tail) {
+                return -1;
+            }
+            return delete(tail.pre);
+        }
+
+        public boolean isEmpty() {
+            return head.next == tail;
+        }
+    }
+
     class LFUCache {
-        HashMap<Integer, Node> cache;           // <key, Node>
-        HashMap<Integer, DoubleList> freqMap;   // <freq, DoubleList>
-        int cap;            // 最大容量
+        Map<Integer, Node> cache;           // <key, Node>
+        Map<Integer, DoubleList> freqMap;   // <freq, DoubleList>
+        int size;            // 最大容量
         int minFreq;        // 存储当前最小频次
 
         public LFUCache(int capacity) {
             cache = new HashMap<>();
             freqMap = new HashMap<>();
-            cap = capacity;
+            size = capacity;
             minFreq = 0;
         }
 
@@ -39,10 +89,10 @@ public class _0460_LFUCache {
                 node.val = val;
                 update(node, false);
             } else {
-                if(cap == 0) {
+                if(size == 0) {
                     return;
                 }
-                if (cache.size() == cap) {
+                if (cache.size() == size) {
                     deleteRemoteMinFreqNode();
                 }
                 Node node = new Node(key,val);
@@ -89,57 +139,6 @@ public class _0460_LFUCache {
                 list.delete(node);
                 cache.remove(node.key);
             }
-        }
-    }
-
-
-    class DoubleList {
-        Node head;
-        Node tail;
-        public DoubleList() {
-            head = new Node(0,0);
-            tail = new Node(0,0);
-            head.next = tail;
-            tail.pre = head;
-        }
-
-        public void addFirst(Node node) {
-            node.next = head.next;
-            node.pre = head;
-
-            head.next.pre = node;
-            head.next = node;
-        }
-
-        public int delete(Node node) {
-            node.pre.next = node.next;
-            node.next.pre = node.pre;
-            return node.key;
-        }
-
-        public int deleteLast() {
-            if (head.next == tail) {
-                return -1;
-            }
-            return delete(tail.pre);
-        }
-
-        public boolean isEmpty() {
-            return head.next == tail;
-        }
-    }
-
-    class Node {
-        int key;
-        int val;
-        int freq;
-        Node pre;
-        Node next;
-
-        public Node(int key, int val) {
-            this.key = key;
-            this.val = val;
-            this.freq = 1;
         }
     }
 }

@@ -14,20 +14,22 @@ import java.util.List;
 public class _0369_plusOne {
 
 
+
     public ListNode plusOne(ListNode head) {
         ListNode newHead = new ListNode(0, head);
-        ListNode notNine = newHead;
+        ListNode not9 = newHead;
 
         for (ListNode cur = head; cur != null; cur = cur.next) {
             if (cur.val != 9) {
-                notNine = cur;
+                not9 = cur;
             }
         }
-        notNine.val += 1;
-        for (ListNode cur = notNine.next; cur != null; cur = cur.next) {
+        not9.val += 1;
+
+        for (ListNode cur = not9.next; cur != null; cur = cur.next) {
             cur.val = 0;
         }
 
-        return newHead.val == 0 ? newHead.next : newHead;
+        return newHead.val == 1 ? newHead : newHead.next;
     }
 }
