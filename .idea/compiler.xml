@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="java" />
+        <module name="lcp" />
+        <module name="competition" />
+        <module name="leetcode" />
+        <module name="for-offer" />
+        <module name="interview" />
+        <module name="acwing" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="codes" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
