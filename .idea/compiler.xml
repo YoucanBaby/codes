@@ -9,6 +9,7 @@
         <module name="java" />
         <module name="xmind" />
         <module name="lcp" />
+        <module name="markdown" />
         <module name="competition" />
         <module name="leetcode" />
         <module name="for-offer" />
