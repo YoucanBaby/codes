@@ -41,4 +41,28 @@ public class _0199_rightSideView {
 
         return res;
     }
+
+    class Solution {
+
+        public List<Integer> rightSideView(TreeNode root) {
+            if (root == null) {
+                return new ArrayList<>();
+            }
+
+            Deque<TreeNode> deque = new ArrayDeque<>();
+            deque.addLast(root);
+            List<Integer> res = new ArrayList<>();
+
+            while (!deque.isEmpty()) {
+                int size = deque.size();
+                for (int i = 0; i < size; i++) {
+                    TreeNode node = deque.removeFirst();
+                    if (node.left != null) deque.addLast(node.left);
+                    if (node.right != null) deque.addLast(node.right);
+                    if (i == size - 1) res.add(node.val);
+                }
+            }
+            return res;
+        }
+    }
 }

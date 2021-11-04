@@ -27,4 +27,28 @@ public class _0129_sumNumbers {
         dfs(root.left, sum * 10 + root.val);
         dfs(root.right, sum * 10 + root.val);
     }
+
+
+    class Solution {
+
+        int res = 0;
+
+        public int sumNumbers(TreeNode root) {
+            dfs(root, 0);
+            return res;
+        }
+
+        public void dfs(TreeNode root, int sum) {
+            if (root == null) {
+                return;
+            }
+
+            sum = sum * 10 + root.val;
+            if (root.left == null && root.right == null) {
+                res += sum;
+            }
+            dfs(root.left, sum);
+            dfs(root.right, sum);
+        }
+    }
 }

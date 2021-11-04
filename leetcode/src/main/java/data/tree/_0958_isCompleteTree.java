@@ -1,5 +1,6 @@
 package data.tree;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -47,5 +48,34 @@ public class _0958_isCompleteTree {
             }
         }
         return true;
+    }
+
+    class Solution {
+
+        public boolean isCompleteTree(TreeNode root) {
+            if (root == null) {
+                return false;
+            }
+
+            Deque<TreeNode> deque = new LinkedList<>();
+            deque.addLast(root);
+            boolean flag = false;
+
+            while (!deque.isEmpty()) {
+                int size = deque.size();
+
+                for (int i = 0; i < size; i++) {
+                    TreeNode node = deque.removeFirst();
+                    if (node != null) {
+                        deque.addLast(node.left);
+                        deque.addLast(node.right);
+                        if (flag) return false;
+                    } else {
+                        flag = true;
+                    }
+                }
+            }
+            return true;
+        }
     }
 }

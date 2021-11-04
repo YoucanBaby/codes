@@ -1,5 +1,8 @@
 package data.tree;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * @BelongsProject: interview
  * @BelongsPackage: data.tree
@@ -9,6 +12,8 @@ package data.tree;
  */
 public class _0513_findBottomLeftValue {
 
+
+    // DFS
     int res = 0;
     int maxDepth = 0;
 
@@ -29,5 +34,25 @@ public class _0513_findBottomLeftValue {
 
         dfs(root.left, depth + 1);
         dfs(root.right, depth + 1);
+    }
+
+    class Solution {
+
+        public int findBottomLeftValue(TreeNode root) {
+            Deque<TreeNode> deque = new ArrayDeque<>();
+            deque.addLast(root);
+            int res = -1;
+
+            while (!deque.isEmpty()) {
+                int size = deque.size();
+                for (int i = 0; i < size; i++) {
+                    TreeNode node = deque.removeFirst();
+                    if (node.left != null) deque.addLast(node.left);
+                    if (node.right != null) deque.addLast(node.right);
+                    if (i == 0) res = node.val;
+                }
+            }
+            return res;
+        }
     }
 }

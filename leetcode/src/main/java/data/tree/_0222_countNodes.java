@@ -51,7 +51,8 @@ public class _0222_countNodes {
             if (leftDepth == rightDepth) {
                 leftCount = 1 << leftDepth;
                 rightCount = countNodes(root.right);
-            } else if (leftDepth > rightDepth) {
+            }
+            if (leftDepth > rightDepth) {
                 leftCount = countNodes(root.left);
                 rightCount = 1 << rightDepth;
             }
@@ -63,7 +64,7 @@ public class _0222_countNodes {
             if (root == null) {
                 return 0;
             }
-            return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+            return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
         }
     }
 }

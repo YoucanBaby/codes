@@ -49,10 +49,7 @@ public class _0101_isSymmetric {
                 return false;
             }
 
-            if (node1.val != node2.val) {
-                return false;
-            }
-            return isSymmetric(node1.left, node2.right) && isSymmetric(node1.right, node2.left);
+            return node1.val == node2.val && isSymmetric(node1.left, node2.right) && isSymmetric(node1.right, node2.left);
         }
     }
 }

@@ -1,9 +1,6 @@
 package data.tree;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @BelongsProject: codes
@@ -45,5 +42,42 @@ public class _0662_widthOfBinaryTree {
             }
         }
         return res;
+    }
+
+
+    class Solution {
+
+        public int widthOfBinaryTree(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+
+            Deque<TreeNode> deque = new ArrayDeque<>();
+            deque.addLast(root);
+            Deque<Integer> index = new ArrayDeque<>();
+            index.addLast(1);
+
+            int res = 1;
+            while (!deque.isEmpty()) {
+                int size = deque.size();
+
+                for (int i = 0; i < size; i++) {
+                    TreeNode node = deque.removeFirst();
+                    int nowIndex = index.removeFirst();
+                    if (node.left != null) {
+                        deque.addLast(node.left);
+                        index.addLast(nowIndex * 2);
+                    }
+                    if (node.right != null) {
+                        deque.addLast(node.right);
+                        index.addLast(nowIndex * 2 + 1);
+                    }
+                }
+                if (!index.isEmpty()) {
+                    res = Math.max(res, index.getLast() - index.getFirst() + 1);
+                }
+            }
+            return res;
+        }
     }
 }

@@ -9,27 +9,43 @@ package data.tree;
  */
 public class _0404_sumOfLeftLeaves {
 
-    public static void main(String[] args) {
-
-    }
+    int res = 0;
 
     public int sumOfLeftLeaves(TreeNode root) {
-        return dfs(root, false);
-    }
-
-    public int dfs(TreeNode root, boolean flag) {
         if (root == null) {
             return 0;
         }
 
-        int value = 0;
-        if (flag == true && root.left == null && root.right == null) {
-            value = root.val;
+        if (root.left != null) {
+            if (root.left.left == null && root.left.right == null) {
+                res += root.left.val;
+            }
         }
+        sumOfLeftLeaves(root.left);
+        sumOfLeftLeaves(root.right);
 
-        int leftValue = dfs(root.left, true);
-        int rightValue = dfs(root.right, false);
+        return res;
+    }
 
-        return value + leftValue + rightValue;
+
+    class Solution {
+
+        int res = 0;
+
+        public int sumOfLeftLeaves(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+
+            if (root.left != null) {
+                if (root.left.left == null && root.left.right == null) {
+                    res += root.left.val;
+                }
+            }
+            sumOfLeftLeaves(root.left);
+            sumOfLeftLeaves(root.right);
+
+            return res;
+        }
     }
 }

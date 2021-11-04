@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="java" />
+        <module name="xmind" />
         <module name="lcp" />
         <module name="competition" />
         <module name="leetcode" />

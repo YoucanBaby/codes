@@ -32,4 +32,31 @@ public class _0437_pathSum {
         dfs(root.right, target, sum);
         freq.put(sum, freq.getOrDefault(sum, 0) - 1);
     }
+
+
+    class Solution {
+
+        int res = 0;
+        Map<Integer, Integer> freq = new HashMap<>();
+
+        public int pathSum(TreeNode root, int target) {
+            freq.put(0, 1);
+            dfs(root, target, 0);
+            return res;
+        }
+
+        public void dfs(TreeNode root, int target, int sum) {
+            if (root == null) {
+                return;
+            }
+
+            sum += root.val;
+            res += freq.getOrDefault(sum - target, 0);
+
+            freq.put(sum, freq.getOrDefault(sum, 0) + 1);
+            dfs(root.left, target, sum);
+            dfs(root.right, target, sum);
+            freq.put(sum, freq.getOrDefault(sum, 0) - 1);
+        }
+    }
 }

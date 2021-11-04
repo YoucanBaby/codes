@@ -9,16 +9,13 @@ package data.tree;
  */
 public class _0112_hasPathSum {
 
-    public static void main(String[] args) {
-
-    }
 
     public boolean hasPathSum(TreeNode root, int sum) {
         if (root == null) {
             return false;
         }
 
-        if (root.left == null && root.right ==null) {
+        if (root.left == null && root.right == null) {
             return root.val == sum;
         }
 

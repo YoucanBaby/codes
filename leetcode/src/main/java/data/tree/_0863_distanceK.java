@@ -1,5 +1,6 @@
 package data.tree;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -55,5 +56,55 @@ public class _0863_distanceK {
         }
         search(root.left, depth + 1, K);
         search(root.right, depth + 1, K);
+    }
+
+
+    class Solution {
+
+        List<Integer> res = new ArrayList<>();
+        TreeNode father = null;         // 目标节点的父节点
+
+        public List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
+            splitTree(root, target, null);
+            search(target, 0, K);
+            search(father, 0, K - 1);
+            return res;
+        }
+
+        // 如果当前节点是目标节点说明找到了，那么父亲节点要更新。
+        // 如果当前节点的左儿子是目标节点，则当前节点的左儿子变成它的父亲。
+        // 如果当前节点的右儿子是目标节点，则当前节点的右儿子变成它的父亲。
+        public boolean splitTree(TreeNode root, TreeNode target, TreeNode father) {
+            if (root == null) {
+                return false;
+            }
+
+            if (root == target) {
+                this.father = father;
+                return true;
+            }
+
+            if (splitTree(root.left, target, root)) {
+                root.left = father;
+                return true;
+            }
+            if (splitTree(root.right, target, root)) {
+                root.right = father;
+                return true;
+            }
+            return false;
+        }
+
+        // 向下找所有深度为K的节点
+        public void search (TreeNode root, int depth, int K) {
+            if (root == null) {
+                return;
+            }
+            if (depth == K) {
+                res.add(root.val);
+            }
+            search(root.left, depth + 1, K);
+            search(root.right, depth + 1, K);
+        }
     }
 }

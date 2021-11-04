@@ -9,21 +9,14 @@ package data.tree;
  */
 public class _0617_mergeTrees {
 
-    public static void main(String[] args) {
-
-    }
 
     public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
         if (root1 == null && root2 == null) {
             return null;
         }
 
-        if (root1 == null) {
-            root1 = new TreeNode(0);
-        }
-        if (root2 == null) {
-            root2 = new TreeNode(0);
-        }
+        if (root1 == null) root1 = new TreeNode(0);
+        if (root2 == null) root2 = new TreeNode(0);
         TreeNode root = new TreeNode(root1.val + root2.val);
 
         root.left = mergeTrees(root1.left, root2.left);
@@ -31,4 +24,5 @@ public class _0617_mergeTrees {
 
         return root;
     }
+
 }

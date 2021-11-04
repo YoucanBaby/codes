@@ -54,4 +54,34 @@ public class _0117_connect {
         }
         return root;
     }
+
+
+    class Solution {
+
+        public Node connect(Node root) {
+            if (root == null) {
+                return null;
+            }
+
+            Node father = root;
+            while (father != null) {
+                Node newHead = new Node(0);
+                Node cur = newHead;
+
+                while (father != null) {
+                    if (father.left != null) {
+                        cur.next = father.left;
+                        cur = cur.next;
+                    }
+                    if (father.right != null) {
+                        cur.next = father.right;
+                        cur = cur.next;
+                    }
+                    father = father.next;
+                }
+                father = newHead.next;
+            }
+            return root;
+        }
+    }
 }
